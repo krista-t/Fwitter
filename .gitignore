@@ -1,0 +1,6 @@
+__pycache__
+lib
+bin
+pyenv.cfg
+node_modules
+

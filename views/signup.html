@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/c884ab5724.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/app.css">
+    <title>SignUp-Fwitter</title>
+</head>
+ <body>
+
+ <!-- SIGNUP -->
+ <section id="signup" class="fixed w-screen h-screen z-10 bg-blue-400">
+    <div class="absolute h-full w-full bg-grey-lighter min-h-screen flex flex-col">
+      <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+          <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full mb-5">
+              <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+              <h4 id="server-error-msg"></h4>
+              <form class = "signup" onsubmit="return false">
+                <p class = "error-message hidden">Name must be 2-30 characters</p>
+              <input
+                  type="text"
+                  class="block border border-grey-light w-full p-3 rounded mb-4"
+                  name="user_name"
+                  id = "user_name"
+                  placeholder="User Name"
+                  data-validate="str" data-min="2" data-max="30"/>
+                <p class = "error-message hidden">Full name must be 2-50 characters</p>
+              <input
+                  type="text"
+                  class="block border border-grey-light w-full p-3 rounded mb-4"
+                  name="user_full_name"
+                  id = "user_full_name"
+                  placeholder="User  Full Name"
+                  data-validate="str" data-min="2" data-max="50"/>
+                  <p class = "error-message hidden">Enter correct email</p>
+              <input
+                  type="text"
+                  class="block border border-grey-light w-full p-3 rounded mb-4"
+                  name="user_email"
+                  id="user_email"
+                  placeholder="Email"
+                  data-validate="email"/>
+                  <p class = "error-message hidden"
+                  >Password minimum 6 characters</p>
+              <input
+                  type="password"
+                  class="block border border-grey-light w-full p-3 rounded mb-4"
+                  name="user_password"
+                  id="user_password"
+                  placeholder="Password" data-validate="str" data-min="6"/>
+              <button onclick="validate(createUser)"
+                  type="submit"
+                  class="w-full text-center py-3 rounded bg-blue-400 text-white hover:bg-green-dark focus:outline-none my-1"
+              >Create Account</button>
+            </form>
+              <div class="text-center text-grey-dark text-sm mt-4">
+                  <p class = "text-sm">  Not ready to register? </p>
+
+                  <a class = "cursor-pointer" href="/">
+                     <p class = "uppercase text-blue-700   hover:underline">Continue to  all tweets page</p>
+              </a>
+              </div>
+          </div>
+      </div>
+    </div>
+    </section>
+      <!-- SIGNUPEND -->
+  <script src = "script.js"></script>
+  <script src = "validator.js"></script>
+    </body>
+    </html>

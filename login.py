@@ -1,0 +1,90 @@
+from bottle import post, request, response
+import sqlite3
+import globals
+import uuid
+import json
+import jwt
+
+#validate login and check if user exists, if not user is redirected to signup page
+def user_exists(user, database = "database.sqlite"):
+    db = sqlite3.connect(database)
+    status = {
+        "success": False,
+        "msg": "User does not exist!",
+    }
+    if len(user["user_name"]) < 2:
+        print(globals.ERROR["error_name_min"])
+        status["msg"] = globals.ERROR["error_name_min"]
+        return status
+    if not user["user_password"]:
+        print(globals.ERROR["error_password"])
+        status["msg"] = globals.ERROR["error_password"]
+        return status
+    query_results = db.execute(
+        globals.USER_NAME_PASS_QUERY, (user["user_name"],)
+    ).fetchone()
+#if user enters wrong password, but exists in DB
+    if query_results:
+        # index 0 is user_email, index 1 is user_password
+        if query_results[1] == user["user_password"]:
+            status["success"] = True
+            status["msg"] = "User validated!"
+            return status
+        else:
+            status["msg"] = "Check your password!"
+            print(status["msg"])
+            return status
+    else:
+        return status
+
+###########################
+#create session for logged in users
+def create_session(user):
+    sessions = {
+        "session_id":str(uuid.uuid4()),
+        "user_name":user["user_name"],
+        "user_password": user["user_password"]
+    }
+
+    db = globals._db_connect("database.sqlite")
+    try:
+        session_id = str(uuid.uuid4())
+        db.execute(
+            """INSERT INTO sessions
+                VALUES(:session_id, :user_name,
+                :user_password)""",
+                sessions
+
+        )
+        db.commit()
+        token = jwt.encode({
+            "name":user["user_name"], "session_id": sessions["session_id"]
+        }, "mysecret", algorithm="HS256")
+        response.set_cookie("token",token)
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
+
+
+##############################
+@post("/login")
+def _():
+    user = {
+        "user_name": request.forms.get("user_name"),
+        "user_password": request.forms.get("user_password"),
+    }
+    status = user_exists(user)
+    db = sqlite3.connect("database.sqlite")
+    try:
+    #create sessions and set jwt token through function
+        if status["success"] == True:
+            #function create_session
+            create_session(user)
+        else:
+            status["success"] == False
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
+        return status
