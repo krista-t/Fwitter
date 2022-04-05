@@ -45,17 +45,18 @@ def _():
 ##this is just to make json, and to see sessions to test it in potman####
 @get("/login")
 def _():
-    try:
-        db = globals._db_connect("database.sqlite")
-        sess_result = db.execute( """SELECT  user_id, user_email  from users
-INNER JOIN sessions  WHERE users.user_name = sessions.user_name""").fetchall()
-        response.content_type = "application/json"
-        print("JJJJJJJJJJJJJJJJJJJ", json.dumps(sess_result))
-        return json.dumps(sess_result)
-    except Exception as ex:
-        print(ex)
-    finally:
-        db.close()
+    return
+#     try:
+#         db = globals._db_connect("database.sqlite")
+#         sess_result = db.execute( """SELECT  user_id, user_email  from users
+# INNER JOIN sessions  WHERE users.user_name = sessions.user_name""").fetchall()
+#         response.content_type = "application/json"
+#         print("JJJJJJJJJJJJJJJJJJJ", json.dumps(sess_result))
+#         return json.dumps(sess_result)
+#     except Exception as ex:
+#         print(ex)
+#     finally:
+#         db.close()
 
 
 ##############################

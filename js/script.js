@@ -1,10 +1,15 @@
-window.addEventListener("load", checkCookieExists)
+//make sure if cookie is present, UI displays correctly
 
+window.addEventListener("load", checkCookieExists)
 function checkCookieExists(){
   if(document.cookie){
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
   }
+}
+
+let stateObj = {
+home: "/"
 }
 
 //fetch tweets
@@ -80,6 +85,8 @@ async function tweet() {
 
      function showLogInForm(){
        document.querySelector("#login").classList.remove("hidden")
+      history.pushState(stateObj, "login", "login")
+      console.log(stateObj)
      }
 
        //fetch loggedin
@@ -107,6 +114,8 @@ async function tweet() {
                console.log("success")
                document.querySelector("#login").classList.add("hidden")
                document.querySelector("#login-btn").classList.add("hidden")
+               history.pushState(stateObj, "/", "tweets")
+
              }
            }
          }
