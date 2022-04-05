@@ -1,7 +1,5 @@
 module.exports = {
-  mode: "JIT",
-  purge : ["../views/*.html"], //where to look for changes
-  content: [],
+  content: ["../views/*.html"],
   theme: {
     extend: {},
   },

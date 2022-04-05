@@ -15,14 +15,14 @@ def _():
     return static_file("app.css", root=".")
 
 ##############################
-@get("/script.js")
+@get("/js/script.js")
 def _():
-    return static_file("script.js", root=".")
+    return static_file("js/script.js", root=".")
 
 ##############################
-@get("/validator.js")
+@get("/js/validator.js")
 def _():
-    return static_file("validator.js", root=".")
+    return static_file("js/validator.js", root=".")
 
 ##############################
 @get("/img/<image>")
