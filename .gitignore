@@ -4,6 +4,7 @@ bin
 pyenv.cfg
 node_modules
 create-table-sessions.sql
-create-table-users.sqlcreate-table-tweets.sql
+create-table-users.sql
+create-table-tweets.sql
 database.sqlite
 
