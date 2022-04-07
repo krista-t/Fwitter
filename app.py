@@ -33,13 +33,16 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    return dict(tabs=globals.TABS, tweets=globals.TWEETS, trends = globals.TRENDS)
+
+    return dict(tabs=globals.TABS, trends = globals.TRENDS)
 
 #################
 @get("/signup")
 @view("signup")
 def _():
     return
+#################
+
 
 ##############################
 ##this is just to make json, and to see sessions to test it in potman####

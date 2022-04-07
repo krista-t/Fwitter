@@ -1,14 +1,14 @@
-from bottle import post, request, response
+from bottle import post, request, response,view
 import sqlite3
 import uuid
 import globals
 import imghdr
 import os
 import datetime
-#import json
+import json
 
 ##############################
-def create_tweet(tweets, database = "database.sqlite"):
+def create_tweet(tweet, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "",
@@ -18,19 +18,19 @@ def create_tweet(tweets, database = "database.sqlite"):
     try:
         db.execute(
             """INSERT INTO tweets
-                VALUES(:tweet_id, :tweet_created_at, :tweet_text,
+                VALUES(:tweet_id,
+                :tweet_text,
                 :tweet_image,
-                :tweet_updated_at,
                 :tweet_user_id)""",
-            tweets,
+            tweet,
         )
         db.commit()
         status["success"] = True
         #status["msg"] = f"User {user['user_name']} succesfully created in database!"
-        print(f"User {tweets['tweet_text']} succesfully created in database!")
+        print(f"User {tweet['tweet_text']} succesfully created in database!")
     except Exception as ex:
         print(ex)
-        status["msg"] = f"Unable to add user {tweets['tweet_id']} to database!"
+        status["msg"] = f"Unable to add user {tweet['tweet_id']} to database!"
         print(status["msg"])
     finally:
         db.close()
@@ -80,32 +80,34 @@ def validate_img(image):
 
 def _():
     #get id of user whois logged in
+    image = request.files.get("image")
     try:
         db = globals._db_connect("database.sqlite")
-        logged_user_id = db.execute( """SELECT  user_id
+        logged_user_id = db.execute( """SELECT user_id, user_full_name
                                  from users
-        INNER JOIN sessions WHERE users.user_name = sessions.user_name""").fetchall()
-        response.content_type = "application/json"
-        print("JJJJJJJJJJJJJJJJJJJ", logged_user_id)
-        return logged_user_id
+        INNER JOIN sessions WHERE users.user_name = sessions.user_name""").fetchone()
+        user_id = logged_user_id["user_id"]
+        user_full_name = logged_user_id["user_full_name"]
+        #print("A"*30,logged_user_id["user_id"])
+
     except Exception as ex:
         print(ex)
     finally:
         db.close()
         tweet = {
         "tweet_id": str(uuid.uuid4()),
-        "tweet_created_at": datetime.datetime.now(),
         "tweet_text": request.forms.get("tweet_text"),
-        "tweet_image": request.forms.get("image"),
-        "tweet_updated_at": datetime.datetime.now(),
-        "tweet_user_id": logged_user_id,
+        "src": validate_img(image),
+        "user_id": user_id
+
     }
-        return tweet
+        print("TWEET"*10, tweet)
+        return create_tweet(tweet)
 
     #status = validate_tweet(tweet)
 
     # if status["success"]:
-    #     return create_user(user)
+    #     return create_tweet(tweet)
     # else:
     #     return status
 

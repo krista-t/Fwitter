@@ -46,9 +46,9 @@ async function tweet() {
                INSERT user_full_name
               </p>
               <div class="pt-2">
-              ${tweet.text}
+              ${tweet.tweet_text}
               </div>
-              <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
+              <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweets.src}">
               <div class="flex gap-12 w-full mt-4 text-lg">
               <i class="fa-solid fa-trash "></i>
               <i class="fa-solid fa-pen"></i>
