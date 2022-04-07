@@ -32,6 +32,7 @@ function _all(q, e = document) {
             element.style.borderColor = "red"
             //target p with error message
             element.previousElementSibling.style.color = "red"
+            console.log(element.previousElementSibling)
             element.previousElementSibling.classList.remove("hidden")
           }
           break;

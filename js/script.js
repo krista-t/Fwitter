@@ -50,10 +50,9 @@ async function tweet() {
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div class="flex gap-12 w-full mt-4 text-lg">
-                  <i class="fa-solid fa-message ml-auto"></i>
-                  <i class="fa-solid fa-heart"></i>
-                  <i class="fa-solid fa-retweet"></i>
-                  <i class="fa-solid fa-share-nodes"></i>
+              <i class="fa-solid fa-trash "></i>
+              <i class="fa-solid fa-pen"></i>
+              <i class="fa-solid fa-heart ml-auto"></i>
               </div>
             </div>
           </div>
