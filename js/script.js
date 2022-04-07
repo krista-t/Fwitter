@@ -1,3 +1,4 @@
+
 //make sure if cookie is present, UI displays correctly
 
 window.addEventListener("load", checkCookieExists)
@@ -38,7 +39,7 @@ async function tweet() {
                @ INSERT USERNAME
               </p>
               <p class="font-thin">
-               INSERT user
+               INSERT user_full_name
               </p>
               <div class="pt-2">
               ${tweet.text}
@@ -53,8 +54,8 @@ async function tweet() {
             </div>
           </div>
         </div>`
-     document.querySelector(".fweets").insertAdjacentHTML("afterbegin", section_tweet)
-     console.log(document.querySelector("#tweet-formm").value)
+     document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
+     console.log(document.querySelector("#tweet-form").value)
 
    }
 

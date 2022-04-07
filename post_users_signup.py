@@ -54,7 +54,7 @@ def validate_user(user, database = "database.sqlite"):
 def create_user(user, database = "database.sqlite"):
     status = {
         "success": False,
-        "msg": "Not yet created!",
+        "msg": "",
     }
 
     db = sqlite3.connect(database)

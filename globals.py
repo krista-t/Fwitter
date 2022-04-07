@@ -74,7 +74,7 @@ def _db_connect(db_name):
     return db
 
 ##############################
-# error signup/login server
+# error signup/login server(image)
 ERROR = {
     "error_name_min": "name at least 2 characters",
     "error_name_max": "name less than 20 characters",
@@ -83,6 +83,7 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
+    "error_img": "wrong image format",
 }
 
 ##############################
