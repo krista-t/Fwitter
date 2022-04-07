@@ -141,8 +141,12 @@
                 <form id="tweet-form" class="flex flex-col relative pb-14 border border-blue1 rounded" onsubmit="return false" autocomplete="off">
                   <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">1 to 100 characters</label>
                   <input name="tweet_text" id="txt-tweet" class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text" placeholder="What is in your mind?" data-validate="str" data-min="1" data-max="100">
-                  <!-- file input -->
-                  <input id="upload" type="file" name="image">
+                  <!-- file input, event referenced from icon to invoke on input -->
+
+                    <input id = "upload" class = "absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
+                    <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl" onclick="document.getElementById('upload').click()"></i>
+
+
                   <!-- calling function here -->
                   <button  id = "tweet-btn" onclick="tweet()" type="submit" class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full" data-default="Tweet" data-await="Tweeting...">
                     Tweet
