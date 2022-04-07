@@ -32,7 +32,7 @@ async function tweet() {
   const tweet_img = document.querySelector("#upload")
   const tweet_text = document.querySelector("#tweet_text")
   const tweet_btn = document.querySelector("#tweet-btn")
-
+console.log(tweet.tweet_text)
   //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
           <div class="p-4 border-t border-slate-200">
@@ -46,9 +46,9 @@ async function tweet() {
                INSERT user_full_name
               </p>
               <div class="pt-2">
-             i am text
+             ${tweet.tweet_text}
               </div>
-              <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/">
+              <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div class="flex gap-12 w-full mt-4 text-lg">
               <i class="fa-solid fa-trash "></i>
               <i class="fa-solid fa-pen"></i>

@@ -34,7 +34,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         print(status["msg"])
     finally:
         db.close()
-        return status
+        return tweet
 
 
 ##############################
