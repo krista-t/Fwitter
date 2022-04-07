@@ -2,6 +2,7 @@ from bottle import response
 import sqlite3
 
 
+
 TRENDS = [
   {"category": "Music", "title": "We Won", "tweets_counter": "135K"},
   {"category": "Pop", "title": "Blue Ivy", "tweets_counter": "40k"},
@@ -59,6 +60,9 @@ REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[
 
 COOKIE_SECRET = "SA6a$mLMH76%"
 ##############################
+
+
+##############################
 # create row in sqliteDB
 def create_json_from_sqlite_result(cursor, row):
     d = {}
@@ -83,7 +87,7 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
-    "error_img": "wrong image format",
+    "error_img": "wrong image format, only png, jpg, jpeg allowed",
 }
 
 ##############################
