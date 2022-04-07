@@ -73,11 +73,5 @@ function _all(q, e = document) {
       callback();
       return
     }
-    //_one(".validate_error", form).focus()
   }
 
-  // ##############################
-  // function clear_validate_error(){
-  //   // event.target.classList.remove("validate_error")
-  //   // event.target.value = ""
-  // }

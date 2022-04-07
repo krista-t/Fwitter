@@ -31,6 +31,7 @@ async function tweet() {
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_img = document.querySelector("#upload")
   const tweet_text = document.querySelector("#tweet_text")
+  const tweet_btn = document.querySelector("#tweet-btn")
 
   //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
