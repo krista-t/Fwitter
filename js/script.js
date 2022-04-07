@@ -58,7 +58,7 @@ async function tweet() {
           </div>
         </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
-  if (tweet.src == ""){
+  if (tweet.src == "") {
     console.log("EMPTY")
     document.querySelector("#tweet-img").src = ""
   }
