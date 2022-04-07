@@ -20,8 +20,8 @@ def create_tweet(tweet, database = "database.sqlite"):
             """INSERT INTO tweets
                 VALUES(:tweet_id,
                 :tweet_text,
-                :tweet_image,
-                :tweet_user_id)""",
+                :src,
+                :user_id)""",
             tweet,
         )
         db.commit()
