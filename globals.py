@@ -103,6 +103,7 @@ SELECT user_email FROM users where user_email=?
 USER_NAME_PASS_QUERY = """
 SELECT user_name, user_password FROM users where user_name=?
 """
+#delete session query
 DELETE_SESS_ROW_QUERY = """
 DELETE FROM sessions WHERE session_id= ?;"""
 ##############################

@@ -70,6 +70,7 @@ def create_user(user, database = "database.sqlite"):
         #status["msg"] = f"User {user['user_name']} succesfully created in database!"
         print(f"User {user['user_name']} succesfully created in database!")
     except Exception as ex:
+        print(ex)
         status["msg"] = f"Unable to add user {user['user_name']} to database!"
         print(status["msg"])
     finally:

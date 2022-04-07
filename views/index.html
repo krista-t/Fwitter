@@ -51,7 +51,7 @@
         <div class="fixed h-screen w-1/5 px-1 lg:px-6 flex flex-col py-6">
           <div class="">
             <div class="">
-              <i class="fa-brands fa-twitter fa-fw text-4xl text-blue-500 pl-5"></i>
+              <i class="fa-brands fa-twitter fa-fw text-4xl text-blue-400 pl-5"></i>
             </div>
             <div class="">
               <div class="mt-6">
@@ -149,14 +149,14 @@
           <!-- submit tweet -->
           <form id="tweet-form" class="flex flex-col relative pb-14 border border-blue-400 rounded" onsubmit="return false"
             autocomplete="off">
-            <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Tweet with image, text up to 100 characters,  or both</label>
+            <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Tweet with image or text up to 100 characters,  or both</label>
             <!-- reference validation here for text input only -->
             <input name="tweet_text" id="txt-tweet"
               class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
               placeholder="What is on your mind?" data-validate="str" data-max="100">
             <!-- file input, event referenced from icon to invoke on input -->
             <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-            <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl"
+            <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
               onclick="document.getElementById('upload').click()"></i>
 
 
