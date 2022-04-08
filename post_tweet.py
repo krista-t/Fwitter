@@ -13,8 +13,8 @@ def create_tweet(tweet, database = "database.sqlite"):
         "success": False,
         "msg": "",
     }
-
-    db = sqlite3.connect(database)
+    db = globals._db_connect(database)
+    #db = sqlite3.connect(database)
     try:
         db.execute(
             """INSERT INTO tweets
@@ -27,7 +27,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         db.commit()
         status["success"] = True
         #status["msg"] = f"User {user['user_name']} succesfully created in database!"
-        print(f"User {tweet['tweet_text']} succesfully created in database!")
+        print(f"Tweet {tweet['tweet_text']} succesfully created in database!")
     except Exception as ex:
         print(ex)
         status["msg"] = f"Unable to add user {tweet['tweet_id']} to database!"
@@ -84,12 +84,13 @@ def _():
     image = request.files.get("image")
     try:
         db = globals._db_connect("database.sqlite")
+        #db = sqlite3.connect("database.sqlite")
         logged_user_id = db.execute( """SELECT user_id, user_full_name
                                  from users
         INNER JOIN sessions WHERE users.user_name = sessions.user_name""").fetchone()
         user_id = logged_user_id["user_id"]
         user_full_name = logged_user_id["user_full_name"]
-        #print("A"*30,logged_user_id["user_id"])
+        print("A"*30,logged_user_id["user_id"])
 
     except Exception as ex:
         print(ex)
@@ -102,8 +103,6 @@ def _():
         "user_id": user_id
     }
         tweet = create_tweet(tweet)
-        print(type(tweet))
-
     return tweet
 
 

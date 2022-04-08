@@ -1,7 +1,5 @@
 //make sure if cookie is present, UI displays correctly
-
 window.addEventListener("load", checkCookieExists)
-
 function checkCookieExists() {
   if (document.cookie) {
     console.log("true, cookie here")
@@ -11,6 +9,40 @@ function checkCookieExists() {
 
 let stateObj = {
   home: "/"
+}
+//get all the tweets
+window.addEventListener("load", showTweets)
+async function showTweets(){
+  const connection = await fetch("/tweet", {
+    method: "GET"
+  })
+  console.log(connection)
+  if (!connection.ok) {
+    alert("Could not  show tweets")
+    return
+  }
+  // Success
+  let tweets = await connection.json()
+  console.log(tweets)
+  displayTweets(tweets)
+}
+
+//for each tweet display tweet
+function displayTweets(tweets){
+  console.log("SINGLE TWEET")
+  tweets.forEach((tweet)=> {console.log(tweet)
+    const copy = document.querySelector("template").content.cloneNode(true);
+    //populate template
+    copy.querySelector("#tweet-text").textContent = tweet.tweet_text;
+    copy.querySelector("#tweet-img").textContent = tweet.src;
+    if (tweet.src == "") {
+      console.log("EMPTY")
+      document.querySelector("#tweet-img").src = ""
+    }
+    //append
+    document.querySelector("#fweets").appendChild(copy);
+
+  })
 }
 
 //fetch tweets
@@ -32,7 +64,7 @@ async function tweet() {
   const tweet_img = document.querySelector("#upload")
   const tweet_text = document.querySelector("#tweet_text")
   const tweet_btn = document.querySelector("#tweet-btn")
-console.log(tweet.tweet_text)
+//console.log(tweet.tweet_text)
   //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
           <div class="p-4 border-t border-slate-200">

@@ -33,12 +33,30 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    return dict(tabs=globals.TABS, trends = globals.TRENDS)
+    return dict(trends = globals.TRENDS)
 ##############################
 @get("/tweet")
-@view("index")
+@view("center")
 def _():
-    return
+    try:
+        db = globals._db_connect("database.sqlite")
+        tweets = db.execute("SELECT * FROM tweets").fetchall()
+        print("TYPE"*10, type(tweets))
+        print(json.dumps(tweets))
+        tweet = (json.dumps(tweets))
+        print("TWEETS"*10, tweet)
+
+        # return tweets
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
+        return tweet
+
+
+
+
+
 
 #################
 @get("/signup")
@@ -53,17 +71,20 @@ def _():
 @get("/login")
 def _():
     return
+
 #     try:
 #         db = globals._db_connect("database.sqlite")
 #         sess_result = db.execute( """SELECT  user_id, user_email  from users
 # INNER JOIN sessions  WHERE users.user_name = sessions.user_name""").fetchall()
 #         response.content_type = "application/json"
 #         print("JJJJJJJJJJJJJJJJJJJ", json.dumps(sess_result))
-#         return json.dumps(sess_result)
+#         sess = json.dumps(sess_result)
+
 #     except Exception as ex:
 #         print(ex)
 #     finally:
 #         db.close()
+#         return sess
 
 
 ##############################
@@ -84,6 +105,7 @@ def _():
     finally:
         db.close()
         return redirect("/")
+
 
 
 ##############################

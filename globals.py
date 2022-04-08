@@ -18,16 +18,16 @@ PEOPLE = [
   {"src": "monk.jpg", "name": "Adrian Monk", "handle": "@detective :)"},
   {"src": "kevin.jpg", "name": "Kevin Hart", "handle": "@miniRock"}
 ]
-TABS = [
-    {"icon": "fas fa-home fa-fw", "title": "Home", "id": "home"},
-    {"icon": "fas fa-hashtag fa-fw", "title": "Explore", "id": "explore"},
-    {"icon": "far fa-bell fa-fw", "title": "Notifications", "id": "notifications"},
-    {"icon": "far fa-envelope fa-fw", "title": "Messages", "id": "messages"},
-    {"icon": "far fa-bookmark fa-fw", "title": "Bookmarks", "id": "bookmarks"},
-    {"icon": "fas fa-clipboard-list fa-fw", "title": "Lists", "id": "lists"},
-    {"icon": "far fa-user fa-fw", "title": "Profile", "id": "profile"},
-    {"icon": "fas fa-ellipsis-h fa-fw", "title": "More", "id": "more"},
-]
+# TABS = [
+#     {"icon": "fas fa-home fa-fw", "title": "Home", "id": "home"},
+#     {"icon": "fas fa-hashtag fa-fw", "title": "Explore", "id": "explore"},
+#     {"icon": "far fa-bell fa-fw", "title": "Notifications", "id": "notifications"},
+#     {"icon": "far fa-envelope fa-fw", "title": "Messages", "id": "messages"},
+#     {"icon": "far fa-bookmark fa-fw", "title": "Bookmarks", "id": "bookmarks"},
+#     {"icon": "fas fa-clipboard-list fa-fw", "title": "Lists", "id": "lists"},
+#     {"icon": "far fa-user fa-fw", "title": "Profile", "id": "profile"},
+#     {"icon": "fas fa-ellipsis-h fa-fw", "title": "More", "id": "more"},
+# ]
 
 TWEETS = [
     {
@@ -68,6 +68,7 @@ def create_json_from_sqlite_result(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
+        print("MI"*10, d)
     return d
 
 ##############################
