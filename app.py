@@ -8,6 +8,8 @@ import globals
 import post_users_signup
 import login
 import post_tweet
+import delete_tweet
+
 
 ##############################
 @get("/app.css")
@@ -33,7 +35,17 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    return dict(trends = globals.TRENDS)
+    try:
+        db = globals._db_connect("database.sqlite")
+        tweets = db.execute("SELECT * FROM tweets").fetchall()
+        print("TYPE"*10, type(tweets))
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
+        #return dict(tweets["tweet_id"] = tweet_id)
+
+        return dict(tweets=tweets)
 ##############################
 @get("/tweet")
 @view("center")
@@ -52,11 +64,6 @@ def _():
     finally:
         db.close()
         return tweet
-
-
-
-
-
 
 #################
 @get("/signup")
