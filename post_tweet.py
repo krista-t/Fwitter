@@ -34,6 +34,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         print(status["msg"])
     finally:
         db.close()
+        #check this
         return tweet
 
 
@@ -99,17 +100,11 @@ def _():
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
         "user_id": user_id
-
     }
-        print("TWEET"*10, tweet)
-        return create_tweet(tweet)
+        tweet = create_tweet(tweet)
+        print(type(tweet))
 
-    #status = validate_tweet(tweet)
-
-    # if status["success"]:
-    #     return create_tweet(tweet)
-    # else:
-    #     return status
+    return tweet
 
 
 

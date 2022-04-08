@@ -33,8 +33,12 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-
     return dict(tabs=globals.TABS, trends = globals.TRENDS)
+##############################
+@get("/tweet")
+@view("index")
+def _():
+    return
 
 #################
 @get("/signup")
