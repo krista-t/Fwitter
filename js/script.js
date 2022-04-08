@@ -34,10 +34,10 @@ function displayTweets(tweets){
     const copy = document.querySelector("template").content.cloneNode(true);
     //populate template
     copy.querySelector("#tweet-text").textContent = tweet.tweet_text;
-    copy.querySelector("#tweet-img").textContent = tweet.src;
-    if (tweet.src == "") {
+    copy.querySelector("#tweet-img").src = `img/${tweet.tweet_image}`;
+    if (tweet.tweet_image == "") {
       console.log("EMPTY")
-      document.querySelector("#tweet-img").src = ""
+      document.querySelector("#tweet-img").style.display= "none"
     }
     //append
     document.querySelector("#fweets").appendChild(copy);
