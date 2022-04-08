@@ -1,0 +1,86 @@
+<div class="w-1/4">
+  <div class="fixed h-screen w-1/5 px-1 lg:px-6 flex flex-col py-6">
+    <div class="">
+      <div class="">
+        <i class="fa-brands fa-twitter fa-fw text-4xl text-blue-400 pl-5"></i>
+      </div>
+      <div class="">
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="fas fa-home fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Home</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Explore</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="far fa-bell fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Notifications</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="far fa-envelope fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Messages</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="far fa-bookmark fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Bookmarks</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="fas fa-clipboard-list fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Lists</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="far fa-user fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">Profile</span>
+          </a>
+        </div>
+        <div class="mt-6">
+          <a class="text-xl hover:bg-lighter rounded-full py-3 px-6" href="">
+            <i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i>
+            <span class="ml-2 hidden md:inline">More</span>
+          </a>
+        </div>
+      </div>
+      <!-- TODO:if user not logged in cannot tweet -->
+      <!-- <button onclick="toggleTweetModal()" class="mt-8 w-full py-2 text-lg text-white bg-blue1 rounded-full">
+                  Tweet
+                </button> -->
+    </div>
+
+    <div class="mt-auto">
+      <div
+        class="flex flex-wrap gap-2 px-2 py-3 sm:hover:bg-none  md:hover:bg-gray-100 cursor-pointer rounded-full h-fit mb-4">
+        <!-- TODO: name from token on login -->
+        <img class="w-12 h-12 rounded-full flex-none" src=" ">
+        <p>NAME FROM TOKEN <br>
+          <span class="font-thin">@user_name</span>
+        </p>
+      </div>
+
+      <!-- event on btn -->
+      <button id="login-btn" onclick="showLogInForm()"
+        class="ml-2 py-2 text-lg text-white bg-blue-400 rounded-full w-20 md:w-32 absolute z-50">
+        LogIn
+      </button>
+      <a href="/logout">
+        <button id="logout-btn" onclick="hideLogOutBtn()"
+          class="ml-2 py-2 text-lg text-white bg-blue-400 rounded-full w-20 md:w-32">
+          LogOut
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

@@ -15,12 +15,12 @@ def _():
     return static_file("app.css", root=".")
 
 ##############################
-@get("/js/script.js")
+@get("/JS/script.js")
 def _():
     return static_file("js/script.js", root=".")
 
 ##############################
-@get("/js/validator.js")
+@get("/JS/validator.js")
 def _():
     return static_file("js/validator.js", root=".")
 
@@ -33,30 +33,58 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    return dict(tabs=globals.TABS, tweets=globals.TWEETS, trends = globals.TRENDS)
+    return dict(trends = globals.TRENDS)
+##############################
+@get("/tweet")
+@view("center")
+def _():
+    try:
+        db = globals._db_connect("database.sqlite")
+        tweets = db.execute("SELECT * FROM tweets").fetchall()
+        print("TYPE"*10, type(tweets))
+        print(json.dumps(tweets))
+        tweet = (json.dumps(tweets))
+        print("TWEETS"*10, tweet)
+
+        # return tweets
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
+        return tweet
+
+
+
+
+
 
 #################
 @get("/signup")
 @view("signup")
 def _():
     return
+#################
+
 
 ##############################
 ##this is just to make json, and to see sessions to test it in potman####
 @get("/login")
 def _():
     return
+
 #     try:
 #         db = globals._db_connect("database.sqlite")
 #         sess_result = db.execute( """SELECT  user_id, user_email  from users
 # INNER JOIN sessions  WHERE users.user_name = sessions.user_name""").fetchall()
 #         response.content_type = "application/json"
 #         print("JJJJJJJJJJJJJJJJJJJ", json.dumps(sess_result))
-#         return json.dumps(sess_result)
+#         sess = json.dumps(sess_result)
+
 #     except Exception as ex:
 #         print(ex)
 #     finally:
 #         db.close()
+#         return sess
 
 
 ##############################
@@ -77,6 +105,7 @@ def _():
     finally:
         db.close()
         return redirect("/")
+
 
 
 ##############################

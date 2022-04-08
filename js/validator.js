@@ -32,6 +32,7 @@ function _all(q, e = document) {
             element.style.borderColor = "red"
             //target p with error message
             element.previousElementSibling.style.color = "red"
+            console.log(element.previousElementSibling)
             element.previousElementSibling.classList.remove("hidden")
           }
           break;
@@ -73,11 +74,5 @@ function _all(q, e = document) {
       callback();
       return
     }
-    //_one(".validate_error", form).focus()
   }
 
-  // ##############################
-  // function clear_validate_error(){
-  //   // event.target.classList.remove("validate_error")
-  //   // event.target.value = ""
-  // }
