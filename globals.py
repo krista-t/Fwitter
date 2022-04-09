@@ -13,21 +13,7 @@ TRENDS = [
 
 
 
-PEOPLE = [
-  {"src": "stephie.png", "name": "Stephie Jensen", "handle": "@sjensen"},
-  {"src": "monk.jpg", "name": "Adrian Monk", "handle": "@detective :)"},
-  {"src": "kevin.jpg", "name": "Kevin Hart", "handle": "@miniRock"}
-]
-# TABS = [
-#     {"icon": "fas fa-home fa-fw", "title": "Home", "id": "home"},
-#     {"icon": "fas fa-hashtag fa-fw", "title": "Explore", "id": "explore"},
-#     {"icon": "far fa-bell fa-fw", "title": "Notifications", "id": "notifications"},
-#     {"icon": "far fa-envelope fa-fw", "title": "Messages", "id": "messages"},
-#     {"icon": "far fa-bookmark fa-fw", "title": "Bookmarks", "id": "bookmarks"},
-#     {"icon": "fas fa-clipboard-list fa-fw", "title": "Lists", "id": "lists"},
-#     {"icon": "far fa-user fa-fw", "title": "Profile", "id": "profile"},
-#     {"icon": "fas fa-ellipsis-h fa-fw", "title": "More", "id": "more"},
-# ]
+
 
 TWEETS = [
     {
@@ -39,22 +25,7 @@ TWEETS = [
         "text": "The Ukrainian people need our help. If you’re looking for a way to make a difference, here are some organizations doing important work.",
         "image": "1.jpg",
     },
-    {
-        "src": "3.jpg",
-        "user_first_name": "Elon",
-        "user_last_name": "Musk",
-        "user_name": "elonmusk",
-        "date": "Mar 3",
-        "text": "Richard Hunt is one of the greatest artists Chicago has ever produced, and I couldn’t be prouder that his “Book Bird” sculpture will live outside of the newest @ChiPubLibbranch at the Obama Presidential Center. I hope it inspires visitors for years to come.",
-    },
-    {
-        "src": "2.jpg",
-        "user_first_name": "Joe Biden",
-        "user_last_name": "Biden",
-        "user_name": "joebiden",
-        "date": "Mar 7",
-        "text": "Last year has been the best year for manufacturing jobs and trucking jobs since 1994.",
-    },
+
 ]
 REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
 
@@ -98,13 +69,17 @@ USER_NAME_QUERY = """
 SELECT user_name FROM users where user_name=?
 """
 USER_EMAIL_QUERY = """
-SELECT user_email FROM users where user_email=?
+SELECT user_email FROM users where user_email= ?
 """
 #login query
 USER_NAME_PASS_QUERY = """
-SELECT user_name, user_password FROM users where user_name=?
+SELECT user_name, user_password FROM users where user_name= ?
 """
 #delete session query
 DELETE_SESS_ROW_QUERY = """
-DELETE FROM sessions WHERE session_id= ?;"""
+DELETE FROM sessions WHERE session_id= ?"""
+
+#delete tweet query
+DELETE_TWEET_QUERY = """
+DELETE FROM tweets WHERE tweet_id= ?"""
 ##############################

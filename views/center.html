@@ -1,115 +1,67 @@
+%include("header")
 <div class="w-2/4 min-h-screen border-x border-gray-300">
-    <div class="p-4">
-        <!-- search form -->
-        <form class="relative" onsubmit="return false">
-            <i class="fas fa-search absolute top-4 left-4" aria-hidden="true"></i>
-            <input class="w-full h-12 px-4 rounded-full placeholder:text-gray-700 bg-gray-100 pl-12 outline-none"
-                type="text" placeholder="What are you interested in ?">
-        </form>
-    </div>
-    <div class="px-4">
-        <!-- submit tweet -->
-        <form id="tweet-form" class="flex flex-col relative pb-14 border border-blue-400 rounded"
-            onsubmit="return false" autocomplete="off">
-            <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Tweet with image or text up
-                to 100 characters, or both</label>
-            <!-- reference validation here for text input only -->
-            <input name="tweet_text" id="txt-tweet"
-                class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
-                placeholder="What is on your mind?" data-validate="str" data-max="100">
-            <!-- file input, event referenced from icon to invoke on input -->
-            <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-            <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
-                onclick="document.getElementById('upload').click()"></i>
+  <div class="p-4">
+    <!-- search form -->
+    <form class="relative" onsubmit="return false">
+      <i class="fas fa-search absolute top-4 left-4" aria-hidden="true"></i>
+      <input class="w-full h-12 px-4 rounded-full placeholder:text-gray-700 bg-gray-100 pl-12 outline-none" type="text"
+        placeholder="What are you interested in ?">
+    </form>
+  </div>
+  <div class="px-4">
+    <!-- submit tweet -->
+    <form id="tweet-form" class="flex flex-col relative pb-14 border border-blue-400 rounded" onsubmit="return false"
+      autocomplete="off">
+      <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Tweet with image or text up
+        to 100 characters, or both</label>
+      <!-- reference validation here for text input only -->
+      <input name="tweet_text" id="txt-tweet"
+        class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
+        placeholder="What is on your mind?" data-validate="str" data-max="100">
+      <!-- file input, event referenced from icon to invoke on input -->
+      <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
+      <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
+        onclick="document.getElementById('upload').click()"></i>
 
 
-            <!-- calling function here -->
-            <button id="tweet-btn" onclick="validate(tweet)" type="submit"
-                class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full">
-                Tweet
-            </button>
-        </form>
-    </div>
-
-    <div id="fweets" class="mt-4">
-<template id="tweets">
-  <div class="p-4 border-t border-slate-200">
+      <!-- calling function here -->
+      <button id="tweet-btn" onclick="validate(tweet)" type="submit"
+        class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full">
+        Tweet
+      </button>
+    </form>
+  </div>
+  <div id="fweets" class="mt-4">
+    %for tweet in tweets:
+    <h1>{{tweet['tweet_id']}}</h1>
+    <div class="p-4 border-t border-slate-200">
     <div class="flex">
-      <img class="flex-none w-12 h-12 rounded-full" src=" " alt="photo">
+      <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
       <div class="w-full pl-4">
-        <p id = "#screen-name" class="font-bold">
-          @screen_name
+        <p class="font-bold">
+          @screen name
         </p>
         <p class="font-thin">
-
+         full name
         </p>
-        <div id = "tweet-text" class="pt-2">
-
+        <div class="pt-2">
+          {{tweet["tweet_text"]}}
         </div>
-        <img  id ="tweet-img" class="mt-2 w-full object-cover h-60" src="">
+        %if tweet['tweet_image'] in tweet:
+          <img class="mt-2 w-full object-cover h-80" src="/images/{{tweet['tweet_image']}}">
+        % end
         <div class="flex gap-12 w-full mt-4 text-lg">
-          <i class="fa-solid fa-trash "></i>
-          <i class="fa-solid fa-pen"></i>
-          <i class="fa-solid fa-heart ml-auto"></i>
+          <i id="{{tweet['tweet_id']}}" onclick="deleteTweet(id)"
+          class="fa-solid fa-trash mr-auto cursor-pointer"></i>
+        <i id="{{tweet['tweet_id']}}" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+        <i id="{{tweet['tweet_id']}}" class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
+        <i class="fa-solid fa-message"></i>
+        <i class="fa-solid fa-retweet"></i>
         </div>
       </div>
     </div>
   </div>
-</template>
+    % end
 
-
-
-
-
-
-
-
-
-       <!-- <div class="p-4 border-t border-slate-200">
-        <div class="flex">
-          <img class="flex-none w-12 h-12 rounded-full" src="/img/3.jpg" alt="photo">
-          <div class="w-full pl-4">
-            <p class="font-bold">
-              @elonmusk
-            </p>
-            <p class="font-thin">
-              Elon Musk
-            </p>
-            <div class="pt-2">
-              Richard Hunt is one of the greatest artists Chicago has ever produced, and I couldn’t be prouder that
-              his “Book Bird” sculpture will live outside of the newest @ChiPubLibbranch at the Obama Presidential
-              Center. I hope it inspires visitors for years to come.
-            </div>
-            <div class="flex gap-12 w-full mt-4 text-lg">
-              <i class="fa-solid fa-message ml-auto"></i>
-              <i class="fa-solid fa-heart"></i>
-              <i class="fa-solid fa-retweet"></i>
-              <i class="fa-solid fa-share-nodes"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 border-t border-slate-200">
-        <div class="flex">
-          <img class="flex-none w-12 h-12 rounded-full" src="/img/2.jpg" alt="photo">
-          <div class="w-full pl-4">
-            <p class="font-bold">
-              @joebiden
-            </p>
-            <p class="font-thin">
-              Joe Biden Biden
-            </p>
-            <div class="pt-2">
-              Last year has been the best year for manufacturing jobs and trucking jobs since 1994.
-            </div>
-            <div class="flex gap-12 w-full mt-4 text-lg">
-              <i class="fa-solid fa-message ml-auto"></i>
-              <i class="fa-solid fa-heart"></i>
-              <i class="fa-solid fa-retweet"></i>
-              <i class="fa-solid fa-share-nodes"></i>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
+  </div>
 </div>

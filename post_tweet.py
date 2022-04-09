@@ -1,5 +1,4 @@
-from bottle import post, request, response,view
-import sqlite3
+from bottle import post, request
 import uuid
 import globals
 import imghdr
@@ -90,7 +89,7 @@ def _():
         INNER JOIN sessions WHERE users.user_name = sessions.user_name""").fetchone()
         user_id = logged_user_id["user_id"]
         user_full_name = logged_user_id["user_full_name"]
-        print("A"*30,logged_user_id["user_id"])
+
 
     except Exception as ex:
         print(ex)
