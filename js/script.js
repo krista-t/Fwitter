@@ -14,6 +14,10 @@ function checkCookieExists() {
   }
 }
 
+function toggleEditTweetModal(){
+  document.querySelector("#edit-tweet").classList.toggle("hidden")
+}
+
 //fetch tweets
 async function tweet() {
   const form = event.target.form
@@ -49,7 +53,7 @@ async function tweet() {
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div class = "flex gap-12 w-full mt-4 text-lg">
               <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-              <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              <i onclick = "toggleEditTweetModal()" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
              </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
