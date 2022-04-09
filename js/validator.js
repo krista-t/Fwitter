@@ -10,8 +10,8 @@ function _all(q, e = document) {
     event.preventDefault()
     //my event is on btn, and it needs to be to pass all backend and front end validtions
     const form = event.target.parentElement
-    console.log("click")
-    console.log(form)
+    //console.log("click")
+    //console.log(form)
     const validate_error = "rgba(240, 130, 240, 0.1)"
     _all("[data-validate]", form).forEach(function (element) {
       //target p with error message ADDED

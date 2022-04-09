@@ -10,47 +10,8 @@ function checkCookieExists() {
     document.querySelector("#login-btn").classList.add("hidden")
      //use history api for spa
      //history.replaceState(stateObj, "/", "tweets", )
-     console.log(stateObj)
+     //console.log(stateObj)
   }
-}
-
-//get all the tweets
-window.addEventListener("load", showTweets)
-
-async function showTweets(){
-  const connection = await fetch("/tweet", {
-    method: "GET"
-  })
-  console.log(connection)
-  if (!connection.ok) {
-    alert("Could not  show tweets")
-    return
-  }
-  // Success
-  let tweets = await connection.json()
-  console.log(tweets)
-  displayTweets(tweets)
-}
-
-//for each tweet display tweet
-function displayTweets(tweets){
-  console.log("SINGLE TWEET")
-  tweets.forEach((tweet)=> {
-    const copy = document.querySelector("template").content.cloneNode(true);
-    //populate template
-    console.log(tweet.tweet_image)
-    copy.querySelector("#tweet-text").textContent = tweet.tweet_text;
-   //display tweet img only if it exists
-    if (tweet.tweet_image == "") {
-      console.log("EMPTY")
-      copy.querySelector("#tweet-img").style.display = "none";
-    }else{
-      copy.querySelector("#tweet-img").src = `/img/${tweet.tweet_image}`;
-    }
-    //append
-    document.querySelector("#fweets").appendChild(copy);
-
-  })
 }
 
 //fetch tweets
@@ -60,19 +21,19 @@ async function tweet() {
     method: "POST",
     body: new FormData(form)
   })
-  console.log(connection)
+  //console.log(connection)
   if (!connection.ok) {
     alert("Could not tweet")
     return
   }
   // Success
   let tweet = await connection.json()
-  console.log(tweet)
   const tweet_form = document.querySelector("#tweet-form")
-//console.log(tweet.tweet_text)
+  const tweet_id = tweet.tweet_id
+  //console.log(tweet_id)
   //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
-          <div class="p-4 border-t border-slate-200">
+          <div id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
             <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
             <div class="w-full pl-4">
@@ -86,21 +47,29 @@ async function tweet() {
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
-              <div class="flex gap-12 w-full mt-4 text-lg">
-              <i class="fa-solid fa-trash "></i>
-              <i class="fa-solid fa-pen"></i>
-              <i class="fa-solid fa-heart ml-auto"></i>
-              </div>
-            </div>
-          </div>
-        </div>`
+              <div class = "flex gap-12 w-full mt-4 text-lg">
+              <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
+              <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
+             </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
-    console.log("EMPTY")
+    //console.log("EMPTY")
     document.querySelector("#tweet-img").src = ""
   }
   tweet_form.reset()
+}
 
+async function deleteTweet(tweet_id){
+  console.log(tweet_id)
+  //console.log("click")
+  //Connect to the api and delete it from the db
+ const connection = await fetch(`/delete-tweet/${tweet_id}`, {
+   method: "DELETE"
+ })
+ //console.log(connection)
+ console.log(document.querySelector(`[id='${tweet_id}']`))
+ document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
 //////////
@@ -131,7 +100,7 @@ async function createUser() {
 function showLogInForm() {
   document.querySelector("#login").classList.remove("hidden")
   history.pushState(stateObj, "login", "login")
-  console.log(stateObj)
+  //console.log(stateObj)
 }
 
 //fetch loggedin
