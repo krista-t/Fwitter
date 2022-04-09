@@ -14,48 +14,6 @@ function checkCookieExists() {
   }
 }
 
-//get all the tweets
-window.addEventListener("load", showTweets)
-
-async function showTweets(){
-  const connection = await fetch("/tweet", {
-    method: "GET"
-  })
-  //console.log(connection)
-  if (!connection.ok) {
-    alert("Could not  show tweets")
-    return
-  }
-  // Success
-  let tweets = await connection.json()
-  console.log(tweets)
-  displayTweets(tweets)
-}
-
-//for each tweet display tweet
-function displayTweets(tweets){
-  tweets.forEach((tweet)=> {
-    const tweet_id = tweet.tweet_id
-    const copy = document.querySelector("template").content.cloneNode(true);
-    //populate template
-    //console.log(tweet.tweet_image)
-    copy.querySelector("#tweet-text").textContent = tweet.tweet_text;
-    //console.log( copy.querySelector("#trash"))
-
-   //display tweet img only if it exists
-    if (tweet.tweet_image == "") {
-      //console.log("EMPTY")
-      copy.querySelector("#tweet-img").style.display = "none";
-    }else{
-      copy.querySelector("#tweet-img").src = `/img/${tweet.tweet_image}`;
-    }
-    //append all to template
-    document.querySelector("#fweets").appendChild(copy);
-
-  })
-}
-
-
 //fetch tweets
 async function tweet() {
   const form = event.target.form
