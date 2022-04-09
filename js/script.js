@@ -47,10 +47,10 @@ async function tweet() {
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
-              <div id="icons" class = "flex flex-1 justify-around">
-              <i id ="${tweet_id}" onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
+              <div class = "flex gap-12 w-full mt-4 text-lg">
+              <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
               <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
-              <i class="fa-solid fa-heart ml-auto cursor-pointer"></i>
+              <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
              </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
@@ -58,10 +58,7 @@ async function tweet() {
     document.querySelector("#tweet-img").src = ""
   }
   tweet_form.reset()
-
-
 }
-///// onclick="deleteTweet('${tweet_id}')"
 
 async function deleteTweet(tweet_id){
   console.log(tweet_id)

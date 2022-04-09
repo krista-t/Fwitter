@@ -33,8 +33,7 @@
   </div>
   <div id="fweets" class="mt-4">
     %for tweet in tweets:
-    <p>{{tweet['tweet_id']}}</p>
-    <div class="p-4 border-t border-slate-200">
+    <div id ="{{tweet['tweet_id']}}" class="{{tweet['tweet_id']}} p-4 border-t border-slate-200">
     <div class="flex">
       <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
       <div class="w-full pl-4">
@@ -50,14 +49,11 @@
          %if tweet['tweet_image'] !="":
           <img id = "tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
         % end
-
         <div class="flex gap-12 w-full mt-4 text-lg">
-          <i id="{{tweet['tweet_id']}}" onclick="deleteTweet(id)"
+          <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)"
           class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-        <i id="{{tweet['tweet_id']}}" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
-        <i id="{{tweet['tweet_id']}}" class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
-        <i class="fa-solid fa-message"></i>
-        <i class="fa-solid fa-retweet"></i>
+        <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+        <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
         </div>
       </div>
     </div>
