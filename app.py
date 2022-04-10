@@ -66,6 +66,7 @@ def _(tweet_id):
         db = globals._db_connect("database.sqlite")
         tweet = db.execute(globals.GET_TWEET_WITH_ID_QUERY, (tweet_id,)).fetchall()
         print("TWEETS"*10, type(tweet))
+        return tweet
     except Exception as ex:
         print(ex)
     finally:
