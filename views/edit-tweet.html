@@ -1,4 +1,4 @@
-<section id="edit-tweet" class="fixed w-screen h-screen z-10 bg-blue-400">
+<section id="edit-tweet" class="fixed w-screen h-screen z-10 bg-blue-400 hidden">
 <div class="flex p-4" onclick = "closeTweetModal()">
   <p class = "ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
 </div>
@@ -7,15 +7,15 @@
  <form id="tweet-edit-form" class="flex flex-col justify-center relative border bg-white rounded w-2/4  h-auto mt-5" onsubmit="return false"
  autocomplete="off">
  <!-- reference validation here for text input only -->
- <label for="txt-tweet-edit" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text
+ <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text
  </label>
  <div>
-  <textarea name="edit_tweet_text" rows="5" cols="50" class="w-full h-96 p-4 text-gray-800 bg-slate-300 border-blue-400 rounded"  value = "" data-validate="str" data-max="100"></textarea
+  <textarea name="edit-tweet-text" rows="5" cols="50" class="w-full h-96 p-4 text-gray-800 bg-slate-300 border-blue-400 rounded" data-validate="str" data-max="100"></textarea
     >
  </div>
  <!-- file input, event referenced from icon to invoke on input -->
- <label id="image" class ="w-full"><img src="" alt="photo" class="w-full object-cover h-80" >
- </label>
+ <div  class ="w-full"><img id="image" src="" alt="photo" class="w-full object-cover h-80" >
+ </div>
  <div class="flex gap-12 w-full mt-2">
    <div class="flex flex-col ml-2">
     <input id="upload" class="text-sm hidden" type="file" name="image">

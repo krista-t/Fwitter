@@ -22,7 +22,7 @@ def _(tweet_id):
     tweet_id = :tweet_id
     """, tweet).fetchone()
         db.commit()
-        print("E"*30,edited)
+        print("E"*30,tweet_id)
 
     except Exception as ex:
         print(ex)

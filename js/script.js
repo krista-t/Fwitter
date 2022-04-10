@@ -75,14 +75,30 @@ async function deleteTweet(tweet_id){
 
 //show tweet to update
 function showTweetToEdit(tweet_id){
-  console.log(tweet_id)
-  document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
-  document.querySelector("#edit-tweet").classList.remove("hidden")
+document.querySelector("#edit-tweet").classList.remove("hidden")
 let tweet = document.querySelector(`[id='${tweet_id}']`)
 let tweet_text = tweet.querySelector("#tweet-text").textContent
-let img = tweet.querySelector("#tweet-img").src
-document.querySelector("#edit-tweet textarea").value = tweet_text
-document.querySelector("#image img").src = img
+document.querySelector("#edit-tweet textarea").textContent = tweet_text
+
+
+let img = tweet.querySelector("#tweet-img")
+let edit_img=  document.querySelector("#image")
+// console.log(img)
+// console.log(document.querySelector("#image img"))
+ if (img !== null) {
+   console.log(img.src)
+   edit_img.src = img.src
+   console.log(edit_img)
+   edit_img.style.display = "block"
+ }
+ else {
+  edit_img.style.display = "none"
+   console.log(img)
+
+ }
+
+document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
+
 }
 
 
@@ -99,7 +115,7 @@ async function editTweet(tweet_id){
     alert("Could not tweet")
     return
   }
- console.log(document.querySelector(`[id='${tweet_id}']`))
+ //console.log(document.querySelector(`[id='${tweet_id}']`))
  //document.querySelector(`[id='${tweet_id}']`).update()
 }
 
