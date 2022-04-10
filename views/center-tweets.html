@@ -18,10 +18,13 @@
       <input name="tweet_text" id="txt-tweet"
         class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
         placeholder="What is on your mind?" data-validate="str" data-max="100">
-      <!-- file input, event referenced from icon to invoke on input -->
-      <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-      <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
-        onclick="document.getElementById('upload').click()"></i>
+      <!-- file input hidden, i tag in label -->
+      <label>
+        <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
+        <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
+           ></i>
+      </label>
+
 
 
       <!-- calling function here -->
