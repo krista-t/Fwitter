@@ -68,7 +68,7 @@ async function deleteTweet(tweet_id){
   console.log(tweet_id)
   //console.log("click")
   //Connect to the api and delete it from the db
- const connection = await fetch(`/delete-tweet/${tweet_id}`, {
+ const connection = await fetch(`/delete_tweet/${tweet_id}`, {
    method: "DELETE"
  })
  //console.log(connection)

@@ -11,22 +11,6 @@ TRENDS = [
   {"category": "Russia", "title": "Russia", "tweets_counter": "10k"},
 ]
 
-
-
-
-
-TWEETS = [
-    {
-        "src": "6.jpg",
-        "user_first_name": "Barack",
-        "user_last_name": "Obama",
-        "user_name": "barackobama",
-        "date": "Feb 20",
-        "text": "The Ukrainian people need our help. If you’re looking for a way to make a difference, here are some organizations doing important work.",
-        "image": "1.jpg",
-    },
-
-]
 REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
 
 COOKIE_SECRET = "SA6a$mLMH76%"
@@ -34,7 +18,7 @@ COOKIE_SECRET = "SA6a$mLMH76%"
 
 
 ##############################
-# create row in sqliteDB
+# create json in sqliteDB
 def create_json_from_sqlite_result(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -50,7 +34,7 @@ def _db_connect(db_name):
     return db
 
 ##############################
-# error signup/login server(image)
+# error messages
 ERROR = {
     "error_name_min": "name at least 2 characters",
     "error_name_max": "name less than 20 characters",
@@ -82,4 +66,5 @@ DELETE FROM sessions WHERE session_id= ?"""
 #delete tweet query
 DELETE_TWEET_QUERY = """
 DELETE FROM tweets WHERE tweet_id= ?"""
+
 ##############################

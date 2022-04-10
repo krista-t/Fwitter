@@ -9,7 +9,7 @@ import post_users_signup
 import login
 import post_tweet
 import delete_tweet
-
+import edit_tweet
 
 ##############################
 @get("/app.css")
@@ -43,8 +43,6 @@ def _():
         print(ex)
     finally:
         db.close()
-        #return dict(tweets["tweet_id"] = tweet_id)
-
         return dict(tweets=tweets)
 ##############################
 @get("/tweet")
@@ -53,12 +51,8 @@ def _():
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("SELECT * FROM tweets").fetchall()
-        print("TYPE"*10, type(tweets))
-        print(json.dumps(tweets))
         tweet = (json.dumps(tweets))
         print("TWEETS"*10, tweet)
-
-        # return tweets
     except Exception as ex:
         print(ex)
     finally:
@@ -74,11 +68,10 @@ def _():
 
 
 ##############################
-##this is just to make json, and to see sessions to test it in potman####
 @get("/login")
 def _():
     return
-
+##this is just to make json, and to see sessions to test it in potman####
 #     try:
 #         db = globals._db_connect("database.sqlite")
 #         sess_result = db.execute( """SELECT  user_id, user_email  from users
@@ -124,4 +117,5 @@ except Exception as ex:
     print("***Server running on development***")
 
 
+##############################
 run(host="127.0.0.1", port=3555, debug=True, reloader=True, server="paste")
