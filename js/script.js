@@ -50,7 +50,7 @@ async function tweet() {
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div class = "flex gap-12 w-full mt-4 text-lg">
               <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-              <i onclick = "toggleEditTweetModal()" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              <i onclick = "showTweetToEdit('${tweet_id}')" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
              </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
@@ -76,19 +76,14 @@ async function deleteTweet(tweet_id){
 //show tweet to update
 function showTweetToEdit(tweet_id){
   console.log(tweet_id)
+  document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
   document.querySelector("#edit-tweet").classList.remove("hidden")
 let tweet = document.querySelector(`[id='${tweet_id}']`)
 let tweet_text = tweet.querySelector("#tweet-text").textContent
-console.log(tweet_text)
-console.log(document.querySelector("#edit-tweet input").value)
-//let tweet_img = tweet.querySelector("#tweet-img").src
-//  document.querySelector("#tweet-edit-form").insertAdjacentHTML("afterbegin", tweet_img)
-document.querySelector("#edit-tweet input").value = tweet_text
-
-
+let img = tweet.querySelector("#tweet-img").src
+document.querySelector("#edit-tweet textarea").value = tweet_text
+document.querySelector("#image img").src = img
 }
-
-
 
 
 //update tweet
