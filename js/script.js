@@ -44,7 +44,7 @@ async function tweet() {
               <p class="font-thin">
                INSERT user_full_name
               </p>
-              <div class="pt-2">
+              <div id = "tweet-text" class="pt-2">
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
@@ -75,25 +75,25 @@ async function deleteTweet(tweet_id){
 
 //show tweet to update
 function showTweetToEdit(tweet_id){
+  console.log(tweet_id)
 document.querySelector("#edit-tweet").classList.remove("hidden")
 let tweet = document.querySelector(`[id='${tweet_id}']`)
-let tweet_text = tweet.querySelector("#tweet-text").textContent
+let tweet_text = tweet.querySelector("#tweet-text").innerHTML
 document.querySelector("#edit-tweet textarea").textContent = tweet_text
-
 
 let img = tweet.querySelector("#tweet-img")
 let edit_img=  document.querySelector("#image")
 // console.log(img)
 // console.log(document.querySelector("#image img"))
  if (img !== null) {
-   console.log(img.src)
+   //console.log(img.src)
    edit_img.src = img.src
-   console.log(edit_img)
+  // console.log(edit_img)
    edit_img.style.display = "block"
  }
  else {
   edit_img.style.display = "none"
-   console.log(img)
+   //console.log(img)
 
  }
 
