@@ -13,11 +13,10 @@ function checkCookieExists() {
      //console.log(stateObj)
   }
 }
-
-function toggleEditTweetModal(){
-  document.querySelector("#edit-tweet").classList.toggle("hidden")
+function closeTweetModal(){
+  document.querySelector("#edit-tweet").classList.add("hidden")
+  document.querySelector("#tweet-edit-form").innerHTML = ""
 }
-
 //fetch tweets
 async function tweet() {
   const form = event.target.form
@@ -25,7 +24,6 @@ async function tweet() {
     method: "POST",
     body: new FormData(form)
   })
-  //console.log(connection)
   if (!connection.ok) {
     alert("Could not tweet")
     return
@@ -34,8 +32,6 @@ async function tweet() {
   let tweet = await connection.json()
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_id = tweet.tweet_id
-  //console.log(tweet_id)
-  //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
           <div id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
@@ -58,22 +54,74 @@ async function tweet() {
              </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
-    //console.log("EMPTY")
     document.querySelector("#tweet-img").src = ""
   }
   tweet_form.reset()
 }
 
+//delete tweet
 async function deleteTweet(tweet_id){
   console.log(tweet_id)
-  //console.log("click")
   //Connect to the api and delete it from the db
  const connection = await fetch(`/delete_tweet/${tweet_id}`, {
    method: "DELETE"
  })
- //console.log(connection)
  console.log(document.querySelector(`[id='${tweet_id}']`))
  document.querySelector(`[id='${tweet_id}']`).remove()
+}
+
+
+
+//show tweet to update
+async function showTweetToEdit(tweet_id){
+  console.log(tweet_id)
+  document.querySelector("#edit-tweet").classList.remove("hidden")
+  //Connect to the api and delete it from the db
+ const connection = await fetch(`/edit_tweet/${tweet_id}`, {
+   method: "GET"
+ })
+   console.log(connection)
+   if (!connection.ok) {
+    alert("Could not show tweet")
+    return
+  }
+let tweet_to_edit= `
+<label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Tweet with image or text up
+to 100 characters, or both</label>
+<!-- reference validation here for text input only -->
+<input name="tweet_text" id="txt-tweet"
+class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
+placeholder="What is on your mind?" data-validate="str" data-max="100">
+<label>
+<input id="upload" class="absolute bottom-2 left-2 text-sm " type="file" name="image">
+<i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"></i>
+</label>
+<button id="tweet-btn" onclick=" " type="submit"
+class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full">
+Update Tweet
+</button>`
+document.querySelector("#tweet-edit-form").insertAdjacentHTML("afterbegin", tweet_to_edit)
+
+}
+
+
+
+
+//update tweet
+async function editTweet(tweet_id){
+  console.log(tweet_id)
+
+  //Connect to the api and delete it from the db
+ const connection = await fetch(`/edit_tweet/${tweet_id}`, {
+   method: "PUT"
+ })
+   console.log(connection)
+   if (!connection.ok) {
+    alert("Could not tweet")
+    return
+  }
+ console.log(document.querySelector(`[id='${tweet_id}']`))
+ //document.querySelector(`[id='${tweet_id}']`).update()
 }
 
 //////////

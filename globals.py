@@ -67,4 +67,11 @@ DELETE FROM sessions WHERE session_id= ?"""
 DELETE_TWEET_QUERY = """
 DELETE FROM tweets WHERE tweet_id= ?"""
 
+#show tweet with specific id query
+GET_TWEET_WITH_ID_QUERY = """
+SELECT * FROM tweets WHERE tweets.tweet_id = ?
+"""
+
+
+
 ##############################

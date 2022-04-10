@@ -34,7 +34,7 @@
   </div>
   <div id="fweets" class="mt-4">
     %for tweet in tweets:
-    <div id ="{{tweet['tweet_id']}}" class="{{tweet['tweet_id']}} p-4 border-t border-slate-200">
+    <div id ="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
     <div class="flex">
       <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
       <div class="w-full pl-4">
@@ -53,7 +53,7 @@
         <div class="flex gap-12 w-full mt-4 text-lg">
           <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)"
           class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-        <i onclick = "toggleEditTweetModal()" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+        <i onclick = "showTweetToEdit(`{{tweet['tweet_id']}}`)" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
         <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
         </div>
       </div>
