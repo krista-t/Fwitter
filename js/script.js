@@ -71,13 +71,11 @@ async function deleteTweet(tweet_id){
  document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
-
-
 //show tweet to update
 function showTweetToEdit(tweet_id){
-  console.log(tweet_id)
+  //console.log(tweet_id)
 document.querySelector("#edit-tweet").classList.remove("hidden")
-let tweet = document.querySelector(`[id='${tweet_id}']`)
+let tweet = document.querySelector(`section[id='${tweet_id}']`)
 let tweet_text = tweet.querySelector("#tweet-text").innerHTML
 document.querySelector("#edit-tweet textarea").textContent = tweet_text
 
@@ -98,25 +96,30 @@ let edit_img=  document.querySelector("#image")
  }
 
 document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
-
 }
 
 
 //update tweet
 async function editTweet(tweet_id){
-  console.log(tweet_id)
+  const form = event.target.form
+  document.querySelector("#edit-tweet").classList.add("hidden")
+  console.log(form)
 
   //Connect to the api and delete it from the db
  const connection = await fetch(`/edit_tweet/${tweet_id}`, {
-   method: "PUT"
+   method: "PUT",
+   body: new FormData(form)
  })
-   console.log(connection)
+   //console.log(connection)
    if (!connection.ok) {
     alert("Could not tweet")
     return
   }
- //console.log(document.querySelector(`[id='${tweet_id}']`))
- //document.querySelector(`[id='${tweet_id}']`).update()
+ // Success
+ let tweet = await connection.json()
+ console.log(tweet)
+ console.log(document.querySelector(`section[id='${tweet_id}']`))
+//  document.querySelector(`section[id='${tweet_id}']`).update()
 }
 
 //////////
