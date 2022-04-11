@@ -65,19 +65,6 @@ def validate_img(image):
 
 ##############################
 @post("/tweet")
-# def _():
-# #TODO:
-#     # Validate
-#     # Connect to the db
-#     # response.status = 200
-#     tweet_id = str(uuid.uuid4())
-#     tweet_text = request.forms.get("tweet_text")
-#     image = request.files.get("image")
-#     tweet = {"id": tweet_id, "text": tweet_text, "src":validate_img(image) }
-#     globals.TWEETS.append(tweet)
-#     print("AAAAAAAAA", tweet)
-#     return tweet
-
 def _():
     #get id of user whois logged in
     image = request.files.get("image")
