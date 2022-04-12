@@ -76,10 +76,10 @@ async function deleteTweet(tweet_id){
 function showTweetToEdit(tweet_id){
 console.log("clicked")
 document.querySelector("#edit-tweet").classList.remove("hidden")
-let tweet = document.querySelector(`[id='${tweet_id}']`)
+let tweet = document.querySelector(`section[id='${tweet_id}']`)
 
-let tweet_text = tweet.querySelector("#tweet-text").innerHTML
-//TODO:text area change
+let tweet_text = tweet.querySelector("#tweet-text").textContent
+
 document.querySelector("#edit-tweet input").value = tweet_text
 console.log(document.querySelector("#edit-tweet input").value)
 let img = tweet.querySelector("#tweet-img")
