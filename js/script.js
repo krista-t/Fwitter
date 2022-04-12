@@ -8,6 +8,7 @@ function checkCookieExists() {
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
+
      //use history api for spa
      //history.replaceState(stateObj, "/", "tweets", )
      //console.log(stateObj)
@@ -37,7 +38,7 @@ async function tweet() {
   let section_tweet = `
           <section id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
-            <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
+            <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
             <div class="w-full pl-4">
               <p class="font-bold">
                @${tweet.user_name}
@@ -167,6 +168,7 @@ function showLogInForm() {
 //fetch loggedin
 async function logUser() {
   const form = event.target.form
+  console.log(form.value)
   const connection = await fetch("/login", {
     method: "POST",
     body: new FormData(form)

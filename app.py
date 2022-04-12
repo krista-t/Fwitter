@@ -35,15 +35,22 @@ def _(image):
 @get("/")
 @view("index")
 def _():
+    user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:
         tweets = db.execute("SELECT * FROM tweets").fetchall()
-        print("TYPE", tweets)
     except Exception as ex:
         print(ex)
     finally:
         db.close()
-        return dict(tweets=tweets)
+        if user_token:
+    #TODO: encript decoded token
+            decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
+            logged_user = decoded_token["name"]
+            print("TOK"*10, "User is logged in")
+        else:
+            print("NOT"*30, "Not logged in")
+    return dict(tweets=tweets)
 
 #################
 @get("/signup")
@@ -81,6 +88,7 @@ def _():
         user_token = request.get_cookie("token")
     #TODO: encript decoded token
         decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
+        print("TOK"*10, decoded_token["name"])
    #check if decoded_token["session_id"] is in sessions, and delete that row from sessions on logout
         db.execute(globals.DELETE_SESS_ROW_QUERY, (decoded_token["session_id"],)).fetchone()
         db.commit()

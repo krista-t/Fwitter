@@ -46,7 +46,7 @@ def create_session(user):
         "user_name":user["user_name"],
         "user_password": user["user_password"]
     }
-        session_id = str(uuid.uuid4())
+
         db.execute(
             """INSERT INTO sessions
                 VALUES(:session_id, :user_name,
