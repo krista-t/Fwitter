@@ -74,27 +74,24 @@ async function deleteTweet(tweet_id){
 
 //show tweet to update//
 function showTweetToEdit(tweet_id){
-  //console.log(tweet_id)
+console.log("clicked")
 document.querySelector("#edit-tweet").classList.remove("hidden")
 let tweet = document.querySelector(`[id='${tweet_id}']`)
 
-let tweet_text = tweet.querySelector("#tweet-text").textContent
+let tweet_text = tweet.querySelector("#tweet-text").innerHTML
 //TODO:text area change
 document.querySelector("#edit-tweet input").value = tweet_text
 console.log(document.querySelector("#edit-tweet input").value)
 let img = tweet.querySelector("#tweet-img")
-let edit_img=  document.querySelector("#image")
- if (img !== null) {
-   console.log(img.src)
-   edit_img.src = img.src
-  // console.log(edit_img)
+let edit_img=  document.querySelector("#edit-image")
+console.log(edit_img)
+edit_img.style.display = "none"
+
+ if(img !== null) {
+  edit_img.src = img.src
    edit_img.style.display = "block"
  }
- else {
-  edit_img.style.display = "none"
-  //document.querySelector("#img-icons").classList.add("hidden")
 
- }
 document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 

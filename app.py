@@ -38,13 +38,26 @@ def _():
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("SELECT * FROM tweets").fetchall()
-        print("TYPE"*10(tweets))
+        print("TYPE"*10, tweets)
     except Exception as ex:
         print(ex)
     finally:
         db.close()
         return dict(tweets=tweets)
-##############################
+
+#################
+@get("/signup")
+@view("signup")
+def _():
+    return
+
+#################
+@get("/login")
+@view("login")
+def _():
+    return
+
+#################
 @get("/tweet")
 @view("center")
 def _():
@@ -52,54 +65,12 @@ def _():
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("SELECT * FROM tweets").fetchall()
         tweet = (json.dumps(tweets))
-        print("TWEETS"*10, tweet)
+        #print("TWEETS"*10, tweet)
     except Exception as ex:
         print(ex)
     finally:
         db.close()
-        return tweet
-##############################
-# @get("/edit_tweet/<tweet_id>")
-# @view("edit-tweet")
-# def _(tweet_id):
-#     try:
-#         db = globals._db_connect("database.sqlite")
-#         tweet = db.execute(globals.GET_TWEET_WITH_ID_QUERY, (tweet_id,)).fetchall()
-#         print("TWEETS"*10, type(tweet))
-#         return tweet
-#     except Exception as ex:
-#         print(ex)
-#     finally:
-#         db.close()
-#         return dict(tweet=tweet)
-
-#################
-@get("/signup")
-@view("signup")
-def _():
-    return
-#################
-
-
-##############################
-@get("/login")
-def _():
-    return
-##this is just to make json, and to see sessions to test it in potman####
-#     try:
-#         db = globals._db_connect("database.sqlite")
-#         sess_result = db.execute( """SELECT  user_id, user_email  from users
-# INNER JOIN sessions  WHERE users.user_name = sessions.user_name""").fetchall()
-#         response.content_type = "application/json"
-#         print("JJJJJJJJJJJJJJJJJJJ", json.dumps(sess_result))
-#         sess = json.dumps(sess_result)
-
-#     except Exception as ex:
-#         print(ex)
-#     finally:
-#         db.close()
-#         return sess
-
+    return tweet
 
 ##############################
 @get("/logout")

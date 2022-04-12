@@ -1,21 +1,17 @@
-<section id="edit-tweet" class="fixed w-screen h-screen z-10 bg-blue-400 hidden">
+<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 z-10">
 <div class="flex p-4" onclick = "closeTweetModal()">
   <p class = "ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
 </div>
  <div class="flex justify-center mt-8">
  <!-- submit tweet -->
- <form id="tweet-edit-form" class="flex flex-col w-2/4 border-x rounded bg-white relative"onsubmit="return false"
+ <form id="tweet-edit-form" class="flex flex-col w-2/4 border-x rounded bg-white"onsubmit="return false"
  autocomplete="off">
  <!-- reference validation here for text input only -->
-  <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text
-</label>
+  <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text</label>
 <input name="tweet_text" id="txt-tweet"
-        class="" type="text"
+        class="w-full h-12" type="text"
        data-validate="str" data-max="100" onkeydown="this.value=removeWhiteSpaces(this.value)">
-
-
- <!-- file input, event referenced from icon to invoke on input -->
- <div  class ="w-full"><img id="image" src="" alt="photo" class="w-full object-cover h-80" >
+ <div  class ="w-full"><img id="edit-image" src="" alt=" " class="w-full object-cover h-80" >
  </div>
  <!-- <div class="flex gap-12 w-full mt-2">
    <div id="img-icons" class = "flex">
