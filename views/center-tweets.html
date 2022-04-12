@@ -5,7 +5,7 @@
     <form class="relative" onsubmit="return false">
       <i class="fas fa-search absolute top-4 left-4" aria-hidden="true"></i>
       <input class="w-full h-12 px-4 rounded-full placeholder:text-gray-700 bg-gray-100 pl-12 outline-none" type="text"
-        placeholder="What are you interested in ?">
+        placeholder="What are you interested in?">
     </form>
   </div>
   <div class="px-4">
@@ -18,47 +18,51 @@
       <input name="tweet_text" id="txt-tweet"
         class="w-full h-12 p-4 text-gray-800 rounded outline-none placeholder:text-gray-800" type="text"
         placeholder="What is on your mind?" data-validate="str" data-max="100">
-      <!-- file input, event referenced from icon to invoke on input -->
-      <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-      <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
-        onclick="document.getElementById('upload').click()"></i>
+      <!-- file input hidden, i tag in label -->
+      <label>
+        <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
+        <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
+           ></i>
+      </label>
 
-
-      <!-- calling function here -->
+      <!-- calling submit function here -->
       <button id="tweet-btn" onclick="validate(tweet)" type="submit"
         class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full">
         Tweet
       </button>
     </form>
   </div>
-  <div id="fweets" class="mt-4">
+  <section id="fweets" class="mt-4">
     %for tweet in tweets:
-    <div id ="{{tweet['tweet_id']}}" class="{{tweet['tweet_id']}} p-4 border-t border-slate-200">
+    <section id ="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
     <div class="flex">
-      <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
+      <!-- <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo"> -->
+
+      <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
+
       <div class="w-full pl-4">
         <p class="font-bold">
           @screen name
         </p>
         <p class="font-thin">
-         full name
+       FULL NAME
         </p>
-        <div class="pt-2">
+        <div id = "tweet-text" class="pt-2">
           {{tweet["tweet_text"]}}
-        </div>
+         </div>
          %if tweet['tweet_image'] !="":
           <img id = "tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
         % end
         <div class="flex gap-12 w-full mt-4 text-lg">
           <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)"
           class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-        <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+        <i onclick = "showTweetToEdit(`{{tweet['tweet_id']}}`)" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
         <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
         </div>
       </div>
     </div>
-  </div>
+  </section>
     % end
 
-  </div>
+  </section>
 </div>

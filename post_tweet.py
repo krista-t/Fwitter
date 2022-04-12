@@ -29,7 +29,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         print(f"Tweet {tweet['tweet_text']} succesfully created in database!")
     except Exception as ex:
         print(ex)
-        status["msg"] = f"Unable to add user {tweet['tweet_id']} to database!"
+        status["msg"] = f"Unable to add tweet {tweet['tweet_id']} to database!"
         print(status["msg"])
     finally:
         db.close()
@@ -65,19 +65,6 @@ def validate_img(image):
 
 ##############################
 @post("/tweet")
-# def _():
-# #TODO:
-#     # Validate
-#     # Connect to the db
-#     # response.status = 200
-#     tweet_id = str(uuid.uuid4())
-#     tweet_text = request.forms.get("tweet_text")
-#     image = request.files.get("image")
-#     tweet = {"id": tweet_id, "text": tweet_text, "src":validate_img(image) }
-#     globals.TWEETS.append(tweet)
-#     print("AAAAAAAAA", tweet)
-#     return tweet
-
 def _():
     #get id of user whois logged in
     image = request.files.get("image")
@@ -90,6 +77,9 @@ def _():
         user_id = logged_user_id["user_id"]
         user_full_name = logged_user_id["user_full_name"]
 
+        #TODO: take screen name from token
+        user_name = logged_user_id["user_name"]
+        print("U"*10, user_name)
 
     except Exception as ex:
         print(ex)
@@ -99,7 +89,8 @@ def _():
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
-        "user_id": user_id
+        "user_id": user_id,
+        "user_full_name": user_full_name,
     }
         tweet = create_tweet(tweet)
     return tweet

@@ -13,7 +13,11 @@ function checkCookieExists() {
      //console.log(stateObj)
   }
 }
-
+function closeTweetModal(){
+  document.querySelector("#edit-tweet").classList.add("hidden")
+  // document.querySelector("#tweet-edit-form").innerHTML = ""
+  document.querySelector("#edit-tweet input").value = ""
+}
 //fetch tweets
 async function tweet() {
   const form = event.target.form
@@ -21,19 +25,17 @@ async function tweet() {
     method: "POST",
     body: new FormData(form)
   })
-  //console.log(connection)
   if (!connection.ok) {
     alert("Could not tweet")
     return
   }
   // Success
   let tweet = await connection.json()
+  console.log(tweet)
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_id = tweet.tweet_id
-  //console.log(tweet_id)
-  //INSERT  <img class="mt-2 w-full object-cover h-20" src=${tweet.image}> INTO GAP DOWN
   let section_tweet = `
-          <div id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
+          <section id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
             <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
             <div class="w-full pl-4">
@@ -41,35 +43,94 @@ async function tweet() {
                @ INSERT USERNAME
               </p>
               <p class="font-thin">
-               INSERT user_full_name
+               ${tweet.user_full_name}
               </p>
-              <div class="pt-2">
+              <div id = "tweet-text" class="pt-2">
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
-              <div class = "flex gap-12 w-full mt-4 text-lg">
+              <section class = "flex gap-12 w-full mt-4 text-lg">
               <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-              <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              <i onclick = "showTweetToEdit('${tweet_id}')" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
-             </div>`
+             </section>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
-    //console.log("EMPTY")
     document.querySelector("#tweet-img").src = ""
   }
   tweet_form.reset()
 }
 
+//delete tweet
 async function deleteTweet(tweet_id){
   console.log(tweet_id)
-  //console.log("click")
   //Connect to the api and delete it from the db
- const connection = await fetch(`/delete-tweet/${tweet_id}`, {
+ const connection = await fetch(`/delete_tweet/${tweet_id}`, {
    method: "DELETE"
  })
- //console.log(connection)
- console.log(document.querySelector(`[id='${tweet_id}']`))
+ console.log(document.querySelector(`section[id='${tweet_id}']`))
  document.querySelector(`[id='${tweet_id}']`).remove()
+}
+
+//show tweet to update//
+function showTweetToEdit(tweet_id){
+console.log("clicked")
+document.querySelector("#edit-tweet").classList.remove("hidden")
+let tweet = document.querySelector(`section[id='${tweet_id}']`)
+
+let tweet_text = tweet.querySelector("#tweet-text").textContent
+
+document.querySelector("#edit-tweet input").value = tweet_text
+console.log(document.querySelector("#edit-tweet input").value)
+let img = tweet.querySelector("#tweet-img")
+let edit_img=  document.querySelector("#edit-image")
+console.log(edit_img)
+edit_img.style.display = "none"
+
+ if(img !== null) {
+  edit_img.src = img.src
+   edit_img.style.display = "block"
+ }
+
+document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
+}
+
+
+//update tweet
+async function editTweet(tweet_id){
+  const form = event.target.form
+  document.querySelector("#edit-tweet").classList.add("hidden")
+  //Connect to the api and delete it from the db
+ const connection = await fetch(`/edit_tweet/${tweet_id}`, {
+   method: "PUT",
+   body: new FormData(form)
+ })
+   //console.log(connection)
+   if (!connection.ok) {
+    alert("Could not tweet")
+    return
+  }
+ //Success
+ let editedTweet = await connection.json()
+ console.log(editedTweet)
+let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+console.log(tweetSection)
+//if text is not changed leave it as is
+if(tweetSection.querySelector("#tweet-text").textContent != null){
+  tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
+}
+else{
+  tweetSection.querySelector("#tweet-text").textContent= tweetSection.querySelector("#tweet-text").textContent
+}
+
+// // console.log(edited.src== null)
+//if image is not changed leave it as is
+//  if (tweetSection.querySelector("#tweet-img") != null){
+// console.log("image here")
+// }else{
+
+//    console.log("no image")
+//  }
 }
 
 //////////
@@ -132,3 +193,12 @@ async function logUser() {
     }
   }
 }
+
+function removeWhiteSpaces(string) {
+  console.log("hi")
+  //return string.split(' ').join('');
+  //let newString = string.replace(/\s+/g, ' ')
+  //only spaces not tabs, newlines, etc
+  let newString = string.replace(/  +/g, ' ')
+  return newString
+ }
