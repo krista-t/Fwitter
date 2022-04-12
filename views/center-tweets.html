@@ -42,10 +42,11 @@
           @screen name
         </p>
         <p class="font-thin">
-         full name
+       FULL NAME
         </p>
         <div id = "tweet-text" class="pt-2">
-          {{tweet["tweet_text"]}}
+          <p> {{tweet["tweet_text"]}}</p>
+
         </div>
          %if tweet['tweet_image'] !="":
           <img id = "tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">

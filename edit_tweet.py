@@ -1,4 +1,4 @@
-from bottle import put, request
+from bottle import put, request, response
 import sqlite3
 import globals
 import imghdr
@@ -37,7 +37,7 @@ def _(tweet_id):
     tweet = {
     "tweet_id": tweet_id,
     "tweet_text": request.forms.get("tweet_text"),
-    "src": validate_img(image),
+    #"src": validate_img(image),
     }
 
     #TODO:validate, and status codes
@@ -45,17 +45,18 @@ def _(tweet_id):
     try:
         db.execute("""
         UPDATE tweets
-        SET tweet_text = :tweet_text,
-        tweet_image = :src
+        SET tweet_text = :tweet_text
         WHERE
         tweet_id = :tweet_id
         """, tweet).fetchone()
+        response.content_type = "application/json"
         db.commit()
     except Exception as ex:
         print("30"* 10, ex)
     finally:
         db.close()
         print("30"* 10, tweet)
+        tweet["tweet_text"].strip()
         return tweet
 
 

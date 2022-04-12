@@ -31,6 +31,7 @@ async function tweet() {
   }
   // Success
   let tweet = await connection.json()
+  console.log(tweet)
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_id = tweet.tweet_id
   let section_tweet = `
@@ -42,7 +43,7 @@ async function tweet() {
                @ INSERT USERNAME
               </p>
               <p class="font-thin">
-               INSERT user_full_name
+               ${tweet.user_full_name}
               </p>
               <div id = "tweet-text" class="pt-2">
              ${tweet.tweet_text}
@@ -67,34 +68,33 @@ async function deleteTweet(tweet_id){
  const connection = await fetch(`/delete_tweet/${tweet_id}`, {
    method: "DELETE"
  })
- console.log(document.querySelector(`[id='${tweet_id}']`))
+ console.log(document.querySelector(`section[id='${tweet_id}']`))
  document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
-//show tweet to update
+//show tweet to update//
 function showTweetToEdit(tweet_id){
   //console.log(tweet_id)
 document.querySelector("#edit-tweet").classList.remove("hidden")
-let tweet = document.querySelector(`section[id='${tweet_id}']`)
-let tweet_text = tweet.querySelector("#tweet-text").innerHTML
-document.querySelector("#edit-tweet textarea").textContent = tweet_text
+let tweet = document.querySelector(`[id='${tweet_id}']`)
 
+let tweet_text = tweet.querySelector("#tweet-text").textContent
+//TODO:text area change
+document.querySelector("#edit-tweet input").value = tweet_text
+console.log(document.querySelector("#edit-tweet input").value)
 let img = tweet.querySelector("#tweet-img")
 let edit_img=  document.querySelector("#image")
-// console.log(img)
-// console.log(document.querySelector("#image img"))
  if (img !== null) {
-   //console.log(img.src)
+   console.log(img.src)
    edit_img.src = img.src
   // console.log(edit_img)
    edit_img.style.display = "block"
  }
  else {
   edit_img.style.display = "none"
-   //console.log(img)
+  //document.querySelector("#img-icons").classList.add("hidden")
 
  }
-
 document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 
@@ -103,8 +103,6 @@ document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 async function editTweet(tweet_id){
   const form = event.target.form
   document.querySelector("#edit-tweet").classList.add("hidden")
-  console.log(form)
-
   //Connect to the api and delete it from the db
  const connection = await fetch(`/edit_tweet/${tweet_id}`, {
    method: "PUT",
@@ -115,12 +113,29 @@ async function editTweet(tweet_id){
     alert("Could not tweet")
     return
   }
- // Success
- let tweet = await connection.json()
- console.log(tweet)
- console.log(document.querySelector(`section[id='${tweet_id}']`))
-//  document.querySelector(`section[id='${tweet_id}']`).update()
+ //Success
+ let editedTweet = await connection.json()
+ console.log(editedTweet)
+let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+//if text is not changed leave it as is
+if(tweetSection.querySelector("#tweet-text").textContent != null){
+  tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
 }
+else{
+  tweetSection.querySelector("#tweet-text").textContent= tweetSection.querySelector("#tweet-text").innerHTML
+}
+
+ console.log(tweetSection.querySelector("#tweet-text").textContent)
+// // console.log(edited.src== null)
+// //if image is not changed leave it as is
+// if (tweetSection.querySelector("#tweet-img") != null){
+//   tweetSection.querySelector("#tweet-img").src = editedTweet.src
+//  }else{
+//   // editedTweet.src=
+//   // tweetSection.querySelector("#tweet-img").src
+//   console.log("no image")
+ }
+
 
 //////////
 //fetch users
@@ -182,3 +197,12 @@ async function logUser() {
     }
   }
 }
+
+function removeWhiteSpaces(string) {
+  console.log("hi")
+  //return string.split(' ').join('');
+  //let newString = string.replace(/\s+/g, ' ')
+  //only spaces not tabs, newlines, etc
+  let newString = string.replace(/  +/g, ' ')
+  return newString
+ }
