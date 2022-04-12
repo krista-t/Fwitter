@@ -23,7 +23,6 @@ def create_json_from_sqlite_result(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
-        print("MI"*10, d)
     return d
 
 ##############################

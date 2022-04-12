@@ -1,4 +1,4 @@
-<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 z-10">
+<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 z-10 hidden">
 <div class="flex p-4" onclick = "closeTweetModal()">
   <p class = "ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
 </div>
@@ -11,7 +11,7 @@
 <input name="tweet_text" id="txt-tweet"
         class="w-full h-12" type="text"
        data-validate="str" data-max="100" onkeydown="this.value=removeWhiteSpaces(this.value)">
- <div  class ="w-full"><img id="edit-image" src="" alt=" " class="w-full object-cover h-80" >
+ <div  class ="w-full"><img id="edit-image" src="//:0" alt=" " class="w-full object-cover h-80" >
  </div>
  <!-- <div class="flex gap-12 w-full mt-2">
    <div id="img-icons" class = "flex">

@@ -40,7 +40,7 @@ async function tweet() {
             <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
             <div class="w-full pl-4">
               <p class="font-bold">
-               @ INSERT USERNAME
+               @${tweet.user_name}
               </p>
               <p class="font-thin">
                ${tweet.user_full_name}
@@ -174,10 +174,9 @@ async function logUser() {
   let loggedUserValidation = await connection.json()
   document.querySelector("#server-error-msg").innerHTML = loggedUserValidation["msg"]
   document.querySelector("#server-error-msg").style.color = "red"
-  console.log(loggedUserValidation)
   console.log(connection)
   if (!connection.ok) {
-    console.log("Cannot sign up")
+    console.log("Cannot log in")
   }
 
   if (loggedUserValidation.msg === "User does not exist!") {
@@ -188,7 +187,7 @@ async function logUser() {
       console.log("success")
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
-      history.pushState(stateObj, "/", "tweets")
+      history.pushState(stateObj, "/", "/")
 
     }
   }

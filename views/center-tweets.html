@@ -42,10 +42,10 @@
 
       <div class="w-full pl-4">
         <p class="font-bold">
-          @screen name
+          @{{tweet["user_name"]}}
         </p>
         <p class="font-thin">
-       FULL NAME
+          {{tweet["user_full_name"]}}
         </p>
         <div id = "tweet-text" class="pt-2">
           {{tweet["tweet_text"]}}
@@ -62,7 +62,7 @@
       </div>
     </div>
   </section>
-    % end
+  % end
 
   </section>
 </div>
