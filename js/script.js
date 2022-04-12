@@ -35,7 +35,7 @@ async function tweet() {
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_id = tweet.tweet_id
   let section_tweet = `
-          <div id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
+          <section id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
             <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo">
             <div class="w-full pl-4">
@@ -49,11 +49,11 @@ async function tweet() {
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
-              <div class = "flex gap-12 w-full mt-4 text-lg">
+              <section class = "flex gap-12 w-full mt-4 text-lg">
               <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
               <i onclick = "showTweetToEdit('${tweet_id}')" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
-             </div>`
+             </section>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
     document.querySelector("#tweet-img").src = ""
@@ -117,25 +117,24 @@ async function editTweet(tweet_id){
  let editedTweet = await connection.json()
  console.log(editedTweet)
 let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+console.log(tweetSection)
 //if text is not changed leave it as is
 if(tweetSection.querySelector("#tweet-text").textContent != null){
   tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
 }
 else{
-  tweetSection.querySelector("#tweet-text").textContent= tweetSection.querySelector("#tweet-text").innerHTML
+  tweetSection.querySelector("#tweet-text").textContent= tweetSection.querySelector("#tweet-text").textContent
 }
 
- console.log(tweetSection.querySelector("#tweet-text").textContent)
 // // console.log(edited.src== null)
-// //if image is not changed leave it as is
-// if (tweetSection.querySelector("#tweet-img") != null){
-//   tweetSection.querySelector("#tweet-img").src = editedTweet.src
-//  }else{
-//   // editedTweet.src=
-//   // tweetSection.querySelector("#tweet-img").src
-//   console.log("no image")
- }
+//if image is not changed leave it as is
+//  if (tweetSection.querySelector("#tweet-img") != null){
+// console.log("image here")
+// }else{
 
+//    console.log("no image")
+//  }
+}
 
 //////////
 //fetch users

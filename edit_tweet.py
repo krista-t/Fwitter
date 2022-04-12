@@ -56,7 +56,6 @@ def _(tweet_id):
     finally:
         db.close()
         print("30"* 10, tweet)
-        tweet["tweet_text"].strip()
         return tweet
 
 

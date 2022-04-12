@@ -38,7 +38,7 @@ def _():
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("SELECT * FROM tweets").fetchall()
-        print("TYPE"*10, type(tweets))
+        print("TYPE"*10(tweets))
     except Exception as ex:
         print(ex)
     finally:
