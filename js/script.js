@@ -11,8 +11,12 @@ function checkCookieExists() {
 
      //use history api for spa
      //history.replaceState(stateObj, "/", "tweets", )
-     //console.log(stateObj)
   }
+}
+
+if (document.cookie) {
+  console.log("true, cookie here, refreshed",)
+  document.querySelector("#login-btn").classList.add("hidden")
 }
 function closeTweetModal(){
   document.querySelector("#edit-tweet").classList.add("hidden")

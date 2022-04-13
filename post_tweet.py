@@ -10,6 +10,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         "success": False,
         "msg": "",
     }
+    #INSERED USER ID BY JOIN
     db = globals._db_connect(database)
     try:
         db.execute(
@@ -17,8 +18,8 @@ def create_tweet(tweet, database = "database.sqlite"):
                 VALUES(:tweet_id,
                 :tweet_text,
                 :src,
-                :user_name,
-                :user_full_name)""",
+                :user_id)
+                """,
             tweet,
         )
         db.commit()
@@ -64,14 +65,17 @@ def validate_img(image):
 def _():
     #get info of user whois logged in
     image = request.files.get("image")
+
     try:
         db = globals._db_connect("database.sqlite")
-        logged_user = db.execute( """SELECT  *
+        logged_user = db.execute( """SELECT *
         from users
         JOIN sessions  WHERE users.user_name  LIKE sessions.user_name""").fetchall()
+        user_id = logged_user[0]["user_id"]
         user_full_name = logged_user[0]["user_full_name"]
         user_name = logged_user[0]["user_name"]
-        print("U"*10, logged_user[0]["user_name"])
+        print("U"*10, logged_user[0])
+
 
     except Exception as ex:
         print(ex)
@@ -81,11 +85,18 @@ def _():
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
+        "user_id": user_id
+        }
+        tweet = create_tweet(tweet)
+        all_tweets = {
+        "tweet_id": str(uuid.uuid4()),
+        "tweet_text": request.forms.get("tweet_text"),
+        "src": validate_img(image),
         "user_name": user_name,
         "user_full_name": user_full_name,
     }
-        tweet = create_tweet(tweet)
-    return tweet
+
+    return all_tweets
 
 
 
