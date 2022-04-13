@@ -8,11 +8,17 @@ function checkCookieExists() {
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
-
-     //use history api for spa
-     //history.replaceState(stateObj, "/", "tweets", )
+   //use history api for spa
+  //history.replaceState(stateObj, "/", "tweets", )
+  }else{
+    document.querySelector("#tweet-btn").disabled = true;
+    document.querySelector(".tweet-form input").value =
+    "PLEASE LOGIN TO TWEET"
   }
 }
+
+
+
 
 if (document.cookie) {
   console.log("true, cookie here, refreshed",)
@@ -193,6 +199,10 @@ async function logUser() {
       console.log("success")
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
+      document.querySelector("#tweet-btn").disabled = false;
+      document.querySelector(".tweet-form input").value= null
+
+
       history.pushState(stateObj, "/", "/")
 
     }
