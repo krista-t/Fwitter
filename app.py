@@ -44,12 +44,12 @@ def _():
     finally:
         db.close()
         if user_token:
-    #TODO: encript decoded token
+    #on page load check if user logged in
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
             logged_user = decoded_token["name"]
-            print("TOK"*10, "User is logged in")
+            print("TOKEN"*3, f"User {logged_user} is logged in")
         else:
-            print("NOT"*30, "Not logged in")
+            print("NOT TOKEN"*3, "Not logged in")
     return dict(tweets=tweets)
 
 #################
