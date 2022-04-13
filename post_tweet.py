@@ -70,13 +70,11 @@ def _():
         db = globals._db_connect("database.sqlite")
         logged_user = db.execute( """SELECT *
         from users
-        JOIN sessions  WHERE users.user_name  LIKE sessions.user_name""").fetchall()
-        user_id = logged_user[0]["user_id"]
-        user_full_name = logged_user[0]["user_full_name"]
-        user_name = logged_user[0]["user_name"]
-        print("U"*10, logged_user[0])
-
-
+        JOIN sessions  WHERE users.user_name  LIKE sessions.user_name""").fetchone()
+        user_id = logged_user["user_id"]
+        user_full_name = logged_user["user_full_name"]
+        user_name = logged_user["user_name"]
+        print("U"*10, logged_user)
     except Exception as ex:
         print(ex)
     finally:
