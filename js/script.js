@@ -184,6 +184,7 @@ async function logUser() {
     body: new FormData(form)
   })
   let loggedUserValidation = await connection.json()
+  console.log(loggedUserValidation)
   document.querySelector("#server-error-msg").innerHTML = loggedUserValidation["msg"]
   document.querySelector("#server-error-msg").style.color = "red"
   console.log(connection)
@@ -196,7 +197,9 @@ async function logUser() {
   } else {
     //check is all validations are successfull, hide login popup, and show logout btn
     if (loggedUserValidation.success) {
-      console.log("success")
+      console.log(loggedUserValidation.user)
+      //TODO:make this also visible on refresh
+      document.querySelector("#logged-user span").textContent = `@${loggedUserValidation.user}`
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
       document.querySelector("#tweet-btn").disabled = false;
@@ -209,11 +212,10 @@ async function logUser() {
   }
 }
 
+//remove white spaces from edit tweet input
 function removeWhiteSpaces(string) {
-  console.log("hi")
-  //return string.split(' ').join('');
   //let newString = string.replace(/\s+/g, ' ')
-  //only spaces not tabs, newlines, etc
+  //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   return newString
  }

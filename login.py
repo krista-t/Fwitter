@@ -10,6 +10,7 @@ def user_exists(user, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "User does not exist!",
+        "user": ""
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
@@ -28,6 +29,7 @@ def user_exists(user, database = "database.sqlite"):
         if query_results[1] == user["user_password"]:
             status["success"] = True
             status["msg"] = "User validated!"
+            status["user"] = user["user_name"]
             return status
         else:
             status["msg"] = "Check your password!"
@@ -63,9 +65,7 @@ def create_session(user):
     finally:
         db.close()
         print("SH"*10, user["user_name"])
-        return user
-
-
+        return sessions
 ##############################
 @post("/login")
 def _():
@@ -87,3 +87,5 @@ def _():
     finally:
         db.close()
         return status
+
+
