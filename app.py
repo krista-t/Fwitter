@@ -50,8 +50,8 @@ def _():
         print(ex)
     finally:
         db.close()
+    #check if user is logged in
         if user_token:
-    #on page load check if user logged in
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
             logged_user = decoded_token["name"]
             print("TOKEN"*3, f"User {logged_user} is logged in")
