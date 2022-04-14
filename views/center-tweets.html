@@ -21,8 +21,7 @@
       <!-- file input hidden, i tag in label -->
       <label>
         <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-        <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"
-           ></i>
+        <i class="fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700"></i>
       </label>
 
       <!-- calling submit function here -->
@@ -37,35 +36,35 @@
   </div>
   <section id="fweets" class="mt-4">
     %for tweet in tweets:
-    <section id ="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
-    <div class="flex">
-      <!-- <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo"> -->
+    <section id="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
+      <div class="flex">
+        <!-- <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo"> -->
 
-      <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
+        <img class="flex-none w-12 h-12 rounded-full"
+          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
 
-      <div class="w-full pl-4">
-        <p id = "screen-name" class="font-bold">
-          @ {{tweet["user_name"]}}
-        </p>
-        <p id = "full-name" class="font-thin">
-          {{tweet["user_full_name"]}}
-        </p>
-        <div id = "tweet-text" class="pt-2">
-          {{tweet["tweet_text"]}}
-         </div>
-         %if tweet['tweet_image'] !="":
-          <img id = "tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
-        % end
-        <div class="flex gap-12 w-full mt-4 text-lg">
-          <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)"
-          class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-        <i onclick = "showTweetToEdit(`{{tweet['tweet_id']}}`)" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
-        <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
+        <div class="w-full pl-4">
+          <p id="screen-name" class="font-bold">
+            @ {{tweet["user_name"]}}
+          </p>
+          <p id="full-name" class="font-thin">
+            {{tweet["user_full_name"]}}
+          </p>
+          <div id="tweet-text" class="pt-2">
+            {{tweet["tweet_text"]}}
+          </div>
+          %if tweet['tweet_image'] !="":
+          <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
+          % end
+          <div class="flex gap-12 w-full mt-4 text-lg">
+            <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
+            <i onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+            <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  % end
+    </section>
+    % end
 
   </section>
 </div>
