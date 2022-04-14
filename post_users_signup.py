@@ -1,4 +1,4 @@
-from bottle import post, request, redirect
+from bottle import post, request
 import sqlite3
 import uuid
 import re
@@ -6,15 +6,18 @@ import globals
 
 
 def validate_user(user, database = "database.sqlite"):
+    #TODO: put code statuses here?
     status = {
         "success": False,
         "msg": "User not validated!",
+        "code": "staus code"
     }
 
     db = sqlite3.connect(database)
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
+        status["code"] = globals._send(400, "unknown error")
         return status
     if len(user["user_name"]) > 20:
         print(globals.ERROR["error_name_max"])
