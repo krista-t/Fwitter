@@ -64,9 +64,9 @@ def create_session(user):
         print(ex)
     finally:
         db.close()
-        print("SH"*10, user["user_name"])
         return sessions
 ##############################
+
 @post("/login")
 def _():
     user = {
