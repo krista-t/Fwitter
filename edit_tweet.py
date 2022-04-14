@@ -32,6 +32,8 @@ def validate_img(image):
 ##############################
 @put("/edit_tweet/<tweet_id>")
 def _(tweet_id):
+   #validate that the tweet_id is a valid UUID4
+   if globals._is_uuid4(tweet_id):
     #TODO: get values from the form, id is passed
     image = request.files.get("image")
     tweet = {

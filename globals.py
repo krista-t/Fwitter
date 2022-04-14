@@ -1,8 +1,7 @@
 from bottle import response
+import re
 import sqlite3
 
-
-TWEETS = []
 TRENDS = [
   {"category": "Music", "title": "We Won", "tweets_counter": "135K"},
   {"category": "Pop", "title": "Blue Ivy", "tweets_counter": "40k"},
@@ -13,9 +12,13 @@ TRENDS = [
 
 REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
 
-COOKIE_SECRET = "SA6a$mLMH76%"
 ##############################
-
+def _is_uuid4(text=None):
+  if not text: return None
+  regex_uuid4 = "^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+  if not re.match(regex_uuid4, text) : return None
+  print(f"{text} valid uuid")
+  return text
 
 ##############################
 # create json in sqliteDB
@@ -70,7 +73,5 @@ DELETE FROM tweets WHERE tweet_id= ?"""
 GET_TWEET_WITH_ID_QUERY = """
 SELECT * FROM tweets WHERE tweets.tweet_id = ?
 """
-
-
 
 ##############################
