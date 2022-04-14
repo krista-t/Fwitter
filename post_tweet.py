@@ -66,6 +66,7 @@ def _():
     #get info of user whois logged in
     image = request.files.get("image")
 
+
     try:
         db = globals._db_connect("database.sqlite")
         logged_user = db.execute( """SELECT *
@@ -75,17 +76,18 @@ def _():
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]
         print("U"*10, logged_user)
-    except Exception as ex:
-        print(ex)
-    finally:
-        db.close()
         tweet = {
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
         "user_id": user_id
         }
+    except Exception as ex:
+        print(ex)
+    finally:
+        db.close()
         tweet = create_tweet(tweet)
+
         all_tweets = {
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),

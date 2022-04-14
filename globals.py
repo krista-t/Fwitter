@@ -2,7 +2,7 @@ from bottle import response
 import sqlite3
 
 
-
+TWEETS = []
 TRENDS = [
   {"category": "Music", "title": "We Won", "tweets_counter": "135K"},
   {"category": "Pop", "title": "Blue Ivy", "tweets_counter": "40k"},

@@ -38,7 +38,10 @@ def _():
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:
-        tweets = db.execute("SELECT * FROM tweets").fetchall()
+         tweets = db.execute("""SELECT * FROM tweets
+                               JOIN users WHERE users.user_id
+                                LIKE tweets.user_id
+                                """).fetchall()
     except Exception as ex:
         print(ex)
     finally:
@@ -51,6 +54,8 @@ def _():
         else:
             print("NOT TOKEN"*3, "Not logged in")
     return dict(tweets=tweets)
+
+#################
 
 #################
 @get("/signup")
