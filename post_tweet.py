@@ -75,7 +75,7 @@ def _():
         user_id = logged_user["user_id"]
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]
-        print("U"*10, logged_user)
+        print("U"*10, logged_user["user_name"])
         tweet = {
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),

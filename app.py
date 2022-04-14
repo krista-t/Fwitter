@@ -35,6 +35,10 @@ def _(image):
 @get("/")
 @view("index")
 def _():
+    status = {
+        "loggedin": False,
+        "user": ""
+    }
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:
@@ -53,7 +57,8 @@ def _():
             print("TOKEN"*3, f"User {logged_user} is logged in")
         else:
             print("NOT TOKEN"*3, "Not logged in")
-    return dict(tweets=tweets)
+            logged_user="guest"
+        return dict(tweets=tweets, logged_user=logged_user)
 
 #################
 
