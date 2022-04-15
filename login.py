@@ -62,6 +62,8 @@ def create_session(user):
         response.set_cookie("token",token)
     except Exception as ex:
         print(ex)
+        return globals._send(500, "server_error")
+
     finally:
         db.close()
         return sessions

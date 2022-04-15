@@ -7,8 +7,6 @@ import globals
 def _(tweet_id):
     #validate that the tweet_id is a valid UUID4
    if globals._is_uuid4(tweet_id):
-    #tweet_id = "1620fb63-e466-4816-89e8-98ee5fd451fa"
-    #1620fb63-e466-4816-89e8-98ee5fd451fa
     db = sqlite3.connect("database.sqlite")
     try:
         deleted = db.execute(globals.DELETE_TWEET_QUERY, (tweet_id,)).fetchone()

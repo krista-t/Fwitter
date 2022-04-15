@@ -1,4 +1,4 @@
-from bottle import get, redirect, request, response, static_file, view,run
+from bottle import get, redirect, request, response,static_file, view,run
 import json
 import sqlite3
 import jwt
@@ -35,10 +35,10 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    status = {
-        "loggedin": False,
-        "user": ""
-    }
+    # status = {
+    #     "loggedin": False,
+    #     "user": ""
+    # }
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:

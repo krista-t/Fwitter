@@ -10,7 +10,7 @@ def validate_user(user, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "User not validated!",
-        "code": "staus code"
+        "code": "status code"
     }
 
     db = sqlite3.connect(database)

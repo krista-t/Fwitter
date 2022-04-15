@@ -2,22 +2,28 @@ let stateObj = {
   landingPage: "/"
 
 }
-//make sure if cookie is present, UI displays correctly
+//make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 function checkCookieExists() {
+
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
+    document.querySelector(".tweet-form input").disabled =false;
+
    //use history api for spa
   //history.replaceState(stateObj, "/", "tweets", )
   }else{
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
     "PLEASE LOGIN TO TWEET"
+    document.querySelector(".tweet-form input").style.color = "purple"
+    document.querySelector(".tweet-form input").disabled =true;
+     document.querySelectorAll("#icons button").forEach((icon)=>
+     {icon.disabled = true})
+
   }
 }
-
-
 
 
 if (document.cookie) {
@@ -49,8 +55,8 @@ async function tweet() {
           <section id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
             <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
-            <div class="w-full pl-4">
-              <p class="font-bold">
+            <div id="@{{tweet['user_name']}}"  class="w-full pl-4">
+            <p class="screen-name font-bold">
                @${tweet.user_name}
               </p>
               <p class="font-thin">
@@ -60,11 +66,15 @@ async function tweet() {
              ${tweet.tweet_text}
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
-              <section class = "flex gap-12 w-full mt-4 text-lg">
-              <i onclick="deleteTweet('${tweet_id}')" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-              <i onclick = "showTweetToEdit('${tweet_id}')" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
-              <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
-             </section>`
+              <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
+              <button onclick="deleteTweet('${tweet_id}')"><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
+
+              <button onclick="showTweetToEdit('${tweet_id}')">
+                <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              </button>
+
+            <button><i class="fa-solid fa-heart cursor-pointer  ml-auto"></i></button>
+            </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
     document.querySelector("#tweet-img").src = ""
@@ -175,10 +185,9 @@ function showLogInForm() {
   //console.log(stateObj)
 }
 
-//fetch loggedin
+//loggedin
 async function logUser() {
   const form = event.target.form
-  console.log(form.value)
   const connection = await fetch("/login", {
     method: "POST",
     body: new FormData(form)
@@ -196,21 +205,32 @@ async function logUser() {
     window.location = "/signup"
   } else {
     //check is all validations are successfull, hide login popup, and show logout btn
-    if (loggedUserValidation.success) {
-      console.log(loggedUserValidation.user)
-      //TODO:make this also visible on refresh
-      document.querySelector("#logged-user span").textContent = `@${loggedUserValidation.user}`
+    // if (loggedUserValidation.success) {
+      const loggedUser = `@${loggedUserValidation.user}`
+
+      let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
+      //enable only this buttons
+      TODO:
+       loggedUserTweets.forEach((tweet)=>{
+         let tweetBtns = tweet.querySelectorAll("#icons button")
+tweetBtns.forEach(btn =>
+  btn.disabled = false
+  )
+       })
+
+      document.querySelector("#logged-user span").textContent = loggedUser
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
       document.querySelector("#tweet-btn").disabled = false;
       document.querySelector(".tweet-form input").value= null
+      document.querySelector(".tweet-form input").disabled =false;
 
 
       history.pushState(stateObj, "/", "/")
 
     }
   }
-}
+//}
 
 //remove white spaces from edit tweet input
 function removeWhiteSpaces(string) {

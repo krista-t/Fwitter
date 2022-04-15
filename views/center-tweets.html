@@ -43,9 +43,9 @@
         <img class="flex-none w-12 h-12 rounded-full"
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
 
-        <div class="w-full pl-4">
-          <p id="screen-name" class="font-bold">
-            @ {{tweet["user_name"]}}
+        <div id="@{{tweet['user_name']}}" class="w-full pl-4">
+          <p class="screen-name font-bold">
+            @{{tweet["user_name"]}}
           </p>
           <p id="full-name" class="font-thin">
             {{tweet["user_full_name"]}}
@@ -56,10 +56,15 @@
           %if tweet['tweet_image'] !="":
           <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
           % end
-          <div class="flex gap-12 w-full mt-4 text-lg">
-            <i onclick="deleteTweet(`{{tweet['tweet_id']}}`)" class="fa-solid fa-trash mr-auto cursor-pointer"></i>
-            <i onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)" class="fa-solid fa-pen mr-auto cursor-pointer"></i>
-            <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i>
+          <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
+            <button onclick="deleteTweet(`{{tweet['tweet_id']}}`)" disabled><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
+
+            <button onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)" disabled>
+              <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+            </button>
+            <!-- TODO: like event and trigger -->
+          <button><i class="fa-solid fa-heart cursor-pointer  ml-auto"></i></button>
+
           </div>
         </div>
       </div>

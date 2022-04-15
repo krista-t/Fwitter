@@ -49,6 +49,12 @@ ERROR = {
 }
 
 ##############################
+def _send(status = 400, error_message = "unknown error"):
+  response.status = status
+  print(status)
+  return {status:error_message}
+
+##############################
 ##DB QUERIES##
 #singup queries
 USER_NAME_QUERY = """
