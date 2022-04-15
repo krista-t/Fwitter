@@ -5,11 +5,25 @@ let stateObj = {
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 function checkCookieExists() {
+  document.querySelectorAll("#icons button").forEach((icon)=>
+  {icon.disabled = true})
 
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".tweet-form input").disabled =false;
+    //TODO: if user logged on allow interaction
+    const loggedUser = document.querySelector("#logged-user span").textContent
+    let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
+
+    //enable only this buttons
+     loggedUserTweets.forEach((tweet)=>{
+      console.log(tweet)
+       let tweetBtns = tweet.querySelectorAll("#icons button")
+tweetBtns.forEach(btn =>
+btn.disabled = false
+)
+     })
 
    //use history api for spa
   //history.replaceState(stateObj, "/", "tweets", )
@@ -25,11 +39,10 @@ function checkCookieExists() {
   }
 }
 
-
-if (document.cookie) {
-  console.log("true, cookie here, refreshed",)
-  document.querySelector("#login-btn").classList.add("hidden")
-}
+// if (document.cookie) {
+//   console.log("true, cookie here, refreshed",)
+//   document.querySelector("#login-btn").classList.add("hidden")
+// }
 function closeTweetModal(){
   document.querySelector("#edit-tweet").classList.add("hidden")
   // document.querySelector("#tweet-edit-form").innerHTML = ""
@@ -204,10 +217,8 @@ async function logUser() {
   if (loggedUserValidation.msg === "User does not exist!") {
     window.location = "/signup"
   } else {
-    //check is all validations are successfull, hide login popup, and show logout btn
-    // if (loggedUserValidation.success) {
+    //if validations successfull display UI accordingly
       const loggedUser = `@${loggedUserValidation.user}`
-
       let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
       //enable only this buttons
       TODO:
@@ -230,7 +241,7 @@ tweetBtns.forEach(btn =>
 
     }
   }
-//}
+
 
 //remove white spaces from edit tweet input
 function removeWhiteSpaces(string) {

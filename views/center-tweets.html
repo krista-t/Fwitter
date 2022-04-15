@@ -57,9 +57,9 @@
           <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
           % end
           <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
-            <button onclick="deleteTweet(`{{tweet['tweet_id']}}`)" disabled><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
+            <button onclick="deleteTweet(`{{tweet['tweet_id']}}`)" ><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
 
-            <button onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)" disabled>
+            <button onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)" >
               <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
             </button>
             <!-- TODO: like event and trigger -->
