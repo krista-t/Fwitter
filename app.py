@@ -3,6 +3,7 @@ import json
 import sqlite3
 import jwt
 import globals
+import random
 
 ##############################
 import post_users_signup
@@ -42,12 +43,16 @@ def _():
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:
-         tweets = db.execute("""SELECT * FROM tweets
+        tweets = db.execute("""SELECT * FROM tweets
                                JOIN users WHERE users.user_id
                                 LIKE tweets.user_id
                                 ORDER by tweet_created_at
                                 DESC
                                 """).fetchall()
+
+        #make dict for suggested user panel
+        suggested_user = random.sample(tweets,k=5)
+        print("SUGG"*10, suggested_user)
     except Exception as ex:
         print(ex)
     finally:
@@ -60,7 +65,7 @@ def _():
         else:
             print("NOT TOKEN"*3, "Not logged in")
             logged_user="guest"
-        return dict(tweets=tweets, logged_user=logged_user)
+        return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, suggested_user=suggested_user)
 
 #################
 

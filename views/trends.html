@@ -1,42 +1,14 @@
 <div class="h-1/2 flex-grow bg-gray-300 rounded overflow-hidden">
+  %for trend in trends:
     <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
       <div>
-        <p class="font-thin">Music</p>
-        <p class="font-bold">We Won</p>
-        <p class="font-thin">135K tweets</p>
+        <p class="font-thin">{{trend["category"]}}</p>
+        <p class="font-bold">{{trend["title"]}}</p>
+        <p class="font-thin">{{trend["tweets_counter"]}}tweets</p>
       </div>
       <div>...</div>
     </div>
-    <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
-      <div>
-        <p class="font-thin">Pop</p>
-        <p class="font-bold">Blue Ivy</p>
-        <p class="font-thin">40k tweets</p>
-      </div>
-      <div>...</div>
-    </div>
-    <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
-      <div>
-        <p class="font-thin">Trending in US</p>
-        <p class="font-bold">Denim Day</p>
-        <p class="font-thin">40k tweets</p>
-      </div>
-      <div>...</div>
-    </div>
-    <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
-      <div>
-        <p class="font-thin">Ukraine</p>
-        <p class="font-bold">Ukraine</p>
-        <p class="font-thin">20k tweets</p>
-      </div>
-      <div>...</div>
-    </div>
-    <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
-      <div>
-        <p class="font-thin">Russia</p>
-        <p class="font-bold">Russia</p>
-        <p class="font-thin">10k tweets</p>
-      </div>
-      <div>...</div>
-    </div>
-  </div>
+  %end
+</div>
+
+

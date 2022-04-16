@@ -3,11 +3,12 @@ import re
 import sqlite3
 
 TRENDS = [
-  {"category": "Music", "title": "We Won", "tweets_counter": "135K"},
-  {"category": "Pop", "title": "Blue Ivy", "tweets_counter": "40k"},
-  {"category": "Trending in US", "title": "Denim Day", "tweets_counter": "40k"},
-  {"category": "Ukraine", "title": "Ukraine", "tweets_counter": "20k"},
-  {"category": "Russia", "title": "Russia", "tweets_counter": "10k"},
+  {"category": "Technology", "title": "github", "tweets_counter": "53K"},
+  {"category": "Arts&culture", "title": "#photography", "tweets_counter": "40k"},
+  {"category": "Politics . Trending", "title": "Ukraine", "tweets_counter": "101M"},
+  {"category": "Trends", "title": "#caturday", "tweets_counter": "19k"},
+  {"category": "Trending in US", "title": "Russia", "tweets_counter": "45k"},
+  {"category": "Music", "title": "Spotify", "tweets_counter": "45k"},
 ]
 
 REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
