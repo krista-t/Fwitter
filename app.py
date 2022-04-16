@@ -36,10 +36,6 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-    # status = {
-    #     "loggedin": False,
-    #     "user": ""
-    # }
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
     try:
@@ -81,23 +77,7 @@ def _():
 def _():
     return
 
-#################
-# @get("/tweet")
-# @view("center")
-# def _():
-#     return
-    # try:
-    #     db = globals._db_connect("database.sqlite")
-    #     tweets = db.execute("SELECT * FROM tweets").fetchall()
-    #     tweet = (json.dumps(tweets))
-    #     #print("TWEETS"*10, tweet)
-    # except Exception as ex:
-    #     print(ex)
-    # finally:
-    #     db.close()
-    # return tweet
-
-##############################
+##################
 @get("/logout")
 def _():
     db = sqlite3.connect("database.sqlite")
@@ -116,8 +96,6 @@ def _():
     finally:
         db.close()
         return redirect("/")
-
-
 
 ##############################
 try:

@@ -4,37 +4,50 @@ let stateObj = {
 }
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
+
 function checkCookieExists() {
-  document.querySelectorAll("#icons button").forEach((icon)=>
-  {icon.disabled = true})
+  document.querySelectorAll("#icons button").forEach((icon) => {
+    icon.disabled = true
+  })
+
 
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
-    document.querySelector(".tweet-form input").disabled =false;
+    document.querySelector(".tweet-form input").disabled = false;
     //TODO: if user logged on allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
-
     //enable only this buttons
-     loggedUserTweets.forEach((tweet)=>{
-      console.log(tweet)
-       let tweetBtns = tweet.querySelectorAll("#icons button")
-tweetBtns.forEach(btn =>
-btn.disabled = false
-)
-     })
+    loggedUserTweets.forEach((tweet) => {
+        let tweetBtns = tweet.querySelectorAll("#icons button")
+        tweetBtns.forEach(btn =>
+          btn.disabled = false
+        )
+    })
 
-   //use history api for spa
-  //history.replaceState(stateObj, "/", "tweets", )
-  }else{
+    const user = document.querySelector("#logged-user span").textContent
+    console.log(user)
+    if(user == "@admin"){
+      console.log("i am admin")
+        let deleteBtns = document.querySelectorAll("#delete")
+      deleteBtns.forEach(btn =>
+        btn.disabled = false
+
+      )
+      }
+
+    //use history api for spa
+    //history.replaceState(stateObj, "/", "tweets", )
+  } else {
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
-    "PLEASE LOGIN TO TWEET"
+      "PLEASE LOGIN TO TWEET"
     document.querySelector(".tweet-form input").style.color = "purple"
-    document.querySelector(".tweet-form input").disabled =true;
-     document.querySelectorAll("#icons button").forEach((icon)=>
-     {icon.disabled = true})
+    document.querySelector(".tweet-form input").disabled = true;
+    document.querySelectorAll("#icons button").forEach((icon) => {
+      icon.disabled = true
+    })
 
   }
 }
@@ -43,7 +56,7 @@ btn.disabled = false
 //   console.log("true, cookie here, refreshed",)
 //   document.querySelector("#login-btn").classList.add("hidden")
 // }
-function closeTweetModal(){
+function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
   // document.querySelector("#tweet-edit-form").innerHTML = ""
   document.querySelector("#edit-tweet input").value = ""
@@ -83,7 +96,7 @@ async function tweet() {
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
-              <button onclick="deleteTweet('${tweet_id}')"><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
+              <button id = "delete"  onclick="deleteTweet('${tweet_id}')"><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
 
               <button onclick="showTweetToEdit('${tweet_id}')">
                 <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
@@ -99,75 +112,74 @@ async function tweet() {
 }
 
 //delete tweet
-async function deleteTweet(tweet_id){
+async function deleteTweet(tweet_id) {
   console.log(tweet_id)
   //Connect to the api and delete it from the db
- const connection = await fetch(`/delete_tweet/${tweet_id}`, {
-   method: "DELETE"
- })
- console.log(document.querySelector(`section[id='${tweet_id}']`))
- document.querySelector(`[id='${tweet_id}']`).remove()
+  const connection = await fetch(`/delete_tweet/${tweet_id}`, {
+    method: "DELETE"
+  })
+  console.log(document.querySelector(`section[id='${tweet_id}']`))
+  document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
 //show tweet to update//
-function showTweetToEdit(tweet_id){
-console.log("clicked")
-document.querySelector("#edit-tweet").classList.remove("hidden")
-let tweet = document.querySelector(`section[id='${tweet_id}']`)
+function showTweetToEdit(tweet_id) {
+  console.log("clicked")
+  document.querySelector("#edit-tweet").classList.remove("hidden")
+  let tweet = document.querySelector(`section[id='${tweet_id}']`)
 
-let tweet_text = tweet.querySelector("#tweet-text").textContent
+  let tweet_text = tweet.querySelector("#tweet-text").textContent
 
-document.querySelector("#edit-tweet input").value = tweet_text
-console.log(document.querySelector("#edit-tweet input").value)
-let img = tweet.querySelector("#tweet-img")
-let edit_img=  document.querySelector("#edit-image")
-console.log(edit_img)
-edit_img.style.display = "none"
+  document.querySelector("#edit-tweet input").value = tweet_text
+  console.log(document.querySelector("#edit-tweet input").value)
+  let img = tweet.querySelector("#tweet-img")
+  let edit_img = document.querySelector("#edit-image")
+  console.log(edit_img)
+  edit_img.style.display = "none"
 
- if(img !== null) {
-  edit_img.src = img.src
-   edit_img.style.display = "block"
- }
+  if (img !== null) {
+    edit_img.src = img.src
+    edit_img.style.display = "block"
+  }
 
-document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
+  document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 
 
 //update tweet
-async function editTweet(tweet_id){
+async function editTweet(tweet_id) {
   const form = event.target.form
   document.querySelector("#edit-tweet").classList.add("hidden")
   //Connect to the api and delete it from the db
- const connection = await fetch(`/edit_tweet/${tweet_id}`, {
-   method: "PUT",
-   body: new FormData(form)
- })
-   //console.log(connection)
-   if (!connection.ok) {
+  const connection = await fetch(`/edit_tweet/${tweet_id}`, {
+    method: "PUT",
+    body: new FormData(form)
+  })
+  //console.log(connection)
+  if (!connection.ok) {
     alert("Could not tweet")
     return
   }
- //Success
- let editedTweet = await connection.json()
- console.log(editedTweet)
-let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
-console.log(tweetSection)
-//if text is not changed leave it as is
-if(tweetSection.querySelector("#tweet-text").textContent != null){
-  tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
-}
-else{
-  tweetSection.querySelector("#tweet-text").textContent= tweetSection.querySelector("#tweet-text").textContent
-}
+  //Success
+  let editedTweet = await connection.json()
+  console.log(editedTweet)
+  let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+  console.log(tweetSection)
+  //if text is not changed leave it as is
+  if (tweetSection.querySelector("#tweet-text").textContent != null) {
+    tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
+  } else {
+    tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
+  }
 
-// // console.log(edited.src== null)
-//if image is not changed leave it as is
-//  if (tweetSection.querySelector("#tweet-img") != null){
-// console.log("image here")
-// }else{
+  // // console.log(edited.src== null)
+  //if image is not changed leave it as is
+  //  if (tweetSection.querySelector("#tweet-img") != null){
+  // console.log("image here")
+  // }else{
 
-//    console.log("no image")
-//  }
+  //    console.log("no image")
+  //  }
 }
 
 //////////
@@ -221,29 +233,36 @@ async function logUser() {
     window.location = "/signup"
   } else {
     //if validations successfull display UI accordingly
-      const loggedUser = `@${loggedUserValidation.user}`
-      let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
-      //enable only this buttons
-      TODO:
-       loggedUserTweets.forEach((tweet)=>{
-         let tweetBtns = tweet.querySelectorAll("#icons button")
-tweetBtns.forEach(btn =>
-  btn.disabled = false
+    const loggedUser = `@${loggedUserValidation.user}`
+    let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
+    //enable only this buttons
+    TODO:
+      loggedUserTweets.forEach((tweet) => {
+        let tweetBtns = tweet.querySelectorAll("#icons button")
+        tweetBtns.forEach(btn =>
+          btn.disabled = false
+        )
+      })
+
+
+ if (loggedUserValidation.user == "admin"){
+  let tweetBtns = document.querySelectorAll("#delete")
+  tweetBtns.forEach(btn =>
+    btn.disabled = false
   )
-       })
+ }
+    document.querySelector("#logged-user span").textContent = loggedUser
+    document.querySelector("#login").classList.add("hidden")
+    document.querySelector("#login-btn").classList.add("hidden")
+    document.querySelector("#tweet-btn").disabled = false;
+    document.querySelector(".tweet-form input").value = null
+    document.querySelector(".tweet-form input").disabled = false;
 
-      document.querySelector("#logged-user span").textContent = loggedUser
-      document.querySelector("#login").classList.add("hidden")
-      document.querySelector("#login-btn").classList.add("hidden")
-      document.querySelector("#tweet-btn").disabled = false;
-      document.querySelector(".tweet-form input").value= null
-      document.querySelector(".tweet-form input").disabled =false;
 
+    history.pushState(stateObj, "/", "/")
 
-      history.pushState(stateObj, "/", "/")
-
-    }
   }
+}
 
 
 //remove white spaces from edit tweet input
@@ -252,4 +271,4 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   return newString
- }
+}
