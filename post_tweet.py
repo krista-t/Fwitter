@@ -85,7 +85,7 @@ def _():
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
         "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
-        "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S"),
+        "tweet_updated_at": "",
         "user_id": user_id
         }
     except Exception as ex:
@@ -101,7 +101,7 @@ def _():
         "user_name": user_name,
         "user_full_name": user_full_name,
         "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
-        "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S")
+        "tweet_updated_at": ""
     }
 
 
