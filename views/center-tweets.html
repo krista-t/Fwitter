@@ -44,12 +44,17 @@
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
 
         <div id="@{{tweet['user_name']}}" class="w-full pl-4">
-          <p class="screen-name font-bold">
-            @{{tweet["user_name"]}}
-          </p>
-          <p id="full-name" class="font-thin">
-            {{tweet["user_full_name"]}}
-          </p>
+          <div class = flex>
+            <p class="screen-name font-bold">
+              @{{tweet["user_name"]}}
+            </p>
+            <p class = "ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
+          </div>
+            <p id="full-name" class="font-thin">
+              {{tweet["user_full_name"]}}
+            </p>
+
+
           <div id="tweet-text" class="pt-2">
             {{tweet["tweet_text"]}}
           </div>

@@ -3,6 +3,8 @@ import uuid
 import globals
 import imghdr
 import os
+from datetime import datetime
+
 
 ##############################
 def create_tweet(tweet, database = "database.sqlite"):
@@ -18,6 +20,8 @@ def create_tweet(tweet, database = "database.sqlite"):
                 VALUES(:tweet_id,
                 :tweet_text,
                 :src,
+                :tweet_created_at,
+                :tweet_updated_at,
                 :user_id)
                 """,
             tweet,
@@ -65,7 +69,7 @@ def validate_img(image):
 def _():
     #get info of user whois logged in
     image = request.files.get("image")
-
+    now = datetime.now()
 
     try:
         db = globals._db_connect("database.sqlite")
@@ -80,6 +84,8 @@ def _():
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
+        "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
+        "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S"),
         "user_id": user_id
         }
     except Exception as ex:
@@ -94,7 +100,10 @@ def _():
         "src": validate_img(image),
         "user_name": user_name,
         "user_full_name": user_full_name,
+        "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
+        "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S")
     }
+
 
     return all_tweets
 

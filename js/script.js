@@ -69,9 +69,12 @@ async function tweet() {
           <div class="flex">
             <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
             <div id="@{{tweet['user_name']}}"  class="w-full pl-4">
+            <div class = "flex">
             <p class="screen-name font-bold">
-               @${tweet.user_name}
-              </p>
+            @${tweet.user_name}
+            </p>
+            <p class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
+          </div>
               <p class="font-thin">
                ${tweet.user_full_name}
               </p>

@@ -45,6 +45,8 @@ def _():
          tweets = db.execute("""SELECT * FROM tweets
                                JOIN users WHERE users.user_id
                                 LIKE tweets.user_id
+                                ORDER by tweet_created_at
+                                DESC
                                 """).fetchall()
     except Exception as ex:
         print(ex)
