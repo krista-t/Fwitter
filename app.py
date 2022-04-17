@@ -25,6 +25,7 @@ def _():
 ##############################
 @get("/JS/validator.js")
 def _():
+
     return static_file("js/validator.js", root=".")
 
 ##############################

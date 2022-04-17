@@ -10,12 +10,11 @@ function checkCookieExists() {
     icon.disabled = true
   })
 
-
   if (document.cookie) {
     console.log("true, cookie here")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".tweet-form input").disabled = false;
-    //TODO: if user logged on allow interaction
+    //if user logged on allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
     //enable only this buttons
@@ -26,6 +25,8 @@ function checkCookieExists() {
         )
     })
 
+
+
     const user = document.querySelector("#logged-user span").textContent
     console.log(user)
     if(user == "@admin"){
@@ -33,8 +34,13 @@ function checkCookieExists() {
         let deleteBtns = document.querySelectorAll("#delete")
       deleteBtns.forEach(btn =>
         btn.disabled = false
-
       )
+  //admin cannot post tweets
+  document.querySelector("#tweet-form").classList.add("hidden")
+  document.querySelector("#suggested").classList.add("hidden")
+  document.querySelector("#trends").classList.add("hidden")
+  document.querySelector("#admin").classList.remove("hidden")
+
       }
 
     //use history api for spa
@@ -43,7 +49,6 @@ function checkCookieExists() {
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
       "PLEASE LOGIN TO TWEET"
-    document.querySelector(".tweet-form input").style.color = "purple"
     document.querySelector(".tweet-form input").disabled = true;
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
@@ -52,15 +57,11 @@ function checkCookieExists() {
   }
 }
 
-// if (document.cookie) {
-//   console.log("true, cookie here, refreshed",)
-//   document.querySelector("#login-btn").classList.add("hidden")
+// function closeTweetModal() {
+//   document.querySelector("#edit-tweet").classList.add("hidden")
+//   // document.querySelector("#tweet-edit-form").innerHTML = ""
+//   document.querySelector("#edit-tweet input").value = ""
 // }
-function closeTweetModal() {
-  document.querySelector("#edit-tweet").classList.add("hidden")
-  // document.querySelector("#tweet-edit-form").innerHTML = ""
-  document.querySelector("#edit-tweet input").value = ""
-}
 //fetch tweets
 async function tweet() {
   const form = event.target.form
@@ -250,6 +251,11 @@ async function logUser() {
   tweetBtns.forEach(btn =>
     btn.disabled = false
   )
+  //admin cannot post tweets
+  document.querySelector("#tweet-form").classList.add("hidden")
+  document.querySelector("#suggested").classList.add("hidden")
+  document.querySelector("#trends").classList.add("hidden")
+  document.querySelector("#admin").classList.remove("hidden")
  }
     document.querySelector("#logged-user span").textContent = loggedUser
     document.querySelector("#login").classList.add("hidden")
