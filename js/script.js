@@ -12,8 +12,12 @@ function checkCookieExists() {
 
   if (document.cookie) {
     console.log("true, cookie here")
+    const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
-    document.querySelector(".tweet-form input").disabled = false;
+    if(tweetForm){
+      document.querySelector(".tweet-form input").disabled = false;
+    }
+
     //if user logged on allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
