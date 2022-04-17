@@ -1,10 +1,10 @@
-<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 z-10 hidden">
+<section id="edit-tweet" class="fixed w-full h-screen  bg-gray-300 z-10 hidden">
 <div class="flex p-4" onclick = "closeTweetModal()">
   <p class = "ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
 </div>
  <div class="flex justify-center mt-8">
  <!-- submit tweet -->
- <form id="tweet-edit-form" class="flex flex-col w-2/4 border-x rounded bg-white"onsubmit="return false"
+ <form id="tweet-edit-form" class="flex flex-col w-2/3 border-x rounded bg-white"onsubmit="return false"
  autocomplete="off">
  <!-- reference validation here for text input only -->
   <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text</label>
@@ -32,7 +32,7 @@
     <!-- calling function here -->
     <div id = "edit-tweet" class="ml-auto px-2 py-2">
       <button  onclick="editTweet(id)" type="submit"
-      class="px-8 py-2 bg-blue-400 text-white rounded-full">
+      class="px-8 py-2 text-gray-600 font-medium bg-gray-300 hover:bg-gray-400  rounded-full">
       Update
      </button>
     </div>

@@ -49,7 +49,6 @@ def _():
 
         #make dict for suggested user panel
         suggested_user = random.sample(tweets,k=5)
-        print("SUGG"*10, suggested_user)
     except Exception as ex:
         print(ex)
     finally:
@@ -63,8 +62,6 @@ def _():
             print("NOT TOKEN"*3, "Not logged in")
             logged_user="guest"
         return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, suggested_user=suggested_user)
-
-#################
 
 #################
 @get("/signup")
@@ -87,7 +84,7 @@ def _():
     #TODO: encript decoded token
         decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
         print("TOK"*10, decoded_token["name"])
-   #check if decoded_token["session_id"] is in sessions, and delete that row from sessions on logout
+   #check if token id in sessions, and delete that row from sessions on logout
         db.execute(globals.DELETE_SESS_ROW_QUERY, (decoded_token["session_id"],)).fetchone()
         db.commit()
         print("LOGGING OOOOOOUT", decoded_token["session_id"])
@@ -97,8 +94,21 @@ def _():
     finally:
         db.close()
         return redirect("/")
+##############################
+
+#TODO:ask about this
+@get("/<name_id>")
+@view("profile")
+def _(name_id):
+    print(name_id)
+    return
 
 ##############################
+
+
+
+
+
 try:
     import production
     application = default_app()  # don't import yet!

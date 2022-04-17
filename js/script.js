@@ -57,11 +57,11 @@ function checkCookieExists() {
   }
 }
 
-// function closeTweetModal() {
-//   document.querySelector("#edit-tweet").classList.add("hidden")
-//   // document.querySelector("#tweet-edit-form").innerHTML = ""
-//   document.querySelector("#edit-tweet input").value = ""
-// }
+function closeTweetModal() {
+  document.querySelector("#edit-tweet").classList.add("hidden")
+  // document.querySelector("#tweet-edit-form").innerHTML = ""
+  document.querySelector("#edit-tweet input").value = ""
+}
 //fetch tweets
 async function tweet() {
   const form = event.target.form
