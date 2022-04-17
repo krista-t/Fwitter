@@ -44,8 +44,9 @@
         <img class="flex-none w-12 h-12 rounded-full"
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
 
-        <div id="@{{tweet['user_name']}}" class="w-full pl-4">
-          <a href="/{{tweet['user_name']}}">
+          <!-- TODO: -->
+        <div id="@{{tweet['user_name']}}" class="w-full pl-4" onclick = "showProfile(`{{tweet['user_name']}}`)">
+
           <div class="flex cursor-pointer">
             <p class="screen-name font-bold">
               @{{tweet["user_name"]}}

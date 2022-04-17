@@ -97,11 +97,11 @@ def _():
 ##############################
 
 #TODO:ask about this
-@get("/<name_id>")
-@view("profile")
-def _(name_id):
-    print(name_id)
-    return
+# @get("/<name_id>")
+# @view("profile")
+# def _(name_id):
+#     print(name_id)
+#     return
 
 ##############################
 

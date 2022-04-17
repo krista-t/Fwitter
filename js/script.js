@@ -282,3 +282,10 @@ function removeWhiteSpaces(string) {
   let newString = string.replace(/  +/g, ' ')
   return newString
 }
+
+
+//showProfile
+
+function showProfile(profile){
+  console.log(profile)
+}
