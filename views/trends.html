@@ -1,5 +1,6 @@
 <div class="h-1/2 flex-grow bg-gray-300 rounded overflow-hidden">
-  %for trend in trends:
+  <div id="trends">
+    %for trend in trends:
     <div class="flex justify-between px-2 py-1 hover:bg-gray-400 cursor-pointer">
       <div>
         <p class="font-thin">{{trend["category"]}}</p>
@@ -8,7 +9,13 @@
       </div>
       <div>...</div>
     </div>
-  %end
+    %end
+  </div>
+  <div id="admin" class="mt-6 p-4 text-blue-500 text-xl hidden">
+    <i class="fas fa-tools text-3xl"></i>
+    <p>
+      Welcome Admin, <br>
+      you are allowed to delete any user's tweet.
+    </p>
+  </div>
 </div>
-
-
