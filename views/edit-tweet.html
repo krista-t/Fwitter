@@ -1,19 +1,18 @@
-<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 z-10">
-<div class="flex p-4" onclick = "closeTweetModal()">
-  <p class = "ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
-</div>
- <div class="flex justify-center mt-8">
- <!-- submit tweet -->
- <form id="tweet-edit-form" class="flex flex-col w-2/4 border-x rounded bg-white"onsubmit="return false"
- autocomplete="off">
- <!-- reference validation here for text input only -->
-  <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text</label>
-<input name="tweet_text" id="txt-tweet"
-        class="w-full h-12" type="text"
-       data-validate="str" data-max="100" onkeydown="this.value=removeWhiteSpaces(this.value)">
- <div  class ="w-full"><img id="edit-image" src="" alt=" " class="w-full object-cover h-80" >
- </div>
- <!-- <div class="flex gap-12 w-full mt-2">
+<section id="edit-tweet" class="fixed w-full h-screen  bg-gray-300 z-10 hidden">
+  <div class="flex p-4" onclick="closeTweetModal()">
+    <p class="ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
+  </div>
+  <div class="flex justify-center mt-8">
+    <!-- submit tweet -->
+    <form id="tweet-edit-form" class="flex flex-col w-2/3 border-x rounded bg-white" onsubmit="return false"
+      autocomplete="off">
+      <!-- reference validation here for text input only -->
+      <label for="txt-tweet" class="w-full font-thin text-sm text-gray-400 pt-2 pl-4">Start typing to edit text</label>
+      <input name="tweet_text" id="txt-tweet" class="w-full h-12" type="text" data-validate="str" data-max="100"
+        onkeydown="this.value=removeWhiteSpaces(this.value)">
+      <div class="w-full"><img id="edit-image" src="//:0" alt=" " class="w-full object-cover h-80">
+      </div>
+      <!-- <div class="flex gap-12 w-full mt-2">
    <div id="img-icons" class = "flex">
     <div class="flex flex-col ml-2">
       <input id="upload" class="text-sm hidden" type="file" name="image">
@@ -29,14 +28,13 @@
      </div>
    </div> -->
 
-    <!-- calling function here -->
-    <div id = "edit-tweet" class="ml-auto px-2 py-2">
-      <button  onclick="editTweet(id)" type="submit"
-      class="px-8 py-2 bg-blue-400 text-white rounded-full">
-      Update
-     </button>
-    </div>
-</form>
-</div>
+      <!-- calling function here -->
+      <div id="edit-tweet" class="ml-auto px-2 py-2">
+        <button onclick="editTweet(id)" type="submit"
+          class="px-8 py-2 text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
-

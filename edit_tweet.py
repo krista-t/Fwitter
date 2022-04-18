@@ -4,6 +4,7 @@ import globals
 import imghdr
 import os
 import uuid
+from datetime import datetime
 ##############################
 def validate_img(image):
      #validate img format
@@ -32,11 +33,15 @@ def validate_img(image):
 ##############################
 @put("/edit_tweet/<tweet_id>")
 def _(tweet_id):
+   #validate that the tweet_id is a valid UUID4
+   if globals._is_uuid4(tweet_id):
     #TODO: get values from the form, id is passed
     image = request.files.get("image")
+    now = datetime.now()
     tweet = {
     "tweet_id": tweet_id,
     "tweet_text": request.forms.get("tweet_text"),
+    "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S")
     #"src": validate_img(image),
     }
 
@@ -45,14 +50,16 @@ def _(tweet_id):
     try:
         db.execute("""
         UPDATE tweets
-        SET tweet_text = :tweet_text
+        SET tweet_text = :tweet_text,
+            tweet_updated_at = :tweet_updated_at
+
         WHERE
         tweet_id = :tweet_id
         """, tweet).fetchone()
         response.content_type = "application/json"
         db.commit()
     except Exception as ex:
-        print("30"* 10, ex)
+        print("EXC"* 10, ex)
     finally:
         db.close()
         print("30"* 10, tweet)
