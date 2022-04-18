@@ -1,2 +1,2 @@
 # Fwitter
-Twitter alike clone with Pyhon, Sqite, JS, and TailwindCSS
+Twitter alike clone with Pyhon, Sqlite, JS, and TailwindCSS

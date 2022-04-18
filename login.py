@@ -2,7 +2,6 @@ from bottle import post, request, response
 import sqlite3
 import globals
 import uuid
-import json
 import jwt
 
 #validate login and check if user exists, if not user is redirected to signup page
@@ -11,6 +10,7 @@ def user_exists(user, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "User does not exist!",
+        "user": ""
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
@@ -29,6 +29,7 @@ def user_exists(user, database = "database.sqlite"):
         if query_results[1] == user["user_password"]:
             status["success"] = True
             status["msg"] = "User validated!"
+            status["user"] = user["user_name"]
             return status
         else:
             status["msg"] = "Check your password!"
@@ -40,34 +41,34 @@ def user_exists(user, database = "database.sqlite"):
 ###########################
 #create session for logged in users
 def create_session(user):
-    sessions = {
+    db = globals._db_connect("database.sqlite")
+    try:
+        sessions = {
         "session_id":str(uuid.uuid4()),
         "user_name":user["user_name"],
         "user_password": user["user_password"]
     }
 
-    db = globals._db_connect("database.sqlite")
-    try:
-        session_id = str(uuid.uuid4())
         db.execute(
             """INSERT INTO sessions
                 VALUES(:session_id, :user_name,
                 :user_password)""",
                 sessions
-
         )
         db.commit()
         token = jwt.encode({
-            "name":user["user_name"], "session_id": sessions["session_id"]
+           "name":user["user_name"], "session_id": sessions["session_id"]
         }, "mysecret", algorithm="HS256")
         response.set_cookie("token",token)
     except Exception as ex:
         print(ex)
+        return globals._send(500, "server_error")
+
     finally:
         db.close()
-
-
+        return sessions
 ##############################
+
 @post("/login")
 def _():
     user = {
@@ -75,7 +76,7 @@ def _():
         "user_password": request.forms.get("user_password"),
     }
     status = user_exists(user)
-    db = sqlite3.connect("database.sqlite")
+    db = globals._db_connect("database.sqlite")
     try:
     #create sessions and set jwt token through function
         if status["success"] == True:
@@ -88,3 +89,5 @@ def _():
     finally:
         db.close()
         return status
+
+

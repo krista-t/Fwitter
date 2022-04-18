@@ -1,21 +1,25 @@
 from bottle import response
+import re
 import sqlite3
 
-
-
 TRENDS = [
-  {"category": "Music", "title": "We Won", "tweets_counter": "135K"},
-  {"category": "Pop", "title": "Blue Ivy", "tweets_counter": "40k"},
-  {"category": "Trending in US", "title": "Denim Day", "tweets_counter": "40k"},
-  {"category": "Ukraine", "title": "Ukraine", "tweets_counter": "20k"},
-  {"category": "Russia", "title": "Russia", "tweets_counter": "10k"},
+  {"category": "Technology", "title": "github", "tweets_counter": "53K"},
+  {"category": "Arts&culture", "title": "#photography", "tweets_counter": "40k"},
+  {"category": "Politics . Trending", "title": "Ukraine", "tweets_counter": "101M"},
+  {"category": "Trends", "title": "#caturday", "tweets_counter": "19k"},
+  {"category": "Trending in US", "title": "Russia", "tweets_counter": "45k"},
+  {"category": "Music", "title": "Spotify", "tweets_counter": "45k"},
 ]
 
 REGEX_EMAIL = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
 
-COOKIE_SECRET = "SA6a$mLMH76%"
 ##############################
-
+def _is_uuid4(text=None):
+  if not text: return None
+  regex_uuid4 = "^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+  if not re.match(regex_uuid4, text) : return None
+  print(f"{text} valid uuid")
+  return text
 
 ##############################
 # create json in sqliteDB
@@ -23,7 +27,6 @@ def create_json_from_sqlite_result(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
-        print("MI"*10, d)
     return d
 
 ##############################
@@ -45,6 +48,12 @@ ERROR = {
     "error_password": "enter password",
     "error_img": "wrong image format, only png, jpg, jpeg allowed",
 }
+
+##############################
+def _send(status = 400, error_message = "unknown error"):
+  response.status = status
+  print(status)
+  return {status:error_message}
 
 ##############################
 ##DB QUERIES##
@@ -71,7 +80,5 @@ DELETE FROM tweets WHERE tweet_id= ?"""
 GET_TWEET_WITH_ID_QUERY = """
 SELECT * FROM tweets WHERE tweets.tweet_id = ?
 """
-
-
 
 ##############################
