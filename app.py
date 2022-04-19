@@ -65,6 +65,8 @@ def _():
         else:
             print("NOT TOKEN"*3, "Not logged in")
             logged_user="guest"
+            #TODO: loop through tweets and get logged user img
+
         return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS)
 
 #################
