@@ -3,6 +3,7 @@ import globals
 import imghdr
 import os
 import uuid
+import json
 
 
 def validate_img(image):
@@ -39,7 +40,6 @@ def _(name_id):
     print(image)
 
     updated = {
-
      "user_image": validate_img(image),
      "user_name": name_id
      }
@@ -61,4 +61,4 @@ def _(name_id):
         db.close()
         print(profile)
 
-        return profile
+        return updated

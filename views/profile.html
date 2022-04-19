@@ -4,26 +4,30 @@
 
     <div class="w-2/4 min-h-screen border-x border-gray-300 absolute top-0 sm:left-96 md:left-1/4 left-1/3 z-20
     ">
-
         <section id="profile-page" class="border-t border-slate-200 w-[90%]">
              <div class="w-full h-64 bg-gray-400">
-                <div class=""> <img class="absolute top-48 p-4 flex-none h-40 w-40 rounded-full"
+                <div> <img id="main-img" class="absolute top-48 p-4 flex-none h-40 w-40 rounded-full"
                         src="/img/{{user['image']}}"
                         alt="photo"></div>
             </div>
-            <div class="flex justify-end mt-2 px-4">
-                <!-- TODO: update picture name is profile-img -->
-                <form  onsubmit="return false">
+
+                <!-- TODO:  -->
+
+                  <form  class = "relative flex" onsubmit="return false">
                     <label>
                         <input id= "profile-img"
-                        type="file" name="image" class="">
+                        type="file" name="image" class=" hidden">
+                          <i class = "fa fa-camera text-2xl ml-28 mt-10"></i>
                       </label>
+                      <div class="ml-auto mt-10 px-4">
                         <button id ="{{user['name']}}" onclick = "uploadProfilePic(id)"class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1">Set
                             profile pic</button>
-
+                          </div>
                 </form>
-            </div>
-            <div id="user-info" class="mt-6 px-4 py-2">
+
+
+
+            <div id="user-info" class="mt-4 px-4 py-2">
                 <h4>@{{user["name"]}}</h4>
                 <h5>{{user["full_name"]}}</h5>
                 <div class="flex"> <i class="fas fa-calendar mt-1"></i>
@@ -45,10 +49,7 @@
 
 <section id="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
   <div class="flex">
-
-    <!-- <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo"> -->
-
-    <img class="flex-none w-12 h-12 rounded-full"
+    <img id = "profile-photo" class="flex-none w-12 h-12 rounded-full"
     src="/img/{{user['image']}}"alt="photo">
 
 
@@ -82,9 +83,7 @@
 
   %end
     </div>
-
     </section>
-
     </div>
 
 <script>
@@ -110,15 +109,9 @@ async function uploadProfilePic(id) {
     return
   }
   //Success
-   let profilePic = await connection.json()
-    console.log(profilePic)
-  // let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
-  // console.log(tweetSection)
-  // //if text is not changed leave it as is
-  // if (tweetSection.querySelector("#tweet-text").textContent != null) {
-  //   tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
-  // } else {
-  //   tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
+   let updatedImg = await connection.json()
+   document.querySelector("#profile-photo").src="/img/" + updatedImg.user_image + ""
+   document.querySelector("#main-img").src="/img/" + updatedImg.user_image + ""
   }
 
 </script>
