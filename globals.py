@@ -82,7 +82,11 @@ SELECT * FROM tweets WHERE tweets.tweet_id = ?
 """
 #get profile
 GET_USER_QUERY = """
-SELECT user_name, user_full_name FROM users WHERE users.user_name = ?
+SELECT user_id, user_name, user_full_name FROM users WHERE users.user_name = ?
+"""
+#get single user tweet
+GET_USER_TWEET_QUERY = """
+SELECT * FROM tweets WHERE tweets.user_id = ?
 """
 
 ##############################

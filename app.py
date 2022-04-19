@@ -64,7 +64,7 @@ def _():
         else:
             print("NOT TOKEN"*3, "Not logged in")
             logged_user="guest"
-        return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, suggested_user=suggested_user, profile= profile)
+        return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, suggested_user=suggested_user)
 
 #################
 @get("/signup")
