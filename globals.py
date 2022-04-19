@@ -80,5 +80,9 @@ DELETE FROM tweets WHERE tweet_id= ?"""
 GET_TWEET_WITH_ID_QUERY = """
 SELECT * FROM tweets WHERE tweets.tweet_id = ?
 """
+#get profile
+GET_USER_QUERY = """
+SELECT user_name, user_full_name FROM users WHERE users.user_name = ?
+"""
 
 ##############################

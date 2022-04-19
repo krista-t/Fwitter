@@ -286,6 +286,13 @@ function removeWhiteSpaces(string) {
 
 //showProfile
 
-function showProfile(profile){
+async function showProfile(profile){
   console.log(profile)
+  const connection = await fetch(`/profile/${profile}`, {
+    method: "GET"
+  })
+  let singleProfile = await connection.json()
+  console.log(singleProfile)
+  //async fetch and populate or phyton
+  document.querySelector("#user-info h4").textContent= singleProfile.full_name
 }

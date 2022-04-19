@@ -11,6 +11,7 @@ import login
 import post_tweet
 import delete_tweet
 import edit_tweet
+import profile
 
 ##############################
 @get("/app.css")
@@ -96,12 +97,7 @@ def _():
         return redirect("/")
 ##############################
 
-#TODO:ask about this
-# @get("/<name_id>")
-# @view("profile")
-# def _(name_id):
-#     print(name_id)
-#     return
+
 
 ##############################
 
