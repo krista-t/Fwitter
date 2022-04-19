@@ -8,7 +8,7 @@
         <section id="profile-page" class="border-t border-slate-200 w-[90%]">
              <div class="w-full h-64 bg-gray-400">
                 <div class=""> <img class="absolute top-48 p-4 flex-none h-40 w-40 rounded-full"
-                        src="{{user['image']}}"
+                        src="/img/{{user['image']}}"
                         alt="photo"></div>
             </div>
             <div class="flex justify-end mt-2 px-4">
@@ -49,7 +49,7 @@
     <!-- <img class="flex-none w-12 h-12 rounded-full" src="" alt="photo"> -->
 
     <img class="flex-none w-12 h-12 rounded-full"
-      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
+    src="/img/{{user['image']}}"alt="photo">
 
 
 
@@ -64,6 +64,7 @@
       %if tweet['tweet_image'] !="":
       <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
       % end
+
       <div id="icons" class="flex gap-12 w-full mt-4 text-lg">
         <button id = "delete" onclick="deleteTweet(`{{tweet['tweet_id']}}`)"><i
             class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
