@@ -1,6 +1,9 @@
 from bottle import response
 import re
 import sqlite3
+import uuid
+import imghdr
+import os
 
 TRENDS = [
   {"category": "Technology", "title": "github", "tweets_counter": "53K"},
@@ -20,6 +23,37 @@ def _is_uuid4(text=None):
   if not re.match(regex_uuid4, text) : return None
   print(f"{text} valid uuid")
   return text
+
+##############################
+def _validate_img(image):
+     #validate img format
+    if image:
+        file_name, file_extension = os.path.splitext(image.filename)  # .png .jpeg .zip .mp4
+        if file_extension not in (".png", ".jpeg", ".jpg"):
+          print("image not allowed")
+        image_id = str(uuid.uuid4())
+        # Create new image name
+        tweet_img = f"{image_id}{file_extension}"
+        print("#########", tweet_img)
+        # Save the image
+        image.save(f"img/{tweet_img}")
+        imghdr_extension = imghdr.what(f"img/{tweet_img}")
+        if file_extension != f".{imghdr_extension}":
+            print(globals.ERROR["error_img"])
+            os.remove(f"img/{tweet_img}")
+            return globals.ERROR["error_img"]
+        else:
+            return tweet_img
+    #check if img exists
+    elif not image:
+        print("NO IMAGE")
+        tweet_img = ""
+        return tweet_img #None
+
+
+
+
+
 
 ##############################
 # create json in sqliteDB
@@ -82,7 +116,7 @@ SELECT * FROM tweets WHERE tweets.tweet_id = ?
 """
 #get profile
 GET_USER_QUERY = """
-SELECT user_id, user_name, user_full_name FROM users WHERE users.user_name = ?
+SELECT user_id, user_name, user_full_name, user_image, user_created_at FROM users WHERE users.user_name = ?
 """
 #get single user tweet
 GET_USER_TWEET_QUERY = """

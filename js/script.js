@@ -294,3 +294,4 @@ async function showProfile(profile){
   //async fetch and populate or phyton
   document.querySelector("#user-info h4").textContent= singleProfile.full_name
 }
+

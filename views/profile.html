@@ -1,4 +1,7 @@
 % include("header")
+<body>
+
+
     <div class="w-2/4 min-h-screen border-x border-gray-300 absolute top-0 sm:left-96 md:left-1/4 left-1/3 z-20
     ">
 
@@ -10,12 +13,12 @@
             </div>
             <div class="flex justify-end mt-2 px-4">
                 <!-- TODO: update picture name is profile-img -->
-                <form>
+                <form  onsubmit="return false">
                     <label>
                         <input id= "profile-img"
                         type="file" name="profile-img" class="hidden">
-                        <button class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1">Set
-                            profile pic</button>
+                        <div id ="{{user['name']}}" onclick = "uploadProfilePic(id)"class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1" type="submit">Set
+                            profile pic</div>
                     </label>
                 </form>
             </div>
@@ -23,7 +26,8 @@
                 <h4>@{{user["name"]}}</h4>
                 <h5>{{user["full_name"]}}</h5>
                 <div class="flex"> <i class="fas fa-calendar mt-1"></i>
-                    <p class="pl-4">joined at</p>
+                    <p class="pl-4">Joined:
+                      <span class = "text-gray-600">{{user["joined"]}} </span> </p>
                 </div>
 
             </div>
@@ -86,4 +90,13 @@
 
     </div>
 
-<!-- </body> -->
+<script>
+
+// TODO: move to script in SPA upload profile img
+function uploadProfilePic(id){
+
+console.log("click",id)
+
+}
+</script>
+</body>

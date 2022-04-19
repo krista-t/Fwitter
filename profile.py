@@ -7,14 +7,19 @@ import json
 @get("/<name_id>")
 @view("profile")
 def _(name_id):
+
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()
         user = {
             "user_id": name["user_id"],
             "name": name["user_name"],
-            "full_name": name["user_full_name"]
+            "full_name": name["user_full_name"],
+            "image": name["user_image"],
+            "joined": name["user_created_at"]
+
         }
+        print("NAM"*10, name)
     except Exception as ex:
         print(ex)
     try:
@@ -26,7 +31,7 @@ def _(name_id):
         print(ex)
     finally:
         db.close()
-        print("NAM"*10, user)
+
         return dict(user=user,tweets = user_tweets)
 
 

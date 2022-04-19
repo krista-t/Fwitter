@@ -3,6 +3,7 @@ import sqlite3
 import uuid
 import re
 import globals
+from datetime import datetime
 
 
 def validate_user(user, database = "database.sqlite"):
@@ -65,7 +66,7 @@ def create_user(user, database = "database.sqlite"):
         db.execute(
             """INSERT INTO users
                 VALUES(:user_id, :user_name, :user_full_name,
-                :user_email, :user_password)""",
+                :user_email, :user_password, :user_image, :user_created_at)""",
             user,
         )
         db.commit()
@@ -84,12 +85,15 @@ def create_user(user, database = "database.sqlite"):
 ##############################
 @post("/signup")
 def _():
+    now = datetime.now()
     user = {
         "user_id": str(uuid.uuid4()),
         "user_full_name": request.forms.get("user_full_name"),
         "user_name": request.forms.get("user_name"),
         "user_email": request.forms.get("user_email"),
         "user_password": request.forms.get("user_password"),
+        "user_image": "",
+        "user_created_at": now.strftime("%B-%d  %H:%M:%S")
     }
 
     status = validate_user(user)
