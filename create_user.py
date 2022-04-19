@@ -92,7 +92,7 @@ def _():
         "user_name": request.forms.get("user_name"),
         "user_email": request.forms.get("user_email"),
         "user_password": request.forms.get("user_password"),
-        "user_image": "",
+        "user_image": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         "user_created_at": now.strftime("%B-%d  %H:%M:%S")
     }
 

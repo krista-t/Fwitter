@@ -1,17 +1,17 @@
 from bottle import get, redirect, request, response,static_file, view,run
-import json
 import sqlite3
 import jwt
 import globals
 import random
 
 ##############################
-import post_users_signup
+import create_user
 import login
 import post_tweet
 import delete_tweet
 import edit_tweet
 import profile
+import create_profile_img
 
 
 
@@ -49,6 +49,7 @@ def _():
                                 ORDER by tweet_created_at
                                 DESC
                                 """).fetchall()
+        print(tweets)
 
         #make dict for suggested user panel
         #suggested_user = random.sample(tweets,k=5)

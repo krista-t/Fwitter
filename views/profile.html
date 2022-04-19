@@ -8,7 +8,7 @@
         <section id="profile-page" class="border-t border-slate-200 w-[90%]">
              <div class="w-full h-64 bg-gray-400">
                 <div class=""> <img class="absolute top-48 p-4 flex-none h-40 w-40 rounded-full"
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        src="{{user['image']}}"
                         alt="photo"></div>
             </div>
             <div class="flex justify-end mt-2 px-4">
@@ -16,10 +16,11 @@
                 <form  onsubmit="return false">
                     <label>
                         <input id= "profile-img"
-                        type="file" name="profile-img" class="hidden">
-                        <div id ="{{user['name']}}" onclick = "uploadProfilePic(id)"class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1" type="submit">Set
-                            profile pic</div>
-                    </label>
+                        type="file" name="image" class="">
+                      </label>
+                        <button id ="{{user['name']}}" onclick = "uploadProfilePic(id)"class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1">Set
+                            profile pic</button>
+
                 </form>
             </div>
             <div id="user-info" class="mt-6 px-4 py-2">
@@ -53,15 +54,10 @@
 
 
     <div  class="w-full pl-4">
-
       <div class="flex cursor-pointer">
-
         <p class="ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
       </div>
     </a>
-
-
-
       <div id="tweet-text" class="pt-2">
         {{tweet["tweet_text"]}}
       </div>
@@ -98,5 +94,31 @@ function uploadProfilePic(id){
 console.log("click",id)
 
 }
+//update tweet
+async function uploadProfilePic(id) {
+  const form = event.target.form
+  console.log("form")
+  //Connect to the api and delete it from the db
+  const connection = await fetch(`/${id}`, {
+    method: "PUT",
+    body: new FormData(form)
+  })
+  console.log(connection)
+  if (!connection.ok) {
+    alert("Could not update")
+    return
+  }
+  //Success
+   let profilePic = await connection.json()
+    console.log(profilePic)
+  // let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+  // console.log(tweetSection)
+  // //if text is not changed leave it as is
+  // if (tweetSection.querySelector("#tweet-text").textContent != null) {
+  //   tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
+  // } else {
+  //   tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
+  }
+
 </script>
 </body>

@@ -22,7 +22,7 @@ def validate_img(image):
         if file_extension != f".{imghdr_extension}":
             print(globals.ERROR["error_img"])
             os.remove(f"img/{tweet_img}")
-            return globals.ERROR["error_img"]
+            #return globals.ERROR["error_img"]
         else:
             return tweet_img
     #check if img exists

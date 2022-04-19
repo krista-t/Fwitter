@@ -1,8 +1,6 @@
-from bottle import get, redirect, request, response,static_file, view,run
+from bottle import get, request, response, view
 import globals
 import json
-
-#TODO:ask about this
 
 @get("/<name_id>")
 @view("profile")
@@ -19,7 +17,7 @@ def _(name_id):
             "joined": name["user_created_at"]
 
         }
-        print("NAM"*10, name)
+        print("NAM"*10, user)
     except Exception as ex:
         print(ex)
     try:
@@ -31,7 +29,6 @@ def _(name_id):
         print(ex)
     finally:
         db.close()
-
         return dict(user=user,tweets = user_tweets)
 
 

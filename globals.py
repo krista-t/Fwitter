@@ -80,7 +80,7 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
-    "error_img": "wrong image format, only png, jpg, jpeg allowed",
+    # "error_img": "wrong image format, only png, jpg, jpeg allowed",
 }
 
 ##############################
