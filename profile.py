@@ -4,10 +4,9 @@ import json
 
 #TODO:ask about this
 
-@get("/profile/<name_id>")
-@view("/")
+@get("/<name_id>")
+@view("profile")
 def _(name_id):
-
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()
@@ -17,12 +16,12 @@ def _(name_id):
         #TODO: querry to fetch tweets of particular user
     finally:
         db.close()
-        profile = {
+        user = {
             "name": name["user_name"],
             "full_name": name["user_full_name"]
-
         }
-        print("NAM"*10, profile["full_name"])
-        return json.dumps(profile)
+
+        print("NAM"*10, user)
+        return dict(user=user)
 
 

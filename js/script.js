@@ -267,8 +267,6 @@ async function logUser() {
     document.querySelector("#tweet-btn").disabled = false;
     document.querySelector(".tweet-form input").value = null
     document.querySelector(".tweet-form input").disabled = false;
-
-
     history.pushState(stateObj, "/", "/")
 
   }
@@ -288,7 +286,7 @@ function removeWhiteSpaces(string) {
 
 async function showProfile(profile){
   console.log(profile)
-  const connection = await fetch(`/profile/${profile}`, {
+  const connection = await fetch(`/${profile}`, {
     method: "GET"
   })
   let singleProfile = await connection.json()

@@ -45,12 +45,13 @@
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
 
           <!-- TODO: -->
-        <div id="@{{tweet['user_name']}}" class="w-full pl-4" onclick = "showProfile(`{{tweet['user_name']}}`)">
-
+        <!-- <div id="@{{tweet['user_name']}}" class="w-full pl-4" onclick = "showProfile(`{{tweet['user_name']}}`)"> -->
+        <div id="@{{tweet['user_name']}}" class="w-full pl-4">
+<a href="/{{tweet['user_name']}}" target: = "_blank"> <p class="screen-name font-bold">
+  @{{tweet["user_name"]}}
+</p></a>
           <div class="flex cursor-pointer">
-            <p class="screen-name font-bold">
-              @{{tweet["user_name"]}}
-            </p>
+
             <p class="ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
           </div>
         </a>
