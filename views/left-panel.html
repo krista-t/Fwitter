@@ -57,11 +57,13 @@
     </div>
 
     <div class="mt-auto">
-      <!-- TODO: name of user as id -->
+
       <div onclick ="showProfile(id)"
         class="flex flex-wrap gap-2 px-2 py-3 sm:hover:bg-none  md:hover:bg-gray-100 cursor-pointer rounded-full h-fit mb-4">
+
         <!-- TODO: image from token on login -->
-        <img class="w-12 h-12 rounded-full flex-none" src="/img/">
+
+        <img id="left-panel-img" class="w-12 h-12 rounded-full flex-none" src="/img/{{logged_img}}">
 
         <p id="logged-user" class ="font-thin">Welcome<br>
           <span class="font-bold">@{{logged_user}}</span>

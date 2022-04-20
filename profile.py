@@ -21,7 +21,7 @@ def _(name_id):
     except Exception as ex:
         print(ex)
     try:
-          #TODO: querry to fetch tweets of particular user
+          #querry to fetch tweets of particular user
           user_tweets = name = db.execute(globals.GET_USER_TWEET_QUERY, (user["user_id"],)).fetchall()
           print("TW"* 5, user_tweets)
           return user_tweets

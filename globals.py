@@ -80,7 +80,7 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
-    # "error_img": "wrong image format, only png, jpg, jpeg allowed",
+    # "error_img": "Wrong image format, only png, jpg, jpeg allowed"
 }
 
 ##############################
@@ -93,22 +93,22 @@ def _send(status = 400, error_message = "unknown error"):
 ##DB QUERIES##
 #singup queries
 USER_NAME_QUERY = """
-SELECT user_name FROM users where user_name=?
+SELECT user_name FROM users where user_name = ?
 """
 USER_EMAIL_QUERY = """
-SELECT user_email FROM users where user_email= ?
+SELECT user_email FROM users where user_email = ?
 """
 #login query
-USER_NAME_PASS_QUERY = """
-SELECT user_name, user_password FROM users where user_name= ?
+USER_NAME_PASS_IMG_QUERY = """
+SELECT user_name, user_password, user_image FROM users where user_name = ?
 """
 #delete session query
 DELETE_SESS_ROW_QUERY = """
-DELETE FROM sessions WHERE session_id= ?"""
+DELETE FROM sessions WHERE session_id = ?"""
 
 #delete tweet query
 DELETE_TWEET_QUERY = """
-DELETE FROM tweets WHERE tweet_id= ?"""
+DELETE FROM tweets WHERE tweet_id = ?"""
 
 #show tweet with specific id query
 GET_TWEET_WITH_ID_QUERY = """
@@ -121,6 +121,11 @@ SELECT user_id, user_name, user_full_name, user_image, user_created_at FROM user
 #get single user tweet
 GET_USER_TWEET_QUERY = """
 SELECT * FROM tweets WHERE tweets.user_id = ? ORDER by tweet_created_at DESC
+"""
+
+#get logged user img on the left panel
+GET_LOGGED_USER_IMG_QUERY = """
+SELECT * FROM users WHERE users.user_name = ?
 """
 
 ##############################
