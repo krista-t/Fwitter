@@ -10,26 +10,31 @@ def user_exists(user, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "User does not exist!",
-        "user": ""
+        "user": "",
+        "image": ""
+
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
         return status
+    #if user enters wrong password, but exists in DB
     if not user["user_password"]:
         print(globals.ERROR["error_password"])
         status["msg"] = globals.ERROR["error_password"]
         return status
     query_results = db.execute(
-        globals.USER_NAME_PASS_QUERY, (user["user_name"],)
+        globals.USER_NAME_PASS_IMG_QUERY, (user["user_name"],)
     ).fetchone()
-#if user enters wrong password, but exists in DB
+    print("Q"*10, query_results)
     if query_results:
         # index 0 is user_email, index 1 is user_password
         if query_results[1] == user["user_password"]:
             status["success"] = True
             status["msg"] = "User validated!"
             status["user"] = user["user_name"]
+            #TODO:
+            status["image"] = query_results[2]
             return status
         else:
             status["msg"] = "Check your password!"

@@ -1,6 +1,9 @@
 from bottle import response
 import re
 import sqlite3
+import uuid
+import imghdr
+import os
 
 TRENDS = [
   {"category": "Technology", "title": "github", "tweets_counter": "53K"},
@@ -20,6 +23,37 @@ def _is_uuid4(text=None):
   if not re.match(regex_uuid4, text) : return None
   print(f"{text} valid uuid")
   return text
+
+##############################
+def _validate_img(image):
+     #validate img format
+    if image:
+        file_name, file_extension = os.path.splitext(image.filename)  # .png .jpeg .zip .mp4
+        if file_extension not in (".png", ".jpeg", ".jpg"):
+          print("image not allowed")
+        image_id = str(uuid.uuid4())
+        # Create new image name
+        tweet_img = f"{image_id}{file_extension}"
+        print("#########", tweet_img)
+        # Save the image
+        image.save(f"img/{tweet_img}")
+        imghdr_extension = imghdr.what(f"img/{tweet_img}")
+        if file_extension != f".{imghdr_extension}":
+            print(globals.ERROR["error_img"])
+            os.remove(f"img/{tweet_img}")
+            return globals.ERROR["error_img"]
+        else:
+            return tweet_img
+    #check if img exists
+    elif not image:
+        print("NO IMAGE")
+        tweet_img = ""
+        return tweet_img #None
+
+
+
+
+
 
 ##############################
 # create json in sqliteDB
@@ -46,7 +80,7 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
-    "error_img": "wrong image format, only png, jpg, jpeg allowed",
+    # "error_img": "Wrong image format, only png, jpg, jpeg allowed"
 }
 
 ##############################
@@ -59,26 +93,39 @@ def _send(status = 400, error_message = "unknown error"):
 ##DB QUERIES##
 #singup queries
 USER_NAME_QUERY = """
-SELECT user_name FROM users where user_name=?
+SELECT user_name FROM users where user_name = ?
 """
 USER_EMAIL_QUERY = """
-SELECT user_email FROM users where user_email= ?
+SELECT user_email FROM users where user_email = ?
 """
 #login query
-USER_NAME_PASS_QUERY = """
-SELECT user_name, user_password FROM users where user_name= ?
+USER_NAME_PASS_IMG_QUERY = """
+SELECT user_name, user_password, user_image FROM users where user_name = ?
 """
 #delete session query
 DELETE_SESS_ROW_QUERY = """
-DELETE FROM sessions WHERE session_id= ?"""
+DELETE FROM sessions WHERE session_id = ?"""
 
 #delete tweet query
 DELETE_TWEET_QUERY = """
-DELETE FROM tweets WHERE tweet_id= ?"""
+DELETE FROM tweets WHERE tweet_id = ?"""
 
 #show tweet with specific id query
 GET_TWEET_WITH_ID_QUERY = """
 SELECT * FROM tweets WHERE tweets.tweet_id = ?
+"""
+#get profile
+GET_USER_QUERY = """
+SELECT user_id, user_name, user_full_name, user_image, user_created_at FROM users WHERE users.user_name = ?
+"""
+#get single user tweet
+GET_USER_TWEET_QUERY = """
+SELECT * FROM tweets WHERE tweets.user_id = ? ORDER by tweet_created_at DESC
+"""
+
+#get logged user img on the left panel
+GET_LOGGED_USER_IMG_QUERY = """
+SELECT * FROM users WHERE users.user_name = ?
 """
 
 ##############################

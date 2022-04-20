@@ -30,7 +30,6 @@ function checkCookieExists() {
     })
 
 
-
     const user = document.querySelector("#logged-user span").textContent
     console.log(user)
     if(user == "@admin"){
@@ -160,7 +159,6 @@ async function editTweet(tweet_id) {
     method: "PUT",
     body: new FormData(form)
   })
-  //console.log(connection)
   if (!connection.ok) {
     alert("Could not tweet")
     return
@@ -240,8 +238,10 @@ async function logUser() {
     //if validations successfull display UI accordingly
     const loggedUser = `@${loggedUserValidation.user}`
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
+
+
+
     //enable only this buttons
-    TODO:
       loggedUserTweets.forEach((tweet) => {
         let tweetBtns = tweet.querySelectorAll("#icons button")
         tweetBtns.forEach(btn =>
@@ -262,30 +262,34 @@ async function logUser() {
   document.querySelector("#admin").classList.remove("hidden")
  }
     document.querySelector("#logged-user span").textContent = loggedUser
+    //TODO:display profile img
+    document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
     document.querySelector("#login").classList.add("hidden")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector("#tweet-btn").disabled = false;
     document.querySelector(".tweet-form input").value = null
     document.querySelector(".tweet-form input").disabled = false;
-
-
     history.pushState(stateObj, "/", "/")
 
   }
 }
 
-
 //remove white spaces from edit tweet input
 function removeWhiteSpaces(string) {
-  //let newString = string.replace(/\s+/g, ' ')
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   return newString
 }
 
-
 //showProfile
-
-function showProfile(profile){
+async function showProfile(profile){
   console.log(profile)
+  const connection = await fetch(`/${profile}`, {
+    method: "GET"
+  })
+  let singleProfile = await connection.json()
+  console.log(singleProfile)
+  //async fetch and populate or phyton
+  document.querySelector("#user-info h4").textContent= singleProfile.full_name
 }
+
