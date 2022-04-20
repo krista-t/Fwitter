@@ -263,7 +263,7 @@ async function logUser() {
  }
     document.querySelector("#logged-user span").textContent = loggedUser
     //TODO:display profile img
-    document.querySelector("#left-panel-img").src ="/img"+ loggedUser.image + ""
+    document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
     document.querySelector("#login").classList.add("hidden")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector("#tweet-btn").disabled = false;
