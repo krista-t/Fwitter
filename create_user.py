@@ -86,6 +86,7 @@ def create_user(user, database = "database.sqlite"):
 @post("/signup")
 def _():
     now = datetime.now()
+    time = now.strftime("%B-%d  %H:%M:%S")
     user = {
         "user_id": str(uuid.uuid4()),
         "user_full_name": request.forms.get("user_full_name"),
@@ -93,7 +94,7 @@ def _():
         "user_email": request.forms.get("user_email"),
         "user_password": request.forms.get("user_password"),
         "user_image": "blank.png",
-        "user_created_at": now.strftime("%B-%d  %H:%M:%S")
+        "user_created_at": time
     }
 
     status = validate_user(user)
