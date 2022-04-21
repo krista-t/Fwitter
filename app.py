@@ -1,4 +1,4 @@
-from bottle import get, redirect, request, response,static_file, view,run
+from bottle import get, redirect, request, response, static_file, view, run
 import sqlite3
 import jwt
 import globals
@@ -12,8 +12,6 @@ import delete_tweet
 import edit_tweet
 import profile
 import create_profile_img
-
-
 
 ##############################
 @get("/app.css")
@@ -99,6 +97,7 @@ def _():
         response.set_cookie("token", user_token, expires=0)
     except Exception as ex:
         print(ex)
+        return globals._send(500, "server_error")
     finally:
         db.close()
         return redirect("/")
@@ -107,11 +106,6 @@ def _():
 
 
 ##############################
-
-
-
-
-
 try:
     import production
     application = default_app()  # don't import yet!
