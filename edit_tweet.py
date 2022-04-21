@@ -38,10 +38,11 @@ def _(tweet_id):
     #TODO: get values from the form, id is passed
     image = request.files.get("image")
     now = datetime.now()
+    time = now.strftime("%B-%d  %H:%M:%S")
     tweet = {
     "tweet_id": tweet_id,
     "tweet_text": request.forms.get("tweet_text"),
-    "tweet_updated_at": now.strftime("%B-%d  %H:%M:%S")
+    "tweet_updated_at": time
     #"src": validate_img(image),
     }
 
