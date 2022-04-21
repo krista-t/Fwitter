@@ -70,6 +70,7 @@ def _():
     #get info of user whois logged in
     image = request.files.get("image")
     now = datetime.now()
+    time = now.strftime("%B-%d %H:%M:%S")
 
     try:
         db = globals._db_connect("database.sqlite")
@@ -85,8 +86,7 @@ def _():
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
-        "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
-        "tweet_updated_at": "",
+        "tweet_created_at": time,
         "user_id": user_id,
         "user_image": user_image
         }
@@ -102,8 +102,7 @@ def _():
         "src": validate_img(image),
         "user_name": user_name,
         "user_full_name": user_full_name,
-        "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
-        "tweet_updated_at": "",
+        "tweet_created_at": time,
         "user_image": user_image
     }
     return all_tweets

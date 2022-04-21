@@ -39,6 +39,7 @@ def _(image):
 @get("/")
 @view("index")
 def _():
+
     user_token = request.get_cookie("token")
 
     try:
