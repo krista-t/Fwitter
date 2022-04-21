@@ -40,6 +40,7 @@ def _(image):
 def _():
     user_token = request.get_cookie("token")
     db = globals._db_connect("database.sqlite")
+
     try:
         tweets = db.execute("""SELECT * FROM tweets
                                JOIN users WHERE users.user_id
@@ -69,7 +70,7 @@ def _():
     finally:
         db.close()
         print(tweets)
-    return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
+    return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
 @get("/signup")
