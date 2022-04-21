@@ -1,11 +1,9 @@
-from bottle import get, request, response, view
+from bottle import get, view
 import globals
-import json
 
 @get("/<name_id>")
 @view("profile")
 def _(name_id):
-
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()
@@ -14,12 +12,11 @@ def _(name_id):
             "name": name["user_name"],
             "full_name": name["user_full_name"],
             "image": name["user_image"],
-            "joined": name["user_created_at"]
-
         }
         print("NAM"*10, user)
     except Exception as ex:
         print(ex)
+        return globals._send(500, "server_error")
     try:
           #querry to fetch tweets of particular user
           user_tweets = name = db.execute(globals.GET_USER_TWEET_QUERY, (user["user_id"],)).fetchall()

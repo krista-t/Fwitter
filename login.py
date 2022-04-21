@@ -12,7 +12,6 @@ def user_exists(user, database = "database.sqlite"):
         "msg": "User does not exist!",
         "user": "",
         "image": ""
-
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
@@ -33,7 +32,6 @@ def user_exists(user, database = "database.sqlite"):
             status["success"] = True
             status["msg"] = "User validated!"
             status["user"] = user["user_name"]
-            #TODO:
             status["image"] = query_results[2]
             return status
         else:

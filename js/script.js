@@ -84,7 +84,7 @@ async function tweet() {
   let section_tweet = `
           <section id = "${tweet_id}"  class= "p-4 border-t border-slate-200">
           <div class="flex">
-            <img class="flex-none w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="photo">
+            <img class="flex-none w-12 h-12 rounded-full" src="/img/${tweet.user_image}"alt="photo">
             <div id="@{{tweet['user_name']}}"  class="w-full pl-4">
             <div class = "flex">
             <p class="screen-name font-bold">
@@ -101,11 +101,9 @@ async function tweet() {
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
               <button id = "delete"  onclick="deleteTweet('${tweet_id}')"><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
-
               <button onclick="showTweetToEdit('${tweet_id}')">
                 <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               </button>
-
             <button><i class="fa-solid fa-heart cursor-pointer  ml-auto"></i></button>
             </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
@@ -292,4 +290,3 @@ async function showProfile(profile){
   //async fetch and populate or phyton
   document.querySelector("#user-info h4").textContent= singleProfile.full_name
 }
-

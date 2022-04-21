@@ -79,14 +79,16 @@ def _():
         user_id = logged_user["user_id"]
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]
-        print("U"*10, logged_user["user_name"])
+        user_image = logged_user["user_image"]
+        print("U"*10, logged_user)
         tweet = {
         "tweet_id": str(uuid.uuid4()),
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
         "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
         "tweet_updated_at": "",
-        "user_id": user_id
+        "user_id": user_id,
+        "user_image": user_image
         }
     except Exception as ex:
         print(ex)
@@ -101,7 +103,8 @@ def _():
         "user_name": user_name,
         "user_full_name": user_full_name,
         "tweet_created_at": now.strftime("%B-%d %H:%M:%S"),
-        "tweet_updated_at": ""
+        "tweet_updated_at": "",
+        "user_image": user_image
     }
 
 
