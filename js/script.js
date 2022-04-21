@@ -246,7 +246,14 @@ async function logUser() {
           btn.disabled = false
         )
       })
-
+      document.querySelector("#logged-user span").textContent = loggedUser
+      //TODO:display profile img
+      document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
+      document.querySelector("#login").classList.add("hidden")
+      document.querySelector("#login-btn").classList.add("hidden")
+      document.querySelector("#tweet-btn").disabled = false;
+      document.querySelector(".tweet-form input").value = null
+      document.querySelector(".tweet-form input").disabled = false;
 
  if (loggedUserValidation.user == "admin"){
   let tweetBtns = document.querySelectorAll("#delete")
@@ -255,18 +262,11 @@ async function logUser() {
   )
   //admin cannot post tweets
   document.querySelector("#tweet-form").classList.add("hidden")
-  document.querySelector("#suggested").classList.add("hidden")
+  //document.querySelector("#suggested").classList.add("hidden")
   document.querySelector("#trends").classList.add("hidden")
   document.querySelector("#admin").classList.remove("hidden")
  }
-    document.querySelector("#logged-user span").textContent = loggedUser
-    //TODO:display profile img
-    document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
-    document.querySelector("#login").classList.add("hidden")
-    document.querySelector("#login-btn").classList.add("hidden")
-    document.querySelector("#tweet-btn").disabled = false;
-    document.querySelector(".tweet-form input").value = null
-    document.querySelector(".tweet-form input").disabled = false;
+
     history.pushState(stateObj, "/", "/")
 
   }

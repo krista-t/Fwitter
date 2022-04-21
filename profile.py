@@ -1,4 +1,4 @@
-from bottle import get, view
+from bottle import get, response, view
 import globals
 
 @get("/<name_id>")
@@ -7,11 +7,13 @@ def _(name_id):
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()
+
         user = {
             "user_id": name["user_id"],
             "name": name["user_name"],
             "full_name": name["user_full_name"],
             "image": name["user_image"],
+            "joined": name["user_created_at"]
         }
         print("NAM"*10, user)
     except Exception as ex:
@@ -27,5 +29,6 @@ def _(name_id):
     finally:
         db.close()
         return dict(user=user,tweets = user_tweets)
+
 
 
