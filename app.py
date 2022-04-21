@@ -47,8 +47,9 @@ def _():
                                 ORDER by tweet_created_at
                                 DESC
                                 """).fetchall()
-        print(tweets)
-         #check if user is logged in
+
+
+        #check if user is logged in
         if user_token:
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
             logged_user = decoded_token["name"]
@@ -67,7 +68,7 @@ def _():
         print(ex)
     finally:
         db.close()
-
+        print(tweets)
     return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
@@ -103,15 +104,12 @@ def _():
         return redirect("/")
 ##############################
 
-
-
-##############################
 try:
     import production
-    application = default_app()  # don't import yet!
+    application = default_app()
     print("***PRODUCTION***")
 except Exception as ex:
     print("***Server running on development***")
+    run(host="127.0.0.1", port=3555, debug=True, reloader=True, server="paste")
 
 ##############################
-run(host="127.0.0.1", port=3555, debug=True, reloader=True, server="paste")
