@@ -106,8 +106,6 @@ def _():
         "tweet_updated_at": "",
         "user_image": user_image
     }
-
-
     return all_tweets
 
 

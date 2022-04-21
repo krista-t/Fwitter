@@ -3,6 +3,7 @@ import sqlite3
 import jwt
 import globals
 import random
+import json
 
 ##############################
 import create_user
@@ -39,8 +40,9 @@ def _(image):
 @view("index")
 def _():
     user_token = request.get_cookie("token")
-    db = globals._db_connect("database.sqlite")
+
     try:
+        db = globals._db_connect("database.sqlite")
         tweets = db.execute("""SELECT * FROM tweets
                                JOIN users WHERE users.user_id
                                 LIKE tweets.user_id
@@ -48,7 +50,7 @@ def _():
                                 DESC
                                 """).fetchall()
 
-
+        print(json.dumps(tweets))
         #check if user is logged in
         if user_token:
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
@@ -68,8 +70,7 @@ def _():
         print(ex)
     finally:
         db.close()
-        print(tweets)
-    return dict(tweets=tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
+    return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
 @get("/signup")

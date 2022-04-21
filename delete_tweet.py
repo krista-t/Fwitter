@@ -19,5 +19,4 @@ def _(tweet_id):
         return deleted
 
 
-    response.status = 204
-    return "tweet not found"
+
