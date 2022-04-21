@@ -237,8 +237,6 @@ async function logUser() {
     const loggedUser = `@${loggedUserValidation.user}`
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
 
-
-
     //enable only this buttons
       loggedUserTweets.forEach((tweet) => {
         let tweetBtns = tweet.querySelectorAll("#icons button")
@@ -265,9 +263,10 @@ async function logUser() {
   //document.querySelector("#suggested").classList.add("hidden")
   document.querySelector("#trends").classList.add("hidden")
   document.querySelector("#admin").classList.remove("hidden")
+  document.querySelector("#left-panel-img").src = "/img/blank.png"
  }
 
-    history.pushState(stateObj, "/", "/")
+
 
   }
 }
