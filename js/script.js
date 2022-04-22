@@ -221,7 +221,8 @@ async function logUser() {
   if (loggedUserValidation.msg === "User does not exist!") {
     window.location = "/signup"
   } else {
-    //if validations successfull display UI accordingly
+ //only if backend validation passes this displays
+ if (loggedUserValidation.success){
     const loggedUser = `@${loggedUserValidation.user}`
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
 
@@ -254,7 +255,7 @@ async function logUser() {
   document.querySelector("#left-panel-img").src = "/img/blank.png"
  }
 
-
+}
 
   }
 }
