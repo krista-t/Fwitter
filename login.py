@@ -34,6 +34,7 @@ def user_exists(user, database = "database.sqlite"):
             status["user"] = user["user_name"]
             status["image"] = query_results[2]
             return status
+
         else:
             status["msg"] = "Check your password!"
             print(status["msg"])

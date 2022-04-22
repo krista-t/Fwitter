@@ -1,4 +1,4 @@
-from bottle import delete, response
+from bottle import delete
 import sqlite3
 import globals
 
