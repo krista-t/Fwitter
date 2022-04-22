@@ -172,10 +172,7 @@ async function editTweet(tweet_id) {
   }
   console.log(editedTweet.tweet_updated_at)
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
-
 }
-
-//////////
 //fetch users
 async function createUser() {
   const form = event.target.form;
