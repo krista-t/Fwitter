@@ -8,5 +8,5 @@ PRIMARY KEY(session_id)
 
 )WITHOUT ROWID;
 
---REMEMBER TO RUN TE QUERY!
+
 

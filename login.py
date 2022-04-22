@@ -96,9 +96,10 @@ def _():
             status["success"] == False
     except Exception as ex:
         print(ex)
-        status["code"] = globals._send(500, "server error")
+        status["code"] = globals._send(500, "something went wrong")
     finally:
         db.close()
         return status
 
 
+s

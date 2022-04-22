@@ -50,10 +50,6 @@ def validate_img(image):
         img = ""
         return img
 
-
-
-
-
 ##############################
 # create json in sqliteDB
 def create_json_from_sqlite_result(cursor, row):
