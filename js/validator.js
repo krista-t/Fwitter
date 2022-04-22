@@ -8,7 +8,7 @@ function _all(q, e = document) {
   // ##############################
   function validate(callback) {
     event.preventDefault()
-    //my event is on btn, and it needs to be to pass all backend and front end validtions
+    //event on btn
     const form = event.target.parentElement
     //console.log("click")
     //console.log(form)
