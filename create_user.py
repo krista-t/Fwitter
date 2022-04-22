@@ -13,7 +13,6 @@ def validate_user(user, database = "database.sqlite"):
         "msg": "User not validated!",
         "code": "status code"
     }
-
     db = sqlite3.connect(database)
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
