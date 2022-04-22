@@ -7,7 +7,6 @@ from datetime import datetime
 
 
 def validate_user(user, database = "database.sqlite"):
-    #TODO: put code statuses here?
     status = {
         "success": False,
         "msg": "User not validated!",
