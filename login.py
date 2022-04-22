@@ -5,7 +5,7 @@ import uuid
 import jwt
 
 #validate login and check if user exists, if not user is redirected to signup page
-def user_exists(user, database = "database.sqlite"):
+def user_validation(user, database = "database.sqlite"):
     db = sqlite3.connect(database)
     status = {
         "success": False,
@@ -84,7 +84,7 @@ def _():
         "user_name": request.forms.get("user_name"),
         "user_password": request.forms.get("user_password"),
     }
-    status = user_exists(user)
+    status = user_validation(user)
     db = globals._db_connect("database.sqlite")
     try:
     #create sessions and set jwt token through function

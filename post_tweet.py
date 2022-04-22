@@ -1,19 +1,25 @@
 from bottle import post, request
 import uuid
 import globals
-import imghdr
-import os
 from datetime import datetime
 
 
 ##############################
 def create_tweet(tweet, database = "database.sqlite"):
+    db = globals._db_connect(database)
     status = {
         "success": False,
         "msg": "",
+        "code": "status code"
     }
-    #INSERED USER ID BY JOIN
-    db = globals._db_connect(database)
+    if len(tweet["tweet_text"]) > 80:
+        status["msg"] = globals.ERROR["error_tweet_text"]
+        status["code"] = globals._send(400, "bad request")
+        return status
+    if not tweet["tweet_text"] and not tweet["src"]:
+        status["msg"] = globals.ERROR["error_tweet_text"]
+        status["code"] = globals._send(400, "bad request")
+        return status
     try:
         db.execute(
             """INSERT INTO tweets
@@ -29,48 +35,25 @@ def create_tweet(tweet, database = "database.sqlite"):
         db.commit()
         status["success"] = True
         print(f"Tweet {tweet['tweet_text']} succesfully created in database!")
+        status["code"] = globals._send(200, "success")
+        return tweet
     except Exception as ex:
         print(ex)
         status["msg"] = f"Unable to add tweet {tweet['tweet_id']} to database!"
         print(status["msg"])
+        status["code"] = globals._send(500, "something went wrong")
+        return status
     finally:
         db.close()
-        #check this
         return tweet
-
-##############################
-def validate_img(image):
-     #validate img format
-    if image:
-        file_name, file_extension = os.path.splitext(image.filename)  # .png .jpeg .zip .mp4
-        if file_extension not in (".png", ".jpeg", ".jpg"):
-            print("image not allowed")
-        image_id = str(uuid.uuid4())
-        # Create new image name
-        tweet_img = f"{image_id}{file_extension}"
-        print("#########", tweet_img)
-        # Save the image
-        image.save(f"img/{tweet_img}")
-        imghdr_extension = imghdr.what(f"img/{tweet_img}")
-        if file_extension != f".{imghdr_extension}":
-            print(globals.ERROR["error_img"])
-            os.remove(f"img/{tweet_img}")
-            return globals.ERROR["error_img"]
-        else:
-            return tweet_img
-    #check if img exists
-    elif not image:
-        print("NO IMAGE")
-        tweet_img = ""
-        return tweet_img #None
 
 ##############################
 @post("/tweet")
 def _():
-    #get info of user whois logged in
     image = request.files.get("image")
     now = datetime.now()
     time = now.strftime("%B-%d %H:%M:%S")
+    id = str(uuid.uuid4())
 
     try:
         db = globals._db_connect("database.sqlite")
@@ -82,10 +65,11 @@ def _():
         user_name = logged_user["user_name"]
         user_image = logged_user["user_image"]
         print("U"*10, logged_user)
+        #validate img, uuid, tweet text
         tweet = {
-        "tweet_id": str(uuid.uuid4()),
+        "tweet_id": globals._is_uuid4(id),
         "tweet_text": request.forms.get("tweet_text"),
-        "src": validate_img(image),
+        "src": globals.validate_img(image),
         "tweet_created_at": time,
         "tweet_updated_at": time,
         "user_id": user_id,
@@ -95,21 +79,14 @@ def _():
         }
     except Exception as ex:
         print(ex)
+        ex = globals._send(500, "something went wrong")
+        return ex
     finally:
         db.close()
         tweet = create_tweet(tweet)
+        return tweet
 
-    #     all_tweets = {
-    #     "tweet_id": str(uuid.uuid4()),
-    #     "tweet_text": request.forms.get("tweet_text"),
-    #     "src": validate_img(image),
-    #     "user_name": user_name,
-    #     "user_full_name": user_full_name,
-    #     "tweet_created_at": time,
-    #     "tweet_updated_at": time,
-    #     "user_image": user_image
-    # }
-    return tweet
+
 
 
 
