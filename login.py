@@ -6,13 +6,14 @@ import jwt
 
 #validate login and check if user exists, if not user is redirected to signup page
 def user_exists(user, database = "database.sqlite"):
-    db = sqlite3.connect(database)
+
     status = {
         "success": False,
         "msg": "User does not exist!",
         "user": "",
         "image": ""
     }
+    db = sqlite3.connect(database)
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
@@ -36,10 +37,10 @@ def user_exists(user, database = "database.sqlite"):
             return status
         else:
             status["msg"] = "Check your password!"
-            print(status["msg"])
+            status["success"] = False
             return status
-    else:
-        return
+
+
 
 ###########################
 #create session for logged in users
@@ -65,7 +66,7 @@ def create_session(user):
         response.set_cookie("token",token)
     except Exception as ex:
         print(ex)
-        return globals._send(500, "server error")
+        return globals._send(500, "server_error")
 
     finally:
         db.close()
@@ -83,14 +84,12 @@ def _():
     try:
     #create sessions and set jwt token through function
         if status["success"] == True:
-            status["code"] = globals._send(200, "success")
             #function create_session
             create_session(user)
         else:
             status["success"] == False
     except Exception as ex:
         print(ex)
-        status["code"] = globals._send(500, "server error")
     finally:
         db.close()
         return status
