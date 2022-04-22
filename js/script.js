@@ -87,7 +87,7 @@ async function tweet() {
             <p class="screen-name font-bold">
             @${tweet.user_name}
             </p>
-            <p class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
+            <p id = "time" class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
           </div>
               <p class="font-thin">
                ${tweet.user_full_name}
@@ -169,15 +169,8 @@ async function editTweet(tweet_id) {
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
+  tweetSection.querySelector("#time").textContent = editedTweet.tweet_updated_at
 
-  // // console.log(edited.src== null)
-  //if image is not changed leave it as is
-  //  if (tweetSection.querySelector("#tweet-img") != null){
-  // console.log("image here")
-  // }else{
-
-  //    console.log("no image")
-  //  }
 }
 
 //////////
