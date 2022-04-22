@@ -1,7 +1,4 @@
-let stateObj = {
-  landingPage: "/"
 
-}
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 
@@ -210,8 +207,7 @@ async function createUser() {
 
 function showLogInForm() {
   document.querySelector("#login").classList.remove("hidden")
-  history.pushState(stateObj, "login", "login")
-  //console.log(stateObj)
+
 }
 
 //loggedin
