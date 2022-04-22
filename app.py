@@ -20,12 +20,12 @@ def _():
     return static_file("app.css", root=".")
 
 ##############################
-@get("/js/script.js")
+@get("/JS/script.js")
 def _():
     return static_file("js/script.js", root=".")
 
 ##############################
-@get("/js/validator.js")
+@get("/JS/validator.js")
 def _():
     return static_file("js/validator.js", root=".")
 
@@ -38,6 +38,7 @@ def _(image):
 @get("/")
 @view("index")
 def _():
+
     user_token = request.get_cookie("token")
     try:
         db = globals._db_connect("database.sqlite")
@@ -62,13 +63,13 @@ def _():
             logged_user="guest"
             left_panel_img =  "blank.png"
 
-        #make dict for suggested user panel
+        #TODO: make dict for suggested user panel
         #suggested_user = random.sample(tweets,k=5)
     except Exception as ex:
         print(ex)
     finally:
         db.close()
-        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
+    return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
 @get("/signup")
