@@ -1,7 +1,7 @@
-
 from bottle import get, view
 import globals
 
+#fingers crossed
 @get("/<name_id>")
 @view("profile")
 def _(name_id):

@@ -84,7 +84,8 @@ def _():
     finally:
         db.close()
         tweet = create_tweet(tweet)
-        return
+        return tweet
+
 
 
 

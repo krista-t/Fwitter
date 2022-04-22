@@ -1,5 +1,4 @@
 
-
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 

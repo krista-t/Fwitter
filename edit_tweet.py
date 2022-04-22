@@ -32,7 +32,7 @@ def _(tweet_id):
         return ex
     finally:
         db.close()
-        return
+        return tweet
 
 
 
