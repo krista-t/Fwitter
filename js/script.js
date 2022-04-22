@@ -11,11 +11,12 @@ function checkCookieExists() {
     console.log("true, cookie here")
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
+    document.querySelector(".img").classList.remove("hidden")
     if(tweetForm){
       document.querySelector(".tweet-form input").disabled = false;
     }
 
-    //if user logged on allow interaction
+    //if user logged in allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
     //enable only this buttons
@@ -43,6 +44,8 @@ function checkCookieExists() {
 
       }
 
+    //use history api for spa
+    //history.replaceState(stateObj, "/", "tweets", )
   } else {
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
@@ -57,6 +60,7 @@ function checkCookieExists() {
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
+  // document.querySelector("#tweet-edit-form").innerHTML = ""
   document.querySelector("#edit-tweet input").value = ""
 }
 //fetch tweets
@@ -84,7 +88,7 @@ async function tweet() {
             <p class="screen-name font-bold">
             @${tweet.user_name}
             </p>
-            <p class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
+            <p id = "time" class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
           </div>
               <p class="font-thin">
                ${tweet.user_full_name}
@@ -114,11 +118,6 @@ async function deleteTweet(tweet_id) {
   const connection = await fetch(`/delete_tweet/${tweet_id}`, {
     method: "DELETE"
   })
-  console.log(connection)
-  if (!connection.ok) {
-    alert("Could not tweet")
-    return
-  }
   console.log(document.querySelector(`section[id='${tweet_id}']`))
   document.querySelector(`[id='${tweet_id}']`).remove()
 }
@@ -171,15 +170,9 @@ async function editTweet(tweet_id) {
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
+  console.log(editedTweet.tweet_updated_at)
+  document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 
-  // // console.log(edited.src== null)
-  //if image is not changed leave it as is
-  //  if (tweetSection.querySelector("#tweet-img") != null){
-  // console.log("image here")
-  // }else{
-
-  //    console.log("no image")
-  //  }
 }
 
 //////////
@@ -231,7 +224,9 @@ async function logUser() {
   if (loggedUserValidation.msg === "User does not exist!") {
     window.location = "/signup"
   } else {
-    //if validations successfull display UI accordingly
+ //only if backend validation passes this displays
+ if (loggedUserValidation.success){
+    document.querySelector(".img").classList.remove("hidden")
     const loggedUser = `@${loggedUserValidation.user}`
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
 
@@ -264,7 +259,7 @@ async function logUser() {
   document.querySelector("#left-panel-img").src = "/img/blank.png"
  }
 
-
+}
 
   }
 }
