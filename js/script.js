@@ -1,4 +1,5 @@
 
+
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 
@@ -172,10 +173,7 @@ async function editTweet(tweet_id) {
   }
   console.log(editedTweet.tweet_updated_at)
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
-
 }
-
-//////////
 //fetch users
 async function createUser() {
   const form = event.target.form;
