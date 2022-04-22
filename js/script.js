@@ -43,8 +43,6 @@ function checkCookieExists() {
 
       }
 
-    //use history api for spa
-    //history.replaceState(stateObj, "/", "tweets", )
   } else {
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
@@ -59,7 +57,6 @@ function checkCookieExists() {
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
-  // document.querySelector("#tweet-edit-form").innerHTML = ""
   document.querySelector("#edit-tweet input").value = ""
 }
 //fetch tweets
@@ -117,6 +114,11 @@ async function deleteTweet(tweet_id) {
   const connection = await fetch(`/delete_tweet/${tweet_id}`, {
     method: "DELETE"
   })
+  console.log(connection)
+  if (!connection.ok) {
+    alert("Could not tweet")
+    return
+  }
   console.log(document.querySelector(`section[id='${tweet_id}']`))
   document.querySelector(`[id='${tweet_id}']`).remove()
 }

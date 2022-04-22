@@ -108,7 +108,7 @@ DELETE FROM sessions WHERE session_id = ?"""
 
 #delete tweet query
 DELETE_TWEET_QUERY = """
-DELETE FROM tweets WHERE tweet_id = ?"""
+DELETE FROM tweets WHERE tweets.tweet_id = ?"""
 
 #show tweet with specific id query
 GET_TWEET_WITH_ID_QUERY = """
