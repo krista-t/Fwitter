@@ -1,7 +1,4 @@
-let stateObj = {
-  landingPage: "/"
 
-}
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 
@@ -173,14 +170,6 @@ async function editTweet(tweet_id) {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
 
-  // // console.log(edited.src== null)
-  //if image is not changed leave it as is
-  //  if (tweetSection.querySelector("#tweet-img") != null){
-  // console.log("image here")
-  // }else{
-
-  //    console.log("no image")
-  //  }
 }
 
 //////////
@@ -210,8 +199,7 @@ async function createUser() {
 
 function showLogInForm() {
   document.querySelector("#login").classList.remove("hidden")
-  history.pushState(stateObj, "login", "login")
-  //console.log(stateObj)
+
 }
 
 //loggedin
