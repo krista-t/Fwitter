@@ -87,6 +87,7 @@ def _():
         "tweet_text": request.forms.get("tweet_text"),
         "src": validate_img(image),
         "tweet_created_at": time,
+        "tweet_updated_at": time,
         "user_id": user_id,
         "user_image": user_image
         }
@@ -103,6 +104,7 @@ def _():
         "user_name": user_name,
         "user_full_name": user_full_name,
         "tweet_created_at": time,
+        "tweet_updated_at": time,
         "user_image": user_image
     }
     return all_tweets
