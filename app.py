@@ -38,9 +38,7 @@ def _(image):
 @get("/")
 @view("index")
 def _():
-
     user_token = request.get_cookie("token")
-
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("""SELECT * FROM tweets
@@ -70,7 +68,7 @@ def _():
         print(ex)
     finally:
         db.close()
-    return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
+        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
 @get("/signup")
