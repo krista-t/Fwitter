@@ -5,25 +5,22 @@ import uuid
 import jwt
 
 #validate login and check if user exists, if not user is redirected to signup page
-def user_validation(user, database = "database.sqlite"):
+def user_exists(user, database = "database.sqlite"):
     db = sqlite3.connect(database)
     status = {
         "success": False,
         "msg": "User does not exist!",
-        "code": "status code",
         "user": "",
         "image": ""
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
-        status["code"] = globals._send(400, "bad request")
         return status
     #if user enters wrong password, but exists in DB
     if not user["user_password"]:
         print(globals.ERROR["error_password"])
         status["msg"] = globals.ERROR["error_password"]
-        status["code"] = globals._send(400, "bad request")
         return status
     query_results = db.execute(
         globals.USER_NAME_PASS_IMG_QUERY, (user["user_name"],)
@@ -36,16 +33,13 @@ def user_validation(user, database = "database.sqlite"):
             status["msg"] = "User validated!"
             status["user"] = user["user_name"]
             status["image"] = query_results[2]
-            status["code"] = globals._send(200, "success")
             return status
-
         else:
             status["msg"] = "Check your password!"
             print(status["msg"])
-            status["code"] = globals._send(400, "bad request")
             return status
     else:
-        return status
+        return
 
 ###########################
 #create session for logged in users
@@ -84,7 +78,7 @@ def _():
         "user_name": request.forms.get("user_name"),
         "user_password": request.forms.get("user_password"),
     }
-    status = user_validation(user)
+    status = user_exists(user)
     db = globals._db_connect("database.sqlite")
     try:
     #create sessions and set jwt token through function
@@ -96,10 +90,9 @@ def _():
             status["success"] == False
     except Exception as ex:
         print(ex)
-        status["code"] = globals._send(500, "something went wrong")
+        status["code"] = globals._send(500, "server error")
     finally:
         db.close()
         return status
 
 
-s
