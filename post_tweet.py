@@ -89,6 +89,8 @@ def _():
         "tweet_created_at": time,
         "tweet_updated_at": time,
         "user_id": user_id,
+        "user_name": user_name,
+        "user_full_name": user_full_name,
         "user_image": user_image
         }
     except Exception as ex:
