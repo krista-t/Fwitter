@@ -11,11 +11,12 @@ function checkCookieExists() {
     console.log("true, cookie here")
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
+    document.querySelector(".img").classList.remove("hidden")
     if(tweetForm){
       document.querySelector(".tweet-form input").disabled = false;
     }
 
-    //if user logged on allow interaction
+    //if user logged in allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
     //enable only this buttons
@@ -87,7 +88,7 @@ async function tweet() {
             <p class="screen-name font-bold">
             @${tweet.user_name}
             </p>
-            <p class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
+            <p id = "time" class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
           </div>
               <p class="font-thin">
                ${tweet.user_full_name}
@@ -169,6 +170,8 @@ async function editTweet(tweet_id) {
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
+  console.log(editedTweet.tweet_updated_at)
+  document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 
 }
 
@@ -223,6 +226,7 @@ async function logUser() {
   } else {
  //only if backend validation passes this displays
  if (loggedUserValidation.success){
+    document.querySelector(".img").classList.remove("hidden")
     const loggedUser = `@${loggedUserValidation.user}`
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
 
