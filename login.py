@@ -10,17 +10,20 @@ def user_exists(user, database = "database.sqlite"):
     status = {
         "success": False,
         "msg": "User does not exist!",
+        "code": "status code",
         "user": "",
         "image": ""
     }
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
+        status["code"] = globals._send(400, "bad request")
         return status
     #if user enters wrong password, but exists in DB
     if not user["user_password"]:
         print(globals.ERROR["error_password"])
         status["msg"] = globals.ERROR["error_password"]
+        status["code"] = globals._send(400, "bad request")
         return status
     query_results = db.execute(
         globals.USER_NAME_PASS_IMG_QUERY, (user["user_name"],)
@@ -33,10 +36,13 @@ def user_exists(user, database = "database.sqlite"):
             status["msg"] = "User validated!"
             status["user"] = user["user_name"]
             status["image"] = query_results[2]
+            status["code"] = globals._send(200, "success")
             return status
+
         else:
             status["msg"] = "Check your password!"
             print(status["msg"])
+            status["code"] = globals._send(400, "bad request")
             return status
     else:
         return status
@@ -65,7 +71,7 @@ def create_session(user):
         response.set_cookie("token",token)
     except Exception as ex:
         print(ex)
-        return globals._send(500, "server_error")
+        return globals._send(500, "server error")
 
     finally:
         db.close()
@@ -76,7 +82,7 @@ def create_session(user):
 def _():
     user = {
         "user_name": request.forms.get("user_name"),
-        "user_password": request.forms.get("user_password"),
+        "user_password": request.forms.get("user_password")
     }
     status = user_exists(user)
     db = globals._db_connect("database.sqlite")
@@ -89,6 +95,7 @@ def _():
             status["success"] == False
     except Exception as ex:
         print(ex)
+        status["code"] = globals._send(500, "server error")
     finally:
         db.close()
         return status

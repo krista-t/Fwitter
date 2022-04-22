@@ -25,35 +25,30 @@ def _is_uuid4(text=None):
   return text
 
 ##############################
-def _validate_img(image):
+def validate_img(image):
      #validate img format
     if image:
         file_name, file_extension = os.path.splitext(image.filename)  # .png .jpeg .zip .mp4
         if file_extension not in (".png", ".jpeg", ".jpg"):
-          print("image not allowed")
+         print("image not allowed")
         image_id = str(uuid.uuid4())
         # Create new image name
-        tweet_img = f"{image_id}{file_extension}"
-        print("#########", tweet_img)
+        img = f"{image_id}{file_extension}"
+        print("#########", img)
         # Save the image
-        image.save(f"img/{tweet_img}")
-        imghdr_extension = imghdr.what(f"img/{tweet_img}")
+        image.save(f"img/{img}")
+        imghdr_extension = imghdr.what(f"img/{img}")
         if file_extension != f".{imghdr_extension}":
             print(globals.ERROR["error_img"])
-            os.remove(f"img/{tweet_img}")
-            return globals.ERROR["error_img"]
+            os.remove(f"img/{img}")
+            # return globals.ERROR["error_img"]
         else:
-            return tweet_img
+            return img
     #check if img exists
     elif not image:
         print("NO IMAGE")
-        tweet_img = ""
-        return tweet_img #None
-
-
-
-
-
+        img = ""
+        return img
 
 ##############################
 # create json in sqliteDB
@@ -80,7 +75,8 @@ ERROR = {
     "error_email_exists": "email already exists",
     "error_password_min": "password must be at least 6 characters",
     "error_password": "enter password",
-    # "error_img": "Wrong image format, only png, jpg, jpeg allowed"
+    "error_img": "Wrong image format, only png, jpg, jpeg allowed",
+    "error_tweet_text": "must be 80 characters or less"
 }
 
 ##############################
@@ -108,7 +104,7 @@ DELETE FROM sessions WHERE session_id = ?"""
 
 #delete tweet query
 DELETE_TWEET_QUERY = """
-DELETE FROM tweets WHERE tweets.tweet_id = ?"""
+DELETE FROM tweets WHERE tweet_id = ?"""
 
 #show tweet with specific id query
 GET_TWEET_WITH_ID_QUERY = """

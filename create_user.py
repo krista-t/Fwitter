@@ -7,49 +7,56 @@ from datetime import datetime
 
 
 def validate_user(user, database = "database.sqlite"):
-    #TODO: put code statuses here?
     status = {
         "success": False,
         "msg": "User not validated!",
         "code": "status code"
     }
+
     db = sqlite3.connect(database)
     if len(user["user_name"]) < 2:
         print(globals.ERROR["error_name_min"])
         status["msg"] = globals.ERROR["error_name_min"]
-        status["code"] = globals._send(400, "unknown error")
+        status["code"] = globals._send(400, "bad request")
         return status
     if len(user["user_name"]) > 20:
         print(globals.ERROR["error_name_max"])
         status["msg"] = globals.ERROR["error_name_max"]
+        status["code"] = globals._send(400, "bad request")
         return status
     if not user["user_email"]:
         print(globals.ERROR["error_email"])
         status["msg"] = globals.ERROR["error_email"]
+        status["code"] = globals._send(400, "bad request")
         return status
     if not re.match(globals.REGEX_EMAIL, user["user_email"]):
         print(globals.ERROR["error_email_re"])
         status["msg"] = globals.ERROR["error_email_re"]
+        status["code"] = globals._send(400, "bad request")
         return status
     if not user["user_password"]:
         print("No Password provided!!!")
         status["msg"] = "No Password provided!!!"
+        status["code"] = globals._send(400, "bad request")
         return status
     if len(user["user_password"]) < 6:
         print(globals.ERROR["error_password_min"])
         status["msg"] = globals.ERROR["error_password_min"]
+        status["code"] = globals._send(400, "bad request")
         return status
     if db.execute(globals.USER_NAME_QUERY, (user["user_name"],)).fetchone():
         print("User name already exists")
         status["msg"] = "User name already exists"
+        status["code"] = globals._send(400, "bad request")
         return status
     if db.execute(globals.USER_EMAIL_QUERY, (user["user_email"],)).fetchone():
         print("User email already exists")
         status["msg"] = "User email already exists"
+        status["code"] = globals._send(400, "bad request")
         return status
     else:
         status["success"] = True
-        #status["msg"] = "User validated!"
+        status["code"] = globals._send(200, "success")
         print("User validated!")
         return status
 
@@ -70,12 +77,13 @@ def create_user(user, database = "database.sqlite"):
         )
         db.commit()
         status["success"] = True
-        #status["msg"] = f"User {user['user_name']} succesfully created in database!"
+        status["code"] = globals._send(200, "success")
         print(f"User {user['user_name']} succesfully created in database!")
     except Exception as ex:
         print(ex)
         status["msg"] = f"Unable to add user {user['user_name']} to database!"
         print(status["msg"])
+        status["code"] = globals._send(500, "something went wrong")
     finally:
         db.close()
         return status
