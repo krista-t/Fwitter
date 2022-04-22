@@ -93,7 +93,7 @@ console.log("click",id)
 async function uploadProfilePic(id) {
   const form = event.target.form
   console.log("form")
-  //Connect to the api and delete it from the db
+  //Connect to the api
   const connection = await fetch(`/${id}`, {
     method: "PUT",
     body: new FormData(form)
