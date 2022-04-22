@@ -1,4 +1,4 @@
-from bottle import get, response, view
+from bottle import get, view
 import globals
 
 @get("/<name_id>")

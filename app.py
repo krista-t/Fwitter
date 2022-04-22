@@ -27,7 +27,6 @@ def _():
 ##############################
 @get("/JS/validator.js")
 def _():
-
     return static_file("js/validator.js", root=".")
 
 ##############################
@@ -41,7 +40,6 @@ def _(image):
 def _():
 
     user_token = request.get_cookie("token")
-
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute("""SELECT * FROM tweets
@@ -65,7 +63,7 @@ def _():
             logged_user="guest"
             left_panel_img =  "blank.png"
 
-        #make dict for suggested user panel
+        #TODO: make dict for suggested user panel
         #suggested_user = random.sample(tweets,k=5)
     except Exception as ex:
         print(ex)
