@@ -20,4 +20,3 @@ def _(tweet_id):
         return deleted
 
 
-
