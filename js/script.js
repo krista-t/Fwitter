@@ -1,7 +1,6 @@
 
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
-
 function checkCookieExists() {
   document.querySelectorAll("#icons button").forEach((icon) => {
     icon.disabled = true
@@ -16,7 +15,7 @@ function checkCookieExists() {
       document.querySelector(".tweet-form input").disabled = false;
     }
 
-    //if user logged in allow interaction
+    //if user logged allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
     //enable only this buttons
@@ -27,6 +26,10 @@ function checkCookieExists() {
         )
     })
 
+    document.querySelectorAll("#fweets a").forEach((a) => {
+      console.log(a)
+      a.style = "pointer-events:all"
+    })
 
     const user = document.querySelector("#logged-user span").textContent
     console.log(user)
@@ -36,7 +39,7 @@ function checkCookieExists() {
       deleteBtns.forEach(btn =>
         btn.disabled = false
       )
-  //admin cannot post tweets
+  //admin cannot tweet
   document.querySelector("#tweet-form").classList.add("hidden")
   document.querySelector("#suggested").classList.add("hidden")
   document.querySelector("#trends").classList.add("hidden")
@@ -54,8 +57,21 @@ function checkCookieExists() {
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
     })
-
+    //cannot visit single profile page
+    document.querySelectorAll("#fweets a").forEach((a) => {
+      console.log(a)
+      a.style = "pointer-events:none"
+    })
   }
+}
+
+let user = document.querySelector("a")
+user.addEventListener("click", showProfile)
+function showProfile(profile){
+  console.log(profile)
+
+  console.log("click")
+
 }
 
 function closeTweetModal() {
@@ -271,14 +287,5 @@ function removeWhiteSpaces(string) {
   return newString
 }
 
-//showProfile
-// async function showProfile(profile){
-//   console.log(profile)
-//   const connection = await fetch(`/${profile}`, {
-//     method: "GET"
-//   })
-//   let singleProfile = await connection.json()
-//   console.log(singleProfile)
-//   //async fetch and populate or phyton
-//   document.querySelector("#user-info h4").textContent= singleProfile.full_name
-// }
+
+
