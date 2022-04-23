@@ -1,34 +1,31 @@
 % include("header")
 
-  <!-- <body class="w-full h-screen" data-new-gr-c-s-check-loaded="14.1055.0" data-gr-ext-installed=""> -->
-  <body class="w-full h-screen">
+<body class="w-full h-screen">
   <!-- EDIT TWEET MODAL -->
   %include("edit-tweet")
   <!-- EDIT TWEET MODAL END -->
-    <!--- LOGIN --->
-    %include("login")
-    <!-- LOGINEND -->
-    <!-- LEFT PANEL -->
-    <div id="wrapper" class="flex w-full mx-auto xl:w-4/5">
-      %include("left-panel")
-      <!-- LEFT PANEL END -->
-      <!-- CENTER -->
-      %include("center-tweets")
-      <!-- CENTER ENDS -->
-      <div class="w-1/4 h-screen hidden lg:block">
-        <div class="w-1/5 fixed flex flex-col h-screen gap-4 py-4 pl-4">
-          <!-- RIGHT-TRENDS -->
-          %include("trends")
-          <!-- RIGHT-TRENDS-END -->
-          <!-- RIGHT-SUGGESTED-PAGES -->
-          %include("suggested-pages")
-          <!-- RIGHT-SUGGESTED-PAGES-END -->
-        </div>
+  <!--- LOGIN --->
+  %include("login")
+  <!-- LOGINEND -->
+  <!-- LEFT PANEL -->
+  <div id="wrapper" class="flex w-full mx-auto xl:w-4/5">
+    %include("left-panel")
+    <!-- LEFT PANEL END -->
+    <!-- CENTER -->
+    %include("center-tweets")
+    <!-- CENTER ENDS -->
+    <div class="w-1/4 h-screen hidden lg:block">
+      <div class="w-1/5 fixed flex flex-col h-screen gap-4 py-4 pl-4">
+        <!-- RIGHT-TRENDS -->
+        %include("trends")
+        <!-- RIGHT-TRENDS-END -->
+        <!-- RIGHT-SUGGESTED-PAGES -->
+        %include("suggested-pages")
+        <!-- RIGHT-SUGGESTED-PAGES-END -->
       </div>
     </div>
-
-    <script src="/js/script.js"></script>
-    <script src="/js/validator.js"></script>
-
-  </body>
-  </html>
+  </div>
+  <script src="/js/script.js"></script>
+  <script src="/js/validator.js"></script>
+</body>
+</html>

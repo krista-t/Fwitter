@@ -119,7 +119,8 @@ async function tweet() {
               <button onclick="showTweetToEdit('${tweet_id}')">
                 <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
               </button>
-            <button><i class="fa-solid fa-heart cursor-pointer  ml-auto"></i></button>
+              <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i><i class="fa-solid fa-retweet"></i>
+            <i class="fa-solid fa-share-nodes"></i>
             </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
@@ -247,7 +248,7 @@ async function logUser() {
       loggedUserTweets.forEach((tweet) => {
         let tweetBtns = tweet.querySelectorAll("#icons button")
         tweetBtns.forEach(btn =>
-        btn.disabled = false
+          btn.disabled = false
         )
       })
       document.querySelectorAll("#fweets a").forEach((a) => {
@@ -265,7 +266,7 @@ async function logUser() {
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
         tweetBtns.forEach(btn =>
-        btn.disabled = false
+          btn.disabled = false
         )
         //admin cannot post tweets
         document.querySelector("#tweet-form").classList.add("hidden")
