@@ -30,7 +30,7 @@ def user_exists(user, database = "database.sqlite"):
     ).fetchone()
     print("Q"*10, query_results)
     if query_results:
-        # index 0 is user_email, index 1 is user_password
+        #index 1 is user_password
         if query_results[1] == user["user_password"]:
             status["success"] = True
             status["msg"] = "User validated!"
