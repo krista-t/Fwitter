@@ -1,4 +1,3 @@
-
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
 
@@ -12,37 +11,41 @@ function checkCookieExists() {
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".img").classList.remove("hidden")
-    if(tweetForm){
+    if (tweetForm) {
       document.querySelector(".tweet-form input").disabled = false;
     }
 
-    //if user logged in allow interaction
+    //if user logged allow interaction
     const loggedUser = document.querySelector("#logged-user span").textContent
     let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
     //enable only this buttons
     loggedUserTweets.forEach((tweet) => {
-        let tweetBtns = tweet.querySelectorAll("#icons button")
-        tweetBtns.forEach(btn =>
-          btn.disabled = false
-        )
+      let tweetBtns = tweet.querySelectorAll("#icons button")
+      tweetBtns.forEach(btn =>
+        btn.disabled = false
+      )
     })
 
+    document.querySelectorAll("#fweets a").forEach((a) => {
+      console.log(a)
+      a.style = "pointer-events:all"
+    })
 
     const user = document.querySelector("#logged-user span").textContent
     console.log(user)
-    if(user == "@admin"){
+    if (user == "@admin") {
       console.log("i am admin")
-        let deleteBtns = document.querySelectorAll("#delete")
+      let deleteBtns = document.querySelectorAll("#delete")
       deleteBtns.forEach(btn =>
         btn.disabled = false
       )
-  //admin cannot post tweets
-  document.querySelector("#tweet-form").classList.add("hidden")
-  document.querySelector("#suggested").classList.add("hidden")
-  document.querySelector("#trends").classList.add("hidden")
-  document.querySelector("#admin").classList.remove("hidden")
+      //admin cannot tweet
+      document.querySelector("#tweet-form").classList.add("hidden")
+      document.querySelector("#trends").classList.add("hidden")
+      document.querySelector("#admin").classList.remove("hidden")
+      //document.querySelector("#suggested").classList.add("hidden")
 
-      }
+    }
 
     //use history api for spa
     //history.replaceState(stateObj, "/", "tweets", )
@@ -54,8 +57,22 @@ function checkCookieExists() {
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
     })
-
+    //cannot visit single profile page
+    document.querySelectorAll("#fweets a").forEach((a) => {
+      console.log(a)
+      a.style = "pointer-events:none"
+    })
   }
+}
+
+let user = document.querySelector("a")
+user.addEventListener("click", showProfile)
+
+function showProfile(profile) {
+  console.log(profile)
+
+  console.log("click")
+
 }
 
 function closeTweetModal() {
@@ -85,9 +102,12 @@ async function tweet() {
             <img class="flex-none w-12 h-12 rounded-full" src="/img/${tweet.user_image}"alt="photo">
             <div id="@{{tweet['user_name']}}"  class="w-full pl-4">
             <div class = "flex">
-            <p class="screen-name font-bold">
+            <a href="/${tweet.user_name}" target:="_blank">
+            <p class="screen-name font-bold  cursor-pointer">
             @${tweet.user_name}
             </p>
+          </a>
+
             <p id = "time" class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
           </div>
               <p class="font-thin">
@@ -222,42 +242,44 @@ async function logUser() {
   if (loggedUserValidation.msg === "User does not exist!") {
     window.location = "/signup"
   } else {
- //only if backend validation passes
- if (loggedUserValidation.success){
-    document.querySelector(".img").classList.remove("hidden")
-    const loggedUser = `@${loggedUserValidation.user}`
-    let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
+    //only if backend validation passes
+    if (loggedUserValidation.success) {
+      document.querySelector(".img").classList.remove("hidden")
+      const loggedUser = `@${loggedUserValidation.user}`
+      let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`)
 
-    //enable only this buttons
+      //enable only this buttons
       loggedUserTweets.forEach((tweet) => {
         let tweetBtns = tweet.querySelectorAll("#icons button")
         tweetBtns.forEach(btn =>
           btn.disabled = false
         )
       })
+      document.querySelectorAll("#fweets a").forEach((a) => {
+        console.log(a)
+        a.style = "pointer-events:all"
+      })
       document.querySelector("#logged-user span").textContent = loggedUser
-      document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
+      document.querySelector("#left-panel-img").src = "/img/" + loggedUserValidation.image + ""
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
       document.querySelector("#tweet-btn").disabled = false;
       document.querySelector(".tweet-form input").value = null
       document.querySelector(".tweet-form input").disabled = false;
 
- if (loggedUserValidation.user == "admin"){
-  let tweetBtns = document.querySelectorAll("#delete")
-  tweetBtns.forEach(btn =>
-    btn.disabled = false
-  )
-  //admin cannot post tweets
-  document.querySelector("#tweet-form").classList.add("hidden")
-  //document.querySelector("#suggested").classList.add("hidden")
-  document.querySelector("#trends").classList.add("hidden")
-  document.querySelector("#admin").classList.remove("hidden")
-  document.querySelector("#left-panel-img").src = "/img/blank.png"
- }
-
-}
-
+      if (loggedUserValidation.user == "admin") {
+        let tweetBtns = document.querySelectorAll("#delete")
+        tweetBtns.forEach(btn =>
+          btn.disabled = false
+        )
+        //admin cannot post tweets
+        document.querySelector("#tweet-form").classList.add("hidden")
+        //document.querySelector("#suggested").classList.add("hidden")
+        document.querySelector("#trends").classList.add("hidden")
+        document.querySelector("#admin").classList.remove("hidden")
+        document.querySelector("#left-panel-img").src = "/img/blank.png"
+      }
+    }
   }
 }
 
@@ -266,16 +288,4 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   return newString
-}
-
-//showProfile
-async function showProfile(profile){
-  console.log(profile)
-  const connection = await fetch(`/${profile}`, {
-    method: "GET"
-  })
-  let singleProfile = await connection.json()
-  console.log(singleProfile)
-  //async fetch and populate or phyton
-  document.querySelector("#user-info h4").textContent= singleProfile.full_name
 }
