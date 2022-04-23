@@ -200,14 +200,14 @@ async function createUser() {
   }
 }
 
-function showLogInForm() {
+ function showLogInForm() {
   console.log("click")
   document.querySelector("#login").classList.remove("hidden")
 
 }
 
 //loggedin
-async function logUser() {
+ async function logUser() {
   const form = event.target.form
   const connection = await fetch("/login", {
     method: "POST",
@@ -272,13 +272,13 @@ function removeWhiteSpaces(string) {
 }
 
 //showProfile
-async function showProfile(profile){
-  console.log(profile)
-  const connection = await fetch(`/${profile}`, {
-    method: "GET"
-  })
-  let singleProfile = await connection.json()
-  console.log(singleProfile)
-  //async fetch and populate or phyton
-  document.querySelector("#user-info h4").textContent= singleProfile.full_name
-}
+// async function showProfile(profile){
+//   console.log(profile)
+//   const connection = await fetch(`/${profile}`, {
+//     method: "GET"
+//   })
+//   let singleProfile = await connection.json()
+//   console.log(singleProfile)
+//   //async fetch and populate or phyton
+//   document.querySelector("#user-info h4").textContent= singleProfile.full_name
+// }

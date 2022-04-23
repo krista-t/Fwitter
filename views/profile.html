@@ -1,7 +1,7 @@
 % include("header")
 
 <body class="w-full h-screen">
-    %include("left-panel")
+    <!-- %include("left-panel") -->
     <div class="w-3/4 min-h-screen border-x border-gray-300 absolute top-0 sm:left-96 md:left-1/4 left-1/3 z-20
     ">
       <section id="profile-page" class="border-r border-slate-200 w-[90%] p-6">
@@ -22,7 +22,7 @@
         </form>
 
         <div id="user-info" class="mt-4 px-4 py-2">
-          <p class = "text-xl text-gray-500">@{{user["name"]}}</p>
+          <p id ='{{user["name"]}}' class = "text-xl text-gray-500">@{{user["name"]}}</p>
           <p class = "text-xl">{{user["full_name"]}}</p>
           <div class="flex"> <i class="fas fa-calendar mt-1 text-xl"></i>
             <p class="pl-4 pt-1 text-xl">Joined:
@@ -102,5 +102,11 @@
         document.querySelector("#profile-photo").src = "/img/" + updatedImg.user_image + ""
         document.querySelector("#main-img").src = "/img/" + updatedImg.user_image + ""
       }
+
+      function ui(){
+        let user = document.querySelector("#user-info p").id
+      //  document.querySelector("#login-btn").classList.add("hidden")
+      }
+      ui()
     </script>
 </body>
