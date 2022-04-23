@@ -1,0 +1,20 @@
+ <div id="suggested" class="relative h-1/2 bg-gray-100 rounded">
+     <div class="mt-2 px-2 pt-4 font-bold text-xl">
+         You might like
+     </div>
+     %for user in suggested_user:
+     <div class="flex items-center gap-2 px-2 py-3 mt-4 hover:bg-gray-200 cursor-pointer">
+         <img class="w-12 h-12 rounded-full flex-none" src='/img/{{user["user_image"]}}'>
+         <div class="flex-1 overflow-ellipsis">
+             <p>{{user["user_full_name"]}}</p>
+             <p class="font-thin">@{{user["user_name"]}}</p>
+         </div>
+         <button class="py-2 px-4 bg-white rounded-full">
+             Follow
+         </button>
+     </div>
+     %end
+     <p  class="self-end mt-10 px-2 text-gray-500">
+         Show more
+    </p>
+ </div>

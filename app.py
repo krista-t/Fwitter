@@ -69,13 +69,13 @@ def _():
             logged_user="guest"
             left_panel_img =  "blank.png"
 
-        #TODO: make dict for suggested user panel
-        #suggested_user = random.sample(tweets,k=5)
+        #suggested user panel is random
+        suggested_user = random.sample(tweets,k=4)
     except Exception as ex:
         print(ex)
     finally:
         db.close()
-        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
+        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img, suggested_user = suggested_user)
 
 #################
 @get("/signup")
