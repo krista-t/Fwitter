@@ -254,6 +254,10 @@ async function createUser() {
           btn.disabled = false
         )
       })
+      document.querySelectorAll("#fweets a").forEach((a) => {
+        console.log(a)
+        a.style = "pointer-events:all"
+      })
       document.querySelector("#logged-user span").textContent = loggedUser
       document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
       document.querySelector("#login").classList.add("hidden")
