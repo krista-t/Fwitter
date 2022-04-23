@@ -94,7 +94,7 @@
         })
         console.log(connection)
         if (!connection.ok) {
-          alert("Could not update")
+          alert("Wrong image format, only .jpg, .jpeg, and png allowed")
           return
         }
         //Success
@@ -104,8 +104,9 @@
       }
 
       function ui(){
-        let user = document.querySelector("#user-info p").id
-      //  document.querySelector("#login-btn").classList.add("hidden")
+      let user = document.querySelector("#user-info p").id
+      document.querySelector("#login-btn").classList.add("hidden")
+      document.querySelector("#logout-btn").classList.add("hidden")
       }
       ui()
     </script>
