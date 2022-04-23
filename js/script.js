@@ -47,8 +47,6 @@ function checkCookieExists() {
 
     }
 
-    //use history api for spa
-    //history.replaceState(stateObj, "/", "tweets", )
   } else {
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form input").value =
@@ -77,7 +75,6 @@ function showProfile(profile) {
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
-  // document.querySelector("#tweet-edit-form").innerHTML = ""
   document.querySelector("#edit-tweet input").value = ""
 }
 //fetch tweets
@@ -142,14 +139,12 @@ async function deleteTweet(tweet_id) {
   document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
-//show tweet to update//
+//show tweet to update
 function showTweetToEdit(tweet_id) {
   console.log("clicked")
   document.querySelector("#edit-tweet").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
-
   let tweet_text = tweet.querySelector("#tweet-text").textContent
-
   document.querySelector("#edit-tweet input").value = tweet_text
   console.log(document.querySelector("#edit-tweet input").value)
   let img = tweet.querySelector("#tweet-img")
@@ -170,7 +165,7 @@ function showTweetToEdit(tweet_id) {
 async function editTweet(tweet_id) {
   const form = event.target.form
   document.querySelector("#edit-tweet").classList.add("hidden")
-  //Connect to the api and delete it from the db
+  //Connect to the api update db
   const connection = await fetch(`/edit_tweet/${tweet_id}`, {
     method: "PUT",
     body: new FormData(form)
@@ -252,7 +247,7 @@ async function logUser() {
       loggedUserTweets.forEach((tweet) => {
         let tweetBtns = tweet.querySelectorAll("#icons button")
         tweetBtns.forEach(btn =>
-          btn.disabled = false
+        btn.disabled = false
         )
       })
       document.querySelectorAll("#fweets a").forEach((a) => {
@@ -270,7 +265,7 @@ async function logUser() {
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
         tweetBtns.forEach(btn =>
-          btn.disabled = false
+        btn.disabled = false
         )
         //admin cannot post tweets
         document.querySelector("#tweet-form").classList.add("hidden")
