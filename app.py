@@ -6,13 +6,13 @@ import random
 import json
 
 ##############################
-import create_user
-import login
-import post_tweet
-import delete_tweet
-import edit_tweet
-import profile
-import create_profile_img
+from crud import create_user
+from crud import post_tweet
+from crud import delete_tweet
+from crud import edit_tweet
+from crud import login
+from crud import create_profile_img
+from crud import profile
 
 ##############################
 @get("/app.css")
