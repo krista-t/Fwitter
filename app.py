@@ -25,6 +25,11 @@ def _():
     return static_file("/js/script.js", root=".")
 
 ##############################
+@get("/js/profile.js")
+def _():
+    return static_file("/js/profile.js", root=".")
+
+##############################
 
 @get("/js/validator.js")
 def _():
