@@ -43,7 +43,7 @@ function checkCookieExists() {
       document.querySelector("#tweet-form").classList.add("hidden")
       document.querySelector("#trends").classList.add("hidden")
       document.querySelector("#admin").classList.remove("hidden")
-      //document.querySelector("#suggested").classList.add("hidden")
+      document.querySelector("#suggested").classList.add("hidden")
 
     }
 
@@ -270,7 +270,7 @@ async function logUser() {
         )
         //admin cannot post tweets
         document.querySelector("#tweet-form").classList.add("hidden")
-        //document.querySelector("#suggested").classList.add("hidden")
+        document.querySelector("#suggested").classList.add("hidden")
         document.querySelector("#trends").classList.add("hidden")
         document.querySelector("#admin").classList.remove("hidden")
         document.querySelector("#left-panel-img").src = "/img/blank.png"
