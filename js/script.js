@@ -41,9 +41,9 @@ function checkCookieExists() {
       )
       //admin cannot tweet
       document.querySelector("#tweet-form").classList.add("hidden")
-      document.querySelector("#suggested").classList.add("hidden")
       document.querySelector("#trends").classList.add("hidden")
       document.querySelector("#admin").classList.remove("hidden")
+      //document.querySelector("#suggested").classList.add("hidden")
 
     }
 
