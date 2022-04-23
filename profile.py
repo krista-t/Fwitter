@@ -36,7 +36,6 @@ def _(name_id):
           return user_tweets
     except Exception as ex:
         print(ex)
-
     finally:
         db.close()
         return dict(user=user,tweets = user_tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)

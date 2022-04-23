@@ -3,7 +3,6 @@ import uuid
 import globals
 from datetime import datetime
 
-
 ##############################
 def create_tweet(tweet, database = "database.sqlite"):
     db = globals._db_connect(database)
@@ -64,7 +63,6 @@ def _():
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]
         user_image = logged_user["user_image"]
-        print("U"*10, logged_user)
         #validate img, uuid, tweet text
         tweet = {
         "tweet_id": globals._is_uuid4(id),

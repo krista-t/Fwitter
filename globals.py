@@ -10,7 +10,7 @@ TRENDS = [
   {"category": "Arts&culture", "title": "#photography", "tweets_counter": "40k"},
   {"category": "Politics . Trending", "title": "Ukraine", "tweets_counter": "101M"},
   {"category": "Trends", "title": "#caturday", "tweets_counter": "19k"},
-  {"category": "Trending in US", "title": "Russia", "tweets_counter": "45k"},
+  {"category": "Trending in DK", "title": "Roskilde Festival", "tweets_counter": "45k"},
   {"category": "Music", "title": "Spotify", "tweets_counter": "45k"},
 ]
 
