@@ -71,7 +71,7 @@ async function tweet() {
     body: new FormData(form)
   })
   if (!connection.ok) {
-    alert("Could not tweet")
+    alert("Tweet with text, an image or both")
     return
   }
   // Success
@@ -198,6 +198,7 @@ async function createUser() {
 }
 
 function showLogInForm() {
+  console.log("click")
   document.querySelector("#login").classList.remove("hidden")
 
 }
@@ -221,7 +222,7 @@ async function logUser() {
   if (loggedUserValidation.msg === "User does not exist!") {
     window.location = "/signup"
   } else {
- //only if backend validation passes this displays
+ //only if backend validation passes
  if (loggedUserValidation.success){
     document.querySelector(".img").classList.remove("hidden")
     const loggedUser = `@${loggedUserValidation.user}`
@@ -235,7 +236,6 @@ async function logUser() {
         )
       })
       document.querySelector("#logged-user span").textContent = loggedUser
-      //TODO:display profile img
       document.querySelector("#left-panel-img").src ="/img/"+ loggedUserValidation.image + ""
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")

@@ -20,14 +20,14 @@ def _():
     return static_file("app.css", root=".")
 
 ##############################
-@get("/JS/script.js")
+@get("/js/script.js")
 def _():
-    return static_file("js/script.js", root=".")
+    return static_file("/js/script.js", root=".")
 
 ##############################
-@get("/JS/validator.js")
+@get("/js/validator.js")
 def _():
-    return static_file("js/validator.js", root=".")
+    return static_file("/js/validator.js", root=".")
 
 ##############################
 @get("/img/<image>")
@@ -55,13 +55,13 @@ def _():
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
             logged_user = decoded_token["name"]
             print("TOKEN"*3, f"User {logged_user} is logged in")
-        #     logged_user_img =  db.execute(globals.GET_LOGGED_USER_IMG_QUERY, (logged_user,)).fetchone()
-        #     left_panel_img =  logged_user_img["user_image"]
+            logged_user_img =  db.execute(globals.GET_LOGGED_USER_IMG_QUERY, (logged_user,)).fetchone()
+            left_panel_img =  logged_user_img["user_image"]
 
-        # else:
-        #     print("NOT TOKEN"*3, "Not logged in")
-        #     logged_user="guest"
-        #     left_panel_img =  "blank.png"
+        else:
+            print("NOT TOKEN"*3, "Not logged in")
+            logged_user="guest"
+            left_panel_img =  "blank.png"
 
         #TODO: make dict for suggested user panel
         #suggested_user = random.sample(tweets,k=5)
@@ -69,7 +69,7 @@ def _():
         print(ex)
     finally:
         db.close()
-        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS)
+        return dict(tweets = tweets, logged_user=logged_user, trends = globals.TRENDS, logged_img = left_panel_img)
 
 #################
 @get("/signup")
@@ -110,6 +110,6 @@ try:
     print("***PRODUCTION***")
 except Exception as ex:
     print("***Server running on development***")
-    run(host="127.0.0.1", port=3555, debug=True, reloader=True, server="paste")
+    run(host="127.0.0.1", port=3999, debug=True, reloader=True, server="paste")
 
 ##############################
