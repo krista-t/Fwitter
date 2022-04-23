@@ -1,6 +1,7 @@
-
 //check who is logged in
 function checkProfile(){
+    document.querySelector("#login-btn").classList.add("hidden")
+    document.querySelector("#logout-btn").classList.add("hidden")
     let loggedUser = document.querySelector("#logged-user span").textContent
     loggedUser = loggedUser.substring(1)
   let profileUser = document.querySelector("#user-info p").id
