@@ -13,7 +13,7 @@ pip install bottle
 pip install paste
 pip install pyjwt
 
-npm install -d tailwindcss@latest postcss@latest autoprefixer@latest
+npm install -d tailwindcss@latest postcss@latest autoprefixer@latest (you shoud have node.js already installed)
 
 # running for development
 from tailwindcss folder:
