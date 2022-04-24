@@ -1,8 +1,5 @@
 # Fwitter
-Twitter alike clone with Pyhon, Sqlite, JS, and TailwindCSS
-
-# warning
-be ware that any interaction with the app makes changes in database, this includes deleting data
+Twitter like clone with Pyhon, Sqlite, JS, and TailwindCSS
 
 # starting the project
 python3 -m venv /path/to/new/virtual/environment
@@ -13,7 +10,7 @@ pip install bottle
 pip install paste
 pip install pyjwt
 
-npm install -d tailwindcss@latest postcss@latest autoprefixer@latest
+npm install -d tailwindcss@latest postcss@latest autoprefixer@latest (you shoud have node.js already installed)
 
 # running for development
 from tailwindcss folder:
@@ -21,6 +18,7 @@ npx tailwindcss -i tailwind.css -o ../app.css --watch
 
 python3 app.py
 
-
+# warning
+be ware that any interaction with the app makes changes in database, this includes deleting data
 
 
