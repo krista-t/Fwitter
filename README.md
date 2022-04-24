@@ -1,5 +1,5 @@
 # Fwitter
-Twitter alike clone with Pyhon, Sqlite, JS, and TailwindCSS
+Twitter like clone with Pyhon, Sqlite, JS, and TailwindCSS
 
 # warning
 be ware that any interaction with the app makes changes in database, this includes deleting data
