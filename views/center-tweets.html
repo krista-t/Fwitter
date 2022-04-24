@@ -25,7 +25,7 @@
 
       <!-- calling submit function here -->
       <button id="tweet-btn" onclick="validate(tweet)" type="submit"
-        class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 text-white rounded-full">
+        class="absolute bottom-2 right-2 px-8 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-full">
         Tweet
       </button>
     </form>
@@ -36,19 +36,20 @@
       <div class="flex">
         <img class="flex-none w-12 h-12 rounded-full" src="/img/{{tweet['user_image']}}" alt="photo">
         <div id="@{{tweet['user_name']}}" class="w-full pl-4">
-          <a class = "inline-block" href="/{{tweet['user_name']}}" target:="_blank">
-            <p id="{{tweet['user_name']}}" class="screen-name font-bold  cursor-pointer">
+          <a class = "inline-block  md:hover:bg-gray-100 py-2 cursor-pointer rounded-full" href="/{{tweet['user_name']}}" target:="_blank">
+            <p id="{{tweet['user_name']}}" class="screen-name font-bold  cursor-pointer ">
               @{{tweet["user_name"]}}
             </p>
           </a>
           <div class="flex">
+            <p id="full-name" class="font-thin">
+              {{tweet["user_full_name"]}}
+            </p>
             <p id="time" class="ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
           </div>
-          </a>
-          <p id="full-name" class="font-thin">
-            {{tweet["user_full_name"]}}
-          </p>
-          <div id="tweet-text" class="pt-2">
+
+
+          <div id="tweet-text" class="pt-4">
             {{tweet["tweet_text"]}}
           </div>
           %if tweet['tweet_image'] !="":
