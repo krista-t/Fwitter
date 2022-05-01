@@ -63,15 +63,15 @@ function checkCookieExists() {
   }
 }
 
-let user = document.querySelector("a")
-user.addEventListener("click", showProfile)
+// let user = document.querySelector("a")
+// user.addEventListener("click", showProfile)
 
-function showProfile(profile) {
-  console.log(profile)
+// // function showProfile(profile) {
+// //   console.log(profile)
 
-  console.log("click")
+// //   console.log("click")
 
-}
+// // }
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
@@ -146,8 +146,8 @@ function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
   let tweet_text = tweet.querySelector("#tweet-text").textContent
-  document.querySelector("#edit-tweet input").value = tweet_text
-  console.log(document.querySelector("#edit-tweet input").value)
+  document.querySelector("#edit-tweet textarea").value = tweet_text
+  console.log(document.querySelector("#edit-tweet textarea").value)
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
   console.log(edit_img)
