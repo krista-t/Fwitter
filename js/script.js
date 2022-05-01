@@ -111,7 +111,9 @@ async function tweet() {
                ${tweet.user_full_name}
               </p>
               <div id = "tweet-text" class="pt-2">
-             ${tweet.tweet_text}
+              <p class = "break-words">
+              ${tweet.tweet_text}
+              </p>
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
@@ -284,8 +286,8 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   console.log(newString.length)
-  if(newString.length > "80"){
-    alert("You have exceeded length of permited fweet, use up to 80 characters")
+  if(newString.length > 80){
+    alert("You have exceeded length of permited Fweet, use up to 80 characters")
   }
   return newString
 }

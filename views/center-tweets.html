@@ -50,8 +50,11 @@
           </div>
 
 
-          <div id="tweet-text" class="pt-4">
-            {{tweet["tweet_text"]}}
+          <div id="tweet-text" class="pt-4 mr-6">
+            <p class = "break-words">
+              {{tweet["tweet_text"]}}
+            </p>
+
           </div>
           %if tweet['tweet_image'] !="":
           <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
