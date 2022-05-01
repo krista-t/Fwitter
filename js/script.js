@@ -283,5 +283,9 @@ async function logUser() {
 function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
+  console.log(newString.length)
+  if(newString.length > "80"){
+    alert("You have exceeded length of permited fweet, use up to 80 characters")
+  }
   return newString
 }
