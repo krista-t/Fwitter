@@ -11,6 +11,8 @@ function checkCookieExists() {
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".img").classList.remove("hidden")
+    document.querySelector("form #search").disabled = false;
+    //once profile is set as spa
     if (tweetForm) {
       document.querySelector(".tweet-form input").disabled = false;
     }
@@ -48,16 +50,16 @@ function checkCookieExists() {
     }
 
   } else {
+    document.querySelector("form #search").disabled = true;
     document.querySelector("#tweet-btn").disabled = true;
-    document.querySelector(".tweet-form input").value =
+    document.querySelector(".tweet-form textarea").value =
       "PLEASE LOGIN TO TWEET"
-    document.querySelector(".tweet-form input").disabled = true;
+    document.querySelector(".tweet-form textarea").disabled = true;
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
     })
     //cannot visit single profile page
     document.querySelectorAll("#fweets a").forEach((a) => {
-      console.log(a)
       a.style = "pointer-events:none"
     })
   }
@@ -254,7 +256,6 @@ async function logUser() {
         )
       })
       document.querySelectorAll("#fweets a").forEach((a) => {
-        console.log(a)
         a.style = "pointer-events:all"
       })
       document.querySelector("#logged-user span").textContent = loggedUser
@@ -264,6 +265,7 @@ async function logUser() {
       document.querySelector("#tweet-btn").disabled = false;
       document.querySelector(".tweet-form input").value = null
       document.querySelector(".tweet-form input").disabled = false;
+      document.querySelector("form #search").disabled = false;
 
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
@@ -286,8 +288,31 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   console.log(newString.length)
-  if(newString.length > 80){
+  if (newString.length > 80) {
     alert("You have exceeded length of permited Fweet, use up to 80 characters")
   }
   return newString
+}
+
+//search bar
+const searchBar = document.querySelector("#search")
+searchBar.addEventListener('keyup', searchFweets)
+
+function searchFweets() {
+  const searchValue = searchBar.value
+  const fweets = document.querySelectorAll("#fweets section")
+
+  fweets.forEach((fweet) => {
+    const userName = fweet.querySelector("#full-name").innerText.toLowerCase()
+    const fweetText = fweet.querySelector("#tweet-text p").innerText.toLowerCase()
+
+    if (userName.includes(searchValue) || fweetText.includes(searchValue)) {
+
+      fweet.style.display = "block"
+
+    } else {
+      fweet.style.display = "none"
+    }
+  })
+
 }

@@ -105,8 +105,10 @@ def _():
     }
 
     status = validate_user(user)
-
     if status["success"]:
         return create_user(user)
     else:
         return status
+
+
+
