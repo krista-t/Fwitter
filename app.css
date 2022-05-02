@@ -644,6 +644,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 5rem;
 }
 
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
+.mr-6 {
+  margin-right: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -836,6 +848,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .overflow-ellipsis {
   text-overflow: ellipsis;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded-full {
@@ -1039,6 +1055,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pl-1 {
   padding-left: 0.25rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .text-center {
