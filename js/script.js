@@ -48,7 +48,7 @@ function checkCookieExists() {
     }
 
   } else {
-    document.querySelector("#search input").disabled = true;
+    document.querySelector("#search").disabled = true;
     document.querySelector("#tweet-btn").disabled = true;
     document.querySelector(".tweet-form textarea").value =
       "PLEASE LOGIN TO TWEET"
