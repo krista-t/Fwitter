@@ -1,6 +1,9 @@
 # Fwitter
 Twitter like clone with Pyhon, Sqlite, JS, and TailwindCSS
 
+# validator.js
+Vanilla JS validation made by Santiago Donoso, and changed slightly to fit into this project
+
 # starting the project
 python3 -m venv /path/to/new/virtual/environment
 
