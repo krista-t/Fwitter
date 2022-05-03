@@ -11,7 +11,7 @@ function checkCookieExists() {
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".img").classList.remove("hidden")
-    document.querySelector("#search input").disabled = false;
+    document.querySelector("#search").disabled = false;
     //once profile is set as spa
     if (tweetForm) {
       document.querySelector(".tweet-form input").disabled = false;
@@ -29,12 +29,10 @@ function checkCookieExists() {
     })
 
     document.querySelectorAll("#fweets a").forEach((a) => {
-      console.log(a)
       a.style = "pointer-events:all"
     })
 
     const user = document.querySelector("#logged-user span").textContent
-    console.log(user)
     if (user == "@admin") {
       console.log("i am admin")
       let deleteBtns = document.querySelectorAll("#delete")
@@ -68,7 +66,7 @@ function checkCookieExists() {
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
-  document.querySelector("#edit-tweet input").value = ""
+  document.querySelector("#edit-tweet textarea").value = ""
 }
 //fetch tweets
 async function tweet() {
@@ -131,13 +129,13 @@ async function deleteTweet(tweet_id) {
   const connection = await fetch(`/delete_tweet/${tweet_id}`, {
     method: "DELETE"
   })
-  console.log(document.querySelector(`section[id='${tweet_id}']`))
+  //remove entire section that matches id
+  //console.log(document.querySelector(`section[id='${tweet_id}']`))
   document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
 //show tweet to update
 function showTweetToEdit(tweet_id) {
-  console.log("clicked")
   document.querySelector("#edit-tweet").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
   let tweet_text = tweet.querySelector("#tweet-text").textContent
@@ -145,14 +143,13 @@ function showTweetToEdit(tweet_id) {
   console.log(document.querySelector("#edit-tweet textarea").value)
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
-  console.log(edit_img)
   edit_img.style.display = "none"
 
   if (img !== null) {
     edit_img.src = img.src
     edit_img.style.display = "block"
   }
-
+//set id on btn to target specific fweet
   document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 

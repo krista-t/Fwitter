@@ -59,6 +59,7 @@
           %if tweet['tweet_image'] !="":
           <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
           % end
+          <!-- icons -->
           <div id="icons" class="flex gap-10 w-full mt-4 text-lg">
             <button id="delete" onclick="deleteTweet(`{{tweet['tweet_id']}}`)">
               <i class="fa-solid fa-trash mr-auto cursor-pointer"></i></button>
