@@ -10,7 +10,7 @@ function checkProfile() {
     document.querySelector("#profile-form button").disabled = true
     document.querySelector("#profile-form input").disabled = true
   } else {
-    console.log("BOT")
+   return
   }
 }
 checkProfile()

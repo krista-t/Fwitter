@@ -7,6 +7,7 @@ function _one(q, e = document) {
 }
 // ##############################
 function validate(callback) {
+  console.log(callback)
   event.preventDefault()
   //event on btn
   const form = event.target.parentElement
@@ -29,7 +30,6 @@ function validate(callback) {
           element.style.borderColor = "red"
           //target p with error message
           element.previousElementSibling.style.color = "red"
-          console.log(element.previousElementSibling)
           element.previousElementSibling.classList.remove("hidden")
         }
         break;

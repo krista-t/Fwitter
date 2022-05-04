@@ -11,6 +11,8 @@ function checkCookieExists() {
     const tweetForm = document.querySelector(".tweet-form input")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".img").classList.remove("hidden")
+    document.querySelector("#search").disabled = false;
+    //once profile is set as spa
     if (tweetForm) {
       document.querySelector(".tweet-form input").disabled = false;
     }
@@ -27,12 +29,10 @@ function checkCookieExists() {
     })
 
     document.querySelectorAll("#fweets a").forEach((a) => {
-      console.log(a)
       a.style = "pointer-events:all"
     })
 
     const user = document.querySelector("#logged-user span").textContent
-    console.log(user)
     if (user == "@admin") {
       console.log("i am admin")
       let deleteBtns = document.querySelectorAll("#delete")
@@ -48,34 +48,25 @@ function checkCookieExists() {
     }
 
   } else {
+    document.querySelector("#search").disabled = true;
     document.querySelector("#tweet-btn").disabled = true;
-    document.querySelector(".tweet-form input").value =
+    document.querySelector(".tweet-form textarea").value =
       "PLEASE LOGIN TO TWEET"
-    document.querySelector(".tweet-form input").disabled = true;
+    document.querySelector(".tweet-form textarea").disabled = true;
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
     })
     //cannot visit single profile page
     document.querySelectorAll("#fweets a").forEach((a) => {
-      console.log(a)
       a.style = "pointer-events:none"
     })
   }
 }
 
-let user = document.querySelector("a")
-user.addEventListener("click", showProfile)
-
-function showProfile(profile) {
-  console.log(profile)
-
-  console.log("click")
-
-}
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
-  document.querySelector("#edit-tweet input").value = ""
+  document.querySelector("#edit-tweet textarea").value = ""
 }
 //fetch tweets
 async function tweet() {
@@ -111,7 +102,9 @@ async function tweet() {
                ${tweet.user_full_name}
               </p>
               <div id = "tweet-text" class="pt-2">
-             ${tweet.tweet_text}
+              <p class = "break-words">
+              ${tweet.tweet_text}
+              </p>
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
@@ -136,28 +129,27 @@ async function deleteTweet(tweet_id) {
   const connection = await fetch(`/delete_tweet/${tweet_id}`, {
     method: "DELETE"
   })
-  console.log(document.querySelector(`section[id='${tweet_id}']`))
+  //remove entire section that matches id
+  //console.log(document.querySelector(`section[id='${tweet_id}']`))
   document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
 //show tweet to update
 function showTweetToEdit(tweet_id) {
-  console.log("clicked")
   document.querySelector("#edit-tweet").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
   let tweet_text = tweet.querySelector("#tweet-text").textContent
-  document.querySelector("#edit-tweet input").value = tweet_text
-  console.log(document.querySelector("#edit-tweet input").value)
+  document.querySelector("#edit-tweet textarea").value = tweet_text
+  console.log(document.querySelector("#edit-tweet textarea").value)
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
-  console.log(edit_img)
   edit_img.style.display = "none"
 
   if (img !== null) {
     edit_img.src = img.src
     edit_img.style.display = "block"
   }
-
+//set id on btn to target specific fweet
   document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 
@@ -252,7 +244,6 @@ async function logUser() {
         )
       })
       document.querySelectorAll("#fweets a").forEach((a) => {
-        console.log(a)
         a.style = "pointer-events:all"
       })
       document.querySelector("#logged-user span").textContent = loggedUser
@@ -262,6 +253,7 @@ async function logUser() {
       document.querySelector("#tweet-btn").disabled = false;
       document.querySelector(".tweet-form input").value = null
       document.querySelector(".tweet-form input").disabled = false;
+      document.querySelector("#search input").disabled = false;
 
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
@@ -283,5 +275,32 @@ async function logUser() {
 function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
+  console.log(newString.length)
+  if (newString.length > 80) {
+    alert("You have exceeded length of permited Fweet, use up to 80 characters")
+  }
   return newString
+}
+
+//search bar
+const searchBar = document.querySelector("#search")
+searchBar.addEventListener('keyup', searchFweets)
+
+function searchFweets() {
+  const searchValue = searchBar.value
+  const fweets = document.querySelectorAll("#fweets section")
+
+  fweets.forEach((fweet) => {
+    const userName = fweet.querySelector("#full-name").innerText.toLowerCase()
+    const fweetText = fweet.querySelector("#tweet-text p").innerText.toLowerCase()
+
+    if (userName.includes(searchValue) || fweetText.includes(searchValue)) {
+
+      fweet.style.display = "block"
+
+    } else {
+      fweet.style.display = "none"
+    }
+  })
+
 }

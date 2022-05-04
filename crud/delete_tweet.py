@@ -17,6 +17,6 @@ def _(tweet_id):
         return ex
     finally:
         db.close()
-        return deleted
+        return deleted #nothing
 
 

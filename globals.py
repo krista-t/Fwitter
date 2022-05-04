@@ -28,20 +28,19 @@ def _is_uuid4(text=None):
 def validate_img(image):
      #validate img format
     if image:
-        file_name, file_extension = os.path.splitext(image.filename)  # .png .jpeg .zip .mp4
+        file_name, file_extension = os.path.splitext(image.filename)
         if file_extension not in (".png", ".jpeg", ".jpg"):
          print("image not allowed")
         image_id = str(uuid.uuid4())
         # Create new image name
         img = f"{image_id}{file_extension}"
-        print("#########", img)
         # Save the image
         image.save(f"img/{img}")
         imghdr_extension = imghdr.what(f"img/{img}")
         if file_extension != f".{imghdr_extension}":
             print(globals.ERROR["error_img"])
             os.remove(f"img/{img}")
-            # return globals.ERROR["error_img"]
+            return globals.ERROR["error_img"]
         else:
             return img
     #check if img exists
@@ -51,7 +50,7 @@ def validate_img(image):
         return img
 
 ##############################
-# create json in sqliteDB
+# create json from sqliteDB
 def create_json_from_sqlite_result(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
