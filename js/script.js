@@ -8,13 +8,13 @@ function checkCookieExists() {
 
   if (document.cookie) {
     console.log("true, cookie here")
-    const tweetForm = document.querySelector(".tweet-form input")
+    const tweetForm = document.querySelector(".tweet-form textarea")
     document.querySelector("#login-btn").classList.add("hidden")
     document.querySelector(".img").classList.remove("hidden")
     document.querySelector("#search").disabled = false;
     //once profile is set as spa
     if (tweetForm) {
-      document.querySelector(".tweet-form input").disabled = false;
+      document.querySelector(".tweet-form textarea").disabled = false;
     }
 
     //if user logged allow interaction
@@ -251,9 +251,9 @@ async function logUser() {
       document.querySelector("#login").classList.add("hidden")
       document.querySelector("#login-btn").classList.add("hidden")
       document.querySelector("#tweet-btn").disabled = false;
-      document.querySelector(".tweet-form input").value = null
-      document.querySelector(".tweet-form input").disabled = false;
-      document.querySelector("#search input").disabled = false;
+      document.querySelector("#tweet-form textarea").value = null
+      document.querySelector("#tweet-form textarea").disabled = false;
+      document.querySelector("#search").disabled = false;
 
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
