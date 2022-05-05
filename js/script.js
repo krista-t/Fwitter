@@ -50,9 +50,9 @@ function checkCookieExists() {
   } else {
     document.querySelector("#search").disabled = true;
     document.querySelector("#tweet-btn").disabled = true;
-    document.querySelector(".tweet-form textarea").value =
+    document.querySelector(".tweet-form input").value =
       "PLEASE LOGIN TO TWEET"
-    document.querySelector(".tweet-form textarea").disabled = true;
+    document.querySelector(".tweet-form input").disabled = true;
     document.querySelectorAll("#icons button").forEach((icon) => {
       icon.disabled = true
     })
@@ -66,7 +66,7 @@ function checkCookieExists() {
 
 function closeTweetModal() {
   document.querySelector("#edit-tweet").classList.add("hidden")
-  document.querySelector("#edit-tweet textarea").value = ""
+  document.querySelector("#edit-tweet input").value = ""
 }
 //fetch tweets
 async function tweet() {
@@ -137,10 +137,11 @@ async function deleteTweet(tweet_id) {
 //show tweet to update
 function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet").classList.remove("hidden")
+  document.querySelector("#edit-tweet button").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
   let tweet_text = tweet.querySelector("#tweet-text").textContent
-  document.querySelector("#edit-tweet textarea").value = tweet_text
-  console.log(document.querySelector("#edit-tweet textarea").value)
+  document.querySelector("#edit-tweet input").value = tweet_text
+  console.log(document.querySelector("#edit-tweet input").value)
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
   edit_img.style.display = "none"
@@ -253,7 +254,7 @@ async function logUser() {
       document.querySelector("#tweet-btn").disabled = false;
       document.querySelector(".tweet-form input").value = null
       document.querySelector(".tweet-form input").disabled = false;
-      document.querySelector("#search input").disabled = false;
+      document.querySelector("#search").disabled = false;
 
       if (loggedUserValidation.user == "admin") {
         let tweetBtns = document.querySelectorAll("#delete")
@@ -276,7 +277,7 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   console.log(newString.length)
-  if (newString.length > 80) {
+  if (newString.length > 160) {
     alert("You have exceeded length of permited Fweet, use up to 80 characters")
   }
   return newString
