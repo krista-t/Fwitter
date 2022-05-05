@@ -36,4 +36,7 @@ async function uploadProfilePic(id) {
   profileImg.src = "/img/" + updatedImg.user_image + ""
   document.querySelector("#main-img").src = "/img/" + updatedImg.user_image + ""
   document.querySelector("#left-panel-img").src = "/img/" + updatedImg.user_image + ""
+  document.querySelectorAll("#profile-photo").forEach(photo => photo.src = "/img/" + updatedImg.user_image + "")
+
+
 }
