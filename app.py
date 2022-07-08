@@ -55,7 +55,7 @@ def _():
                                 DESC
                                 """).fetchall()
 
-        print(json.dumps(tweets))
+
         #check if user is logged in
         if user_token:
             decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
@@ -69,7 +69,7 @@ def _():
             logged_user="guest"
             left_panel_img =  "blank.png"
 
-        #suggested user panel is random
+        #TODO: change to USERS suggested user panel is random
         suggested_user = random.sample(tweets,k=4)
     except Exception as ex:
         print(ex)
@@ -96,11 +96,9 @@ def _():
     try:
         user_token = request.get_cookie("token")
         decoded_token = jwt.decode(user_token,  "mysecret", algorithms = "HS256")
-        print("TOK"*10, decoded_token["name"])
    #check if token id in sessions, and delete that row from sessions on logout
         db.execute(globals.DELETE_SESS_ROW_QUERY, (decoded_token["session_id"],)).fetchone()
         db.commit()
-        print("LOGGING OOOOOOUT", decoded_token["session_id"])
         response.set_cookie("token", user_token, expires=0)
     except Exception as ex:
         print(ex)

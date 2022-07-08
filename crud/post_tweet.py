@@ -40,7 +40,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         print(ex)
         status["msg"] = f"Unable to add tweet {tweet['tweet_id']} to database!"
         print(status["msg"])
-        status["code"] = globals._send(500, "something went wrong")
+        status["code"] = globals._send()
         return status
     finally:
         db.close()
