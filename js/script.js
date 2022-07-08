@@ -151,9 +151,9 @@ function showTweetToEdit(tweet_id) {
   let img = tweet.querySelector("#tweet-img")
   console.log(img)
   let edit_img = document.querySelector("#edit-image")
-  // edit_img.style.display = "none"
+console.log(edit_img)
 
-  if (img === null) {
+  if (img === null || edit_img.src == " ") {
     edit_img.remove()
   } else {
       edit_img.src = img.src
