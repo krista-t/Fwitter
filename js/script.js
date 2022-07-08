@@ -101,7 +101,6 @@ async function tweet() {
             @${tweet.user_name}
             </p>
           </a>
-
             <p id = "time" class = "ml-auto text-sm text-gray-500">${tweet.tweet_created_at}</p>
           </div>
               <p class="font-thin">
@@ -150,7 +149,7 @@ function showTweetToEdit(tweet_id) {
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
   //TODO: this creates problem
-  if (img === null || edit_img.src == " ") {
+  if (img === null || edit_img.src == "") {
    //edit_img.remove()
   } else {
       edit_img.src = img.src
@@ -190,9 +189,14 @@ async function editTweet(tweet_id) {
 // //TODO:if not updated img shows as broken link
  if (tweetSection.querySelector("#tweet-img").src == null){
    tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
-  }else{
-    tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
+  }else if(tweetSection.querySelector("#tweet-img").src != null &&  !editedTweet.updated_img){
+    tweetSection.querySelector("#tweet-img").src =   tweetSection.querySelector("#tweet-img").src
   }
+ else{
+  tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
+}
+
+
 
 
 
