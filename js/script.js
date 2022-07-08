@@ -75,13 +75,20 @@ async function tweet() {
     method: "POST",
     body: new FormData(form)
   })
+  console.log(connection.status)
+   //if wrong img format uploaded
+   if (connection.status === 415){
+    alert("Unsupported media type")
+    return
+  }
   if (!connection.ok) {
     alert("Tweet with text, an image or both")
     return
   }
+
   // Success
   let tweet = await connection.json()
-  console.log(tweet)
+
   const tweet_form = document.querySelector("#tweet-form")
   const tweet_id = tweet.tweet_id
   let section_tweet = `
