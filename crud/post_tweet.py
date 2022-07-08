@@ -11,7 +11,7 @@ def create_tweet(tweet, database = "database.sqlite"):
         "msg": "",
         "code": "status code"
     }
-    if len(tweet["tweet_text"]) > 80:
+    if len(tweet["tweet_text"]) > 500:
         status["msg"] = globals.ERROR["error_tweet_text"]
         status["code"] = globals._send(400, "bad request")
         return status

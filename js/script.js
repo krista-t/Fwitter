@@ -147,15 +147,17 @@ function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet button").classList.remove("hidden")
   let tweet = document.querySelector(`section[id='${tweet_id}']`)
   let tweet_text = tweet.querySelector("#tweet-text").textContent
-  document.querySelector("#edit-tweet input").value = tweet_text
-  console.log(document.querySelector("#edit-tweet input").value)
+  document.querySelector("#edit-tweet textarea").value = tweet_text
   let img = tweet.querySelector("#tweet-img")
+  console.log(img)
   let edit_img = document.querySelector("#edit-image")
-  edit_img.style.display = "none"
+  // edit_img.style.display = "none"
 
-  if (img !== null) {
-    edit_img.src = img.src
-    edit_img.style.display = "block"
+  if (img === null) {
+    edit_img.remove()
+  } else {
+      edit_img.src = img.src
+      edit_img.style.display = "block"
   }
 //set id on btn to target specific fweet
   document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
@@ -284,8 +286,8 @@ function removeWhiteSpaces(string) {
   //remove only spaces not tabs, newlines, etc
   let newString = string.replace(/  +/g, ' ')
   console.log(newString.length)
-  if (newString.length > 160) {
-    alert("You have exceeded length of permited Fweet, use up to 80 characters")
+  if (newString.length > 800) {
+    alert("You have exceeded length of permited Fweet, permitted lenght is 500 characters")
   }
   return newString
 }
