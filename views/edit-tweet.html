@@ -14,21 +14,21 @@
       <div class="w-full"><img id="edit-image" src=" " alt=" " class="w-full object-cover h-80"> </textarea>
       </div>
 
-      <!-- calling function here -->
+
+      <!-- TODO: delete image -->
       <div class="ml-auto px-2 py-2 flex flex-col">
           <label class = "text-sm text-gray-500">
-            <input id="remove-img" type="file" name="image" class=" hidden">
-            <i class="fa fa-ban text-3xl text-gray-400"></i>
+            <i class="fa fa-ban text-3xl text-gray-400 cursor-pointer"></i>
             <span class = "font-thin text-base text-gray-500 uppercase"> remove image </span> </label>
 
         <label class = "text-sm text-gray-500">
           <input id="add-img" type="file" name="image" class=" hidden">
-          <i class="fa fa-camera text-3xl text-gray-400"></i>
+          <i class="fa fa-camera text-3xl text-gray-400 cursor-pointer"></i>
           <span class = "font-thin text-base text-gray-500 uppercase"> add new image </span>
       </label>
       </div>
 
-
+  <!-- calling function here -->
       <div id="edit-tweet" class="ml-auto px-4 py-2">
         <button onclick="editTweet(id)" type="submit"
           class="px-8 py-2 text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full uppercase">

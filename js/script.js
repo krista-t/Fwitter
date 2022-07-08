@@ -149,10 +149,7 @@ function showTweetToEdit(tweet_id) {
   let tweet_text = tweet.querySelector("#tweet-text").textContent
   document.querySelector("#edit-tweet textarea").value = tweet_text
   let img = tweet.querySelector("#tweet-img")
-  console.log(img)
   let edit_img = document.querySelector("#edit-image")
-console.log(edit_img)
-
   if (img === null || edit_img.src == " ") {
     edit_img.remove()
   } else {
@@ -174,7 +171,7 @@ async function editTweet(tweet_id) {
     body: new FormData(form)
   })
   if (!connection.ok) {
-    alert("Could not tweet")
+    alert("Ooops, something went wrong! Try again.")
     return
   }
   //Success
@@ -188,7 +185,12 @@ async function editTweet(tweet_id) {
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
-  console.log(editedTweet.tweet_updated_at)
+//TODO:if image exists
+console.log(tweetSection.querySelector("#tweet-img").src)
+if (tweetSection.querySelector("#tweet-img")) {
+  tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
+
+}
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 }
 //fetch users
