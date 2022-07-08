@@ -1,4 +1,4 @@
-<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 bg-opacity-90 z-10">
+<section id="edit-tweet" class="fixed w-full h-screen  bg-blue-400 bg-opacity-90 z-10 hidden">
   <div class="flex p-4" onclick="closeTweetModal()">
     <p class="ml-auto text-white text-3xl p-4 cursor-pointer">X</p>
   </div>
@@ -10,7 +10,7 @@
       <label for="txt-tweet" class="w-full font-thin text-base text-gray-500
       first-letter:pt-2 pl-4">Start typing to edit text</label>
       <textarea name="tweet_text" id="txt-tweet" cols="30" rows="10 class="w-full h-12" type="text" data-validate="str" data-max="500"
-        onkeydown="this.value=removeWhiteSpaces(this.value)"></textarea>
+        onfocus="this.value=removeWhiteSpaces(this.value)"></textarea>
       <div class="w-full"><img id="edit-image" src=" " alt=" " class="w-full object-cover h-80"> </textarea>
       </div>
 
