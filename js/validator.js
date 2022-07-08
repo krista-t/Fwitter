@@ -5,7 +5,7 @@ function _all(q, e = document) {
 function _one(q, e = document) {
   return e.querySelector(q)
 }
-// ##############################
+//##############################
 function validate(callback) {
   console.log(callback)
   event.preventDefault()

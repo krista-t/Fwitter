@@ -30,8 +30,6 @@ def validate_img(image):
     if image:
         file_name, file_extension = os.path.splitext(image.filename)
         if file_extension not in (".png", ".jpeg", ".jpg"):
-            #TODO:
-         print("image not allowed")
          return _send(415, "unsupported media type")
         image_id = str(uuid.uuid4())
         # Create new image name
