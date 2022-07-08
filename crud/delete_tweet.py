@@ -13,7 +13,7 @@ def _(tweet_id):
         db.commit()
     except Exception as ex:
         print(ex)
-        ex = globals._send(500, "something went wrong")
+        ex = globals._send(200, "something went wrong")
         return ex
     finally:
         db.close()

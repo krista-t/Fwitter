@@ -305,3 +305,10 @@ function searchFweets() {
   })
 
 }
+
+let name = "kristina"
+let counter = 1000
+for (let i = 0; i < counter.length; i++) {
+console.log(name)
+}
+
