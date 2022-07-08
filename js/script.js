@@ -1,6 +1,5 @@
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists)
-
 function checkCookieExists() {
   document.querySelectorAll("#icons button").forEach((icon) => {
     icon.disabled = true
@@ -150,8 +149,9 @@ function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet textarea").value = tweet_text
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
+  //TODO: this creates problem
   if (img === null || edit_img.src == " ") {
-    edit_img.remove()
+   //edit_img.remove()
   } else {
       edit_img.src = img.src
       edit_img.style.display = "block"
@@ -163,6 +163,7 @@ function showTweetToEdit(tweet_id) {
 
 //update tweet
 async function editTweet(tweet_id) {
+
   const form = event.target.form
   document.querySelector("#edit-tweet").classList.add("hidden")
   //Connect to the api update db
@@ -176,21 +177,25 @@ async function editTweet(tweet_id) {
   }
   //Success
   let editedTweet = await connection.json()
-  console.log(editedTweet)
+  console.log(editedTweet.updated_img)
   let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
-  console.log(tweetSection)
+
   //if text is not changed leave it as is
   if (tweetSection.querySelector("#tweet-text").textContent != null) {
     tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
-//TODO:if image exists
-console.log(tweetSection.querySelector("#tweet-img").src)
-if (tweetSection.querySelector("#tweet-img")) {
-  tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
 
-}
+// //TODO:if not updated img shows as broken link
+ if (tweetSection.querySelector("#tweet-img").src == null){
+   tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
+  }else{
+    tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
+  }
+
+
+
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 }
 //fetch users
@@ -285,8 +290,10 @@ async function logUser() {
 
 //remove white spaces from edit tweet input
 function removeWhiteSpaces(string) {
+  console.log("textarea here")
+  document.querySelector("textarea").focus();
   //remove only spaces not tabs, newlines, etc
-  let newString = string.replace(/  +/g, ' ')
+  let newString = string.replace(/\s+/g, ' ').trim()
   console.log(newString.length)
   if (newString.length > 800) {
     alert("You have exceeded length of permited Fweet, permitted lenght is 500 characters")
