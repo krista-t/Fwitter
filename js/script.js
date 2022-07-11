@@ -148,13 +148,15 @@ function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet textarea").value = tweet_text
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
+  console.log(img, edit_img)
   //TODO: this creates problem
-  if (img === null || edit_img.src == "") {
-   //edit_img.remove()
-  } else {
-      edit_img.src = img.src
-      edit_img.style.display = "block"
-  }
+   if (img == null ) {
+    //edit_img.remove()
+    edit_img.style.display = "none"
+   } else {
+       edit_img.src = img.src
+     edit_img.style.display = "block"
+ }
 //set id on btn to target specific fweet
   document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
@@ -177,8 +179,9 @@ async function editTweet(tweet_id) {
   //Success
   let editedTweet = await connection.json()
   console.log(editedTweet.updated_img)
-  let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
 
+  let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
+  console.log(!editedTweet.updated_img)
   //if text is not changed leave it as is
   if (tweetSection.querySelector("#tweet-text").textContent != null) {
     tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
@@ -187,19 +190,11 @@ async function editTweet(tweet_id) {
   }
 
 // //TODO:if not updated img shows as broken link
- if (tweetSection.querySelector("#tweet-img").src == null){
-   tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
-  }else if(tweetSection.querySelector("#tweet-img").src != null &&  !editedTweet.updated_img){
-    tweetSection.querySelector("#tweet-img").src =   tweetSection.querySelector("#tweet-img").src
-  }
- else{
-  tweetSection.querySelector("#tweet-img").src = "/img/" + editedTweet.updated_img + ""
-}
 
-
-
-
-
+//if there is no image in tweet, but you add image in edit
+ if (tweetSection.querySelector("#tweet-img") != null){
+   tweetSection.querySelector("#tweet-img").src ="/img/" + editedTweet.updated_img + ""
+   }
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 }
 //fetch users
@@ -305,7 +300,7 @@ function removeWhiteSpaces(string) {
   return newString
 }
 
-//search bar
+//search
 const searchBar = document.querySelector("#search")
 searchBar.addEventListener('keyup', searchFweets)
 
