@@ -183,22 +183,22 @@ async function editTweet(tweet_id) {
   console.log(tweetSection.querySelector("#tweet-img") == null) //true
   //if text is not changed leave it as is
   if (tweetSection.querySelector("#tweet-text").textContent != null) {
-    console.log(tweetSection.querySelector("#tweet-img").src)
+
     tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
     tweetSection.querySelector("#tweet-img").src = tweetSection.querySelector("#tweet-img").src
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
   }
 
-//if there is no image in tweet, but you add image in edit
- if (tweetSection.querySelector("#tweet-img").src != null){
-   tweetSection.querySelector("#tweet-img").src ="/img/" + editedTweet.updated_img + ""
-   }
+
    //if there is image in tweet, but you don't changeimage in edit
  if(!editedTweet.updated_img) {
     tweetSection.querySelector("#tweet-img").src = tweetSection.querySelector("#tweet-img").src
    }
-
+//if there is no image in tweet, but you add image in edit
+if (tweetSection.querySelector("#tweet-img").src != null){
+  tweetSection.querySelector("#tweet-img").src ="/img/" + editedTweet.updated_img + ""
+  }
 
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 }
