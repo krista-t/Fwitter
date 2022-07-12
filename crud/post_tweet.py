@@ -58,7 +58,7 @@ def _():
         db = globals._db_connect("database.sqlite")
         logged_user = db.execute( """SELECT *
         from users
-        JOIN sessions  WHERE users.user_name  LIKE sessions.user_name""").fetchone()
+        JOIN sessions ON users.user_name = sessions.user_name""").fetchone()
         user_id = logged_user["user_id"]
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]

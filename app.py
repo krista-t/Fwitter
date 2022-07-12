@@ -48,12 +48,12 @@ def _():
     user_token = request.get_cookie("token")
     try:
         db = globals._db_connect("database.sqlite")
-        tweets = db.execute("""SELECT * FROM tweets
-                               JOIN users WHERE users.user_id
-                                LIKE tweets.user_id
-                                ORDER by tweet_created_at
-                                DESC
-                                """).fetchall()
+        tweets = db.execute("""SELECT users.user_email, users.user_full_name, users.user_created_at, users.user_name, users.user_image, tweets.tweet_text, tweets.tweet_created_at, tweets.tweet_image, tweets.tweet_updated_at, tweets.tweet_id
+        FROM users
+        JOIN tweets ON tweets.user_id = users.user_id
+        ORDER by tweet_created_at
+        DESC
+        """).fetchall()
 
 
         #check if user is logged in
