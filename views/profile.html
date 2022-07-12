@@ -50,11 +50,11 @@
             %if tweet['tweet_image'] !="":
             <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
             % end
-            <div id="icons" class="flex gap-12 w-full mt-4 text-lg">
-              <i class="fa-solid fa-message ml-auto"></i>
-              <i class="fa-solid fa-heart"></i>
-              <i class="fa-solid fa-retweet"></i>
-              <i class="fa-solid fa-share-nodes"></i>
+            <div id="icons" class="flex gap-12 w-full mt-4 text-lg cursor-pointer text-gray-700">
+              <i class="fa-solid fa-message ml-auto">💬</i>
+              <i class="fa fa-heart mt-1"></i>
+              <i class="fa selection: fa-retweet mt-1"></i>
+
             </div>
           </div>
         </div>

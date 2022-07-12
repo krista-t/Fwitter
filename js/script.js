@@ -113,12 +113,11 @@ async function tweet() {
               </div>
               <img id = "tweet-img" class="mt-2 w-full object-cover h-22" src="/img/${tweet.src}">
               <div id = "icons" class="flex gap-12 w-full mt-4 text-lg">
-              <button id = "delete"  onclick="deleteTweet('${tweet_id}')"><i  class="fa-solid fa-trash mr-auto cursor-pointer"></i> </button>
+              <button id = "delete"  onclick="deleteTweet('${tweet_id}')"><i  class="fa fa-trash mr-auto cursor-pointer"></i> </button>
               <button onclick="showTweetToEdit('${tweet_id}')">
-                <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+                <i class="fa fa-pen mr-auto cursor-pointer"></i>
               </button>
-              <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i><i class="fa-solid fa-retweet"></i>
-            <i class="fa-solid fa-share-nodes"></i>
+              <i class="fa  fa-heart cursor-pointer  ml-auto"></i><i class="fa fa-retweet cursor-pointer"></i>
             </div>`
   document.querySelector("#fweets").insertAdjacentHTML("afterbegin", section_tweet)
   if (tweet.src == "") {
@@ -138,7 +137,7 @@ async function deleteTweet(tweet_id) {
   document.querySelector(`[id='${tweet_id}']`).remove()
 }
 
-//show tweet to update
+//show tweet to edit
 function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet").classList.remove("hidden")
   document.querySelector("#edit-tweet button").classList.remove("hidden")
@@ -147,23 +146,28 @@ function showTweetToEdit(tweet_id) {
   document.querySelector("#edit-tweet textarea").value = tweet_text
   let img = tweet.querySelector("#tweet-img")
   let edit_img = document.querySelector("#edit-image")
-  console.log(img, edit_img)
-  //TODO: this creates problem
-   if (img == null ) {
-    //edit_img.remove()
+  console.log(img)
+  //TODO: this creates problem?
+   if (img == null) {
     edit_img.style.display = "none"
+    img.style.display = "none"
    } else {
-       edit_img.src = img.src
+     edit_img.src = img.src
      edit_img.style.display = "block"
- }
+   }
 //set id on btn to target specific fweet
   document.querySelector("#edit-tweet button").setAttribute("id", tweet_id)
 }
 
+//remove on edit img from DOM
+function deleteFweetImg(){
+  document.querySelector("#edit-image").style.display = "none"
+  document.querySelector("#tweet-image").style.display = "none"
 
+
+}
 //update tweet
 async function editTweet(tweet_id) {
-
   const form = event.target.form
   document.querySelector("#edit-tweet").classList.add("hidden")
   //Connect to the api update db
@@ -177,19 +181,30 @@ async function editTweet(tweet_id) {
   }
   //Success
   let editedTweet = await connection.json()
-  console.log(editedTweet.updated_img) //true
-
   let tweetSection = document.querySelector(`section[id='${tweet_id}']`)
-  console.log(tweetSection.querySelector("#tweet-img") == null) //true
+  console.log(editedTweet.updated_img)
+  console.log(tweetSection.querySelector("#tweet-img"))
+
+if (tweetSection.querySelector("#tweet-text").textContent != null ||  tweetSection.querySelector("#tweet-img") == null) {
+  tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
+tweetSection.querySelector("#tweet-img").style.display = "none"
+}
+
   //if text is not changed leave it as is
   if (tweetSection.querySelector("#tweet-text").textContent != null) {
-
     tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text
-    tweetSection.querySelector("#tweet-img").src = tweetSection.querySelector("#tweet-img").src
+    //tweetSection.querySelector("#tweet-img").src = editedTweet.updated_img
+    tweetSection.querySelector("#tweet-img").src = ""
   } else {
     tweetSection.querySelector("#tweet-text").textContent = tweetSection.querySelector("#tweet-text").textContent
+    tweetSection.querySelector("#tweet-img").style.display = "block"
   }
+//if there's no img in tweet and you do not add it
+if(!editedTweet.updated_img || tweetSection.querySelector("#tweet-img") == null) {
 
+  tweetSection.querySelector("#tweet-img").src = ""
+
+ }
 
    //if there is image in tweet, but you don't changeimage in edit
  if(!editedTweet.updated_img) {
@@ -198,8 +213,12 @@ async function editTweet(tweet_id) {
 //if there is no image in tweet, but you add image in edit
 if (tweetSection.querySelector("#tweet-img").src != null){
   tweetSection.querySelector("#tweet-img").src ="/img/" + editedTweet.updated_img + ""
+ tweetSection.querySelector("#tweet-img").style.display = "block"
   }
 
+
+console.log(!editedTweet.updated_img)
+console.log(tweetSection.querySelector("#tweet-img").src)
   document.querySelector("#time").textContent = editedTweet.tweet_updated_at
 }
 //fetch users
@@ -327,6 +346,5 @@ function searchFweets() {
   })
 
 }
-
 
 

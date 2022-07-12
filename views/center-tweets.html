@@ -20,7 +20,7 @@
       <!-- file input hidden, i tag in label -->
       <label>
         <input id="upload" class="absolute bottom-2 left-2 text-sm hidden" type="file" name="image">
-        <i class="img fa-solid fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700 hidden"></i>
+        <i class="img fa fa-image absolute bottom-2 left-4 text-3xl cursor-pointer text-gray-700 hidden"></i>
       </label>
 
       <!-- calling submit function here -->
@@ -62,12 +62,11 @@
           <!-- icons -->
           <div id="icons" class="flex gap-10 w-full mt-4 text-lg">
             <button id="delete" onclick="deleteTweet(`{{tweet['tweet_id']}}`)">
-              <i class="fa-solid fa-trash mr-auto cursor-pointer"></i></button>
+              <i class="fa fa-trash mr-auto cursor-pointer"></i></button>
             <button onclick="showTweetToEdit(`{{tweet['tweet_id']}}`)">
-              <i class="fa-solid fa-pen mr-auto cursor-pointer"></i>
+              <i class="fa fa-pen mr-auto cursor-pointer"></i>
             </button>
-            <i class="fa-solid fa-heart cursor-pointer  ml-auto"></i><i class="fa-solid fa-retweet"></i>
-            <i class="fa-solid fa-share-nodes"></i>
+            <i class="fa fa-heart cursor-pointer  ml-auto"></i><i class="fa fa-retweet cursor-pointer"></i>
           </div>
         </div>
       </div>

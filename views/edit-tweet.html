@@ -11,13 +11,13 @@
       first-letter:pt-2 pl-4">Start typing to edit text</label>
       <textarea name="tweet_text" id="txt-tweet" cols="30" rows="10 class="w-full h-12" type="text" data-validate="str" data-max="500"
         onfocus="this.value=removeWhiteSpaces(this.value)"></textarea>
-      <div class="w-full"><img id="edit-image" src="_" alt="" class="w-full object-cover h-80"> </textarea>
+      <div class="w-full"><img id="edit-image" src="" alt="" class="w-full object-cover h-80"> </textarea>
       </div>
 
 
       <!-- TODO: delete image -->
       <div class="ml-auto px-2 py-2 flex flex-col">
-          <label class = "text-sm text-gray-500">
+          <label class = "text-sm text-gray-500" onclick = deleteFweetImg()>
             <i class="fa fa-ban text-3xl text-gray-400 cursor-pointer"></i>
             <span class = "font-thin text-base text-gray-500 uppercase"> remove image </span> </label>
 
