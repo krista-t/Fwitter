@@ -6,7 +6,7 @@ import imghdr
 import os
 
 TRENDS = [
-    {"category": "Technology", "title": "github", "tweets_counter": "53K"},
+    {"category": "Technology", "title": "AI", "tweets_counter": "98K"},
     {"category": "Arts&culture", "title": "#photography", "tweets_counter": "40k"},
     {"category": "Politics . Trending", "title": "Ukraine", "tweets_counter": "101M"},
     {"category": "Trends", "title": "#caturday", "tweets_counter": "19k"},
