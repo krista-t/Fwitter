@@ -1,6 +1,6 @@
 # Fwitter
 
-Twitter like clone with Pyhon, Sqlite, JS, and TailwindCSS
+Twitter-like (old twitter with bird) clone with Pyhon, Sqlite, JS, and TailwindCSS
 
 # validator.js
 
