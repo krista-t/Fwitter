@@ -40,10 +40,10 @@ def _(name_id):
           table in the database.
     """
     user_token = request.get_cookie("token")
-    decoded_token = jwt.decode(user_token, "mysecret", algorithms="HS256")
+    user_token_bytes = user_token.encode("utf-8")
+    decoded_token = jwt.decode(user_token_bytes, "mysecret", algorithms="HS256")
     print(decoded_token)
     logged_user = decoded_token["name"]
-
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()

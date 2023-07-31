@@ -15,13 +15,6 @@ from crud import (
     create_profile_img,
 )
 
-# from crud import post_tweet
-# from crud import delete_tweet
-# from crud import edit_tweet
-# from crud import login
-# from crud import create_profile_img
-# from crud import profile
-
 
 # get static files
 @get("/app.css")
@@ -29,9 +22,9 @@ def _():
     return static_file("app.css", root=".")
 
 
-@get("/js/script.js")
+@get("/js/main.js")
 def _():
-    return static_file("/js/script.js", root=".")
+    return static_file("/js/main.js", root=".")
 
 
 @get("/js/profile.js")
@@ -77,6 +70,7 @@ def _():
         - The function uses the globals module to access global variables.
     """
     user_token = request.get_cookie("token")
+
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute(
@@ -89,7 +83,8 @@ def _():
         ).fetchall()
 
         if user_token:
-            decoded_token = jwt.decode(user_token, "mysecret", algorithms="HS256")
+            user_token_bytes = user_token.encode("utf-8")  # Convert to bytes format
+            decoded_token = jwt.decode(user_token_bytes, "mysecret", algorithms="HS256")
             logged_user = decoded_token["name"]
             print("Token valid", f"User {logged_user} is logged in")
             logged_user_img = db.execute(
@@ -103,6 +98,8 @@ def _():
             left_panel_img = "blank.png"
 
         suggested_user = random.sample(tweets, k=4)
+        print(suggested_user["user_name"])
+
     except Exception as ex:
         print(ex)
     finally:
