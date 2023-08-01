@@ -56,14 +56,15 @@
             </p>
 
           </div>
-          %if tweet['tweet_image'] !="":
+          %if tweet['tweet_image'] != None:
           <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
           % end
           <!-- icons -->
           <div id="icons" class="flex gap-10 w-full mt-4 text-lg">
 
-            <i class="fas fa-envelope cursor-pointer"></i>
+
             <i class="fas fa-heart cursor-pointer"></i>
+            <i class="fas fa-retweet"></i>
             <i class="fas fa-share"></i>
 
             <button id="delete" onclick="deleteTweet(`{{tweet['tweet_id']}}`)" class = " ml-auto">

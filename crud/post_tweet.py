@@ -1,6 +1,7 @@
 from bottle import post, request
 import uuid
 import globals
+from globals import ERROR
 from datetime import datetime
 
 
@@ -114,12 +115,18 @@ def _():
         user_id = logged_user["user_id"]
         user_full_name = logged_user["user_full_name"]
         user_name = logged_user["user_name"]
+
+        # if user image is not available, use empty string
         user_image = logged_user["user_image"]
         # validate img, uuid, tweet text
+        if not user_image:
+            user_image = globals.DEFAULT["default_user_image"]
+
         tweet = {
             "tweet_id": globals._is_uuid4(id),
             "tweet_text": request.forms.get("tweet_text"),
-            "src": globals.validate_img(image),
+            # if src is not available, use empty string
+            "src": globals.validate_img(image) if image else "",
             "tweet_created_at": time,
             "tweet_updated_at": time,
             "user_id": user_id,
@@ -127,11 +134,12 @@ def _():
             "user_full_name": user_full_name,
             "user_image": user_image,
         }
+        tweet = create_tweet(tweet)
     except Exception as ex:
         print(ex)
         ex = globals._send(500, "something went wrong")
         return ex
     finally:
         db.close()
-        tweet = create_tweet(tweet)
-        return tweet
+
+    return tweet

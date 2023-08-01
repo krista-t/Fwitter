@@ -32,26 +32,23 @@ def _is_uuid4(text=None):
 
 # validate img
 def validate_img(image):
-    if image:
-        file_name, file_extension = os.path.splitext(image.filename)
-        if file_extension not in (".png", ".jpeg", ".jpg"):
-            print("image not allowed")
-        image_id = str(uuid.uuid4())
-        # create new image name
-        img = f"{image_id}{file_extension}"
-        # save the image
-        image.save(f"img/{img}")
-        imghdr_extension = imghdr.what(f"img/{img}")
-        if file_extension != f".{imghdr_extension}":
-            print(globals.ERROR["error_img"])
-            os.remove(f"img/{img}")
-            return globals.ERROR["error_img"]
-        else:
-            return img
-    # check if img exists
-    elif not image:
-        print("NO IMAGE")
-        img = ""
+    if not image:
+        # No image provided
+        return None
+    file_name, file_extension = os.path.splitext(image.filename)
+    if file_extension not in (".png", ".jpeg", ".jpg"):
+        print("image not allowed", file_name)
+    image_id = str(uuid.uuid4())
+    # create new image name
+    img = f"{image_id}{file_extension}"
+    # save the image
+    image.save(f"img/{img}")
+    imghdr_extension = imghdr.what(f"img/{img}")
+    if file_extension != f".{imghdr_extension}":
+        print(ERROR["error_img"])
+        os.remove(f"img/{img}")
+        return None
+    else:
         return img
 
 
