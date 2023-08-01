@@ -145,7 +145,7 @@ function showTweetToEdit(tweet_id) {
 
 	let img = tweet.querySelector("#tweet-img");
 	let edit_img = document.querySelector("#edit-image");
-	edit_img.style.display = "none";
+	//edit_img.style.display = "none";
 
 	if (img !== null) {
 		edit_img.src = img.src;
@@ -153,6 +153,26 @@ function showTweetToEdit(tweet_id) {
 	}
 	//set id on btn to target specific fweet
 	document.querySelector("#edit-tweet button").setAttribute("id", tweet_id);
+}
+
+//show updated image in UI
+function showNewImage(event) {
+	const imageInput = event.target;
+	const editImage = document.querySelector("#edit-image");
+
+	if (imageInput.files && imageInput.files[0]) {
+		const reader = new FileReader();
+		reader.onload = function (e) {
+			editImage.setAttribute("src", e.target.result);
+		};
+		reader.readAsDataURL(imageInput.files[0]);
+	}
+}
+
+//upload new image
+function uploadNewImage() {
+	const imageInput = document.querySelector("#image-input");
+	imageInput.click();
 }
 
 //update tweet
@@ -170,7 +190,7 @@ async function editTweet(tweet_id) {
 	}
 	//Success
 	let editedTweet = await connection.json();
-	console.log(editedTweet);
+	console.log("edited fweet", editedTweet);
 	let tweetSection = document.querySelector(`section[id='${tweet_id}']`);
 	console.log(tweetSection);
 	//if text is not changed leave it as is
@@ -180,7 +200,16 @@ async function editTweet(tweet_id) {
 		tweetSection.querySelector("#tweet-text").textContent =
 			tweetSection.querySelector("#tweet-text").textContent;
 	}
-	console.log(editedTweet.tweet_updated_at);
+	console.log(editedTweet.tweet_image);
+	//if image is not changed leave it as is, else update it
+	if (editedTweet.tweet_image != null) {
+		tweetSection.querySelector("#tweet-img").src = `/img/${editedTweet.tweet_image}`;
+	} else {
+		console.log(tweetSection.querySelector("#tweet-img").src);
+		tweetSection.querySelector("#tweet-img").src =
+			tweetSection.querySelector("#tweet-img").src;
+	}
+
 	document.querySelector("#time").textContent = editedTweet.tweet_updated_at;
 }
 //fetch users
@@ -267,17 +296,6 @@ async function logUser() {
 	}
 }
 
-//remove white spaces from edit tweet input
-function removeWhiteSpaces(string) {
-	//remove only spaces not tabs, newlines, etc
-	let newString = string.replace(/  +/g, " ");
-	console.log(newString.length);
-	if (newString.length > 160) {
-		alert("You have exceeded length of permited Fweet, use up to 80 characters");
-	}
-	return newString;
-}
-
 //search bar
 const searchBar = document.querySelector("#search");
 searchBar.addEventListener("keyup", searchFweets);
@@ -296,10 +314,4 @@ function searchFweets() {
 			fweet.style.display = "none";
 		}
 	});
-}
-
-let name = "kristina";
-let counter = 1000;
-for (let i = 0; i < counter.length; i++) {
-	console.log(name);
 }

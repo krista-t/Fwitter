@@ -36,13 +36,18 @@ def _(tweet_id):
         updated_tweet_info = _("<valid_tweet_id>")
         print(updated_tweet_info)
     """
+
+    # add image
     if globals._is_uuid4(tweet_id):
         now = datetime.now()
         time = now.strftime("%B-%d  %H:%M:%S")
+        image = request.files.get("image")
+
         tweet = {
             "tweet_id": tweet_id,
             "tweet_text": request.forms.get("tweet_text"),
             "tweet_updated_at": time,
+            "tweet_image": globals.validate_img(image),
         }
         db = globals._db_connect("database.sqlite")
         try:
@@ -50,7 +55,8 @@ def _(tweet_id):
                 """
             UPDATE tweets
             SET tweet_text = :tweet_text,
-                tweet_updated_at = :tweet_updated_at
+                tweet_updated_at = :tweet_updated_at,
+                tweet_image = :tweet_image
             WHERE
             tweet_id = :tweet_id
             """,
@@ -64,4 +70,5 @@ def _(tweet_id):
             return ex
         finally:
             db.close()
+            print(tweet)
             return tweet
