@@ -125,8 +125,7 @@ def _():
         tweet = {
             "tweet_id": globals._is_uuid4(id),
             "tweet_text": request.forms.get("tweet_text"),
-            # if src is not available, use empty string
-            "src": globals.validate_img(image) if image else "",
+            "src": globals.validate_img(image),
             "tweet_created_at": time,
             "tweet_updated_at": time,
             "user_id": user_id,
