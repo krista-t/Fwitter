@@ -138,9 +138,11 @@ function showTweetToEdit(tweet_id) {
 	document.querySelector("#edit-tweet").classList.remove("hidden");
 	document.querySelector("#edit-tweet button").classList.remove("hidden");
 	let tweet = document.querySelector(`section[id='${tweet_id}']`);
+
+	//if tweet has text
 	let tweet_text = tweet.querySelector("#tweet-text").textContent;
-	document.querySelector("#edit-tweet input").value = tweet_text;
-	console.log(document.querySelector("#edit-tweet input").value);
+	document.querySelector("#edit-tweet input").setAttribute("placeholder", tweet_text);
+
 	let img = tweet.querySelector("#tweet-img");
 	let edit_img = document.querySelector("#edit-image");
 	edit_img.style.display = "none";

@@ -48,7 +48,7 @@
             <div id="tweet-text" class="pt-2">
               {{tweet["tweet_text"]}}
             </div>
-            %if tweet['tweet_image'] !="":
+            %if tweet["tweet_image"]:
             <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
             % end
             <div id="icons" class="flex gap-12 w-full mt-4 text-lg">
