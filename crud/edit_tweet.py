@@ -45,7 +45,7 @@ def _(tweet_id):
 
         tweet = {
             "tweet_id": tweet_id,
-            "tweet_text": request.forms.get("tweet_text"),
+            "tweet_text": request.forms.get("edit_tweet_text"),
             "tweet_updated_at": time,
             "tweet_image": globals.validate_img(image),
         }

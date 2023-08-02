@@ -190,25 +190,20 @@ async function editTweet(tweet_id) {
 	}
 	//Success
 	let editedTweet = await connection.json();
-	console.log("edited fweet", editedTweet);
+	console.log("edited tweet", editedTweet);
+
 	let tweetSection = document.querySelector(`section[id='${tweet_id}']`);
 	console.log(tweetSection);
-	//if text is not changed leave it as is
-	if (tweetSection.querySelector("#tweet-text").textContent != null) {
-		tweetSection.querySelector("#tweet-text").textContent = editedTweet.tweet_text;
-	} else {
-		tweetSection.querySelector("#tweet-text").textContent =
-			tweetSection.querySelector("#tweet-text").textContent;
-	}
-	console.log(editedTweet.tweet_image);
-	//if image is not changed leave it as is, else update it
-	if (editedTweet.tweet_image != null) {
-		tweetSection.querySelector("#tweet-img").src = `/img/${editedTweet.tweet_image}`;
-	} else {
-		console.log(tweetSection.querySelector("#tweet-img").src);
-		tweetSection.querySelector("#tweet-img").src =
-			tweetSection.querySelector("#tweet-img").src;
-	}
+
+	// Update the tweet text
+	let tweetTextElement = tweetSection.querySelector("#tweet-text p");
+	tweetTextElement.textContent = editedTweet.tweet_text || tweetTextElement.textContent;
+
+	// Update the tweet image
+
+	// Update the tweet updated time
+	let tweetTimeElement = document.querySelector("#time");
+	tweetTimeElement.textContent = editedTweet.tweet_updated_at;
 
 	document.querySelector("#time").textContent = editedTweet.tweet_updated_at;
 }
