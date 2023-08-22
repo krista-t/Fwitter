@@ -63,12 +63,21 @@
 				class="flex flex-wrap gap-2 px-2 py-3 sm:hover:bg-none rounded-full h-fit mb-4"
 			>
 				<!-- go to user profile -->
-				<a href="/{{logged_user}}"
-					><img
-						id="left-panel-img"
-						class="w-12 h-12 rounded-full flex-none"
-						src="/img/{{logged_img}}"
-				/></a>
+
+				% if logged_user != "guest":
+				<a href="/{{logged_user}}">
+			% else:
+				<a href="/">
+					% end
+				<img
+					id="left-panel-img"
+					class="w-12 h-12 rounded-full flex-none"
+					src="/img/{{logged_img}}"
+					alt="{{logged_user}}"
+				/>
+			</a>
+
+
 
 				<p id="logged-user" class="font-thin">
 					Welcome<br />

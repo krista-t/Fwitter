@@ -3,7 +3,7 @@ import sqlite3
 import jwt
 import globals
 import random
-import json
+
 
 from crud import (
     create_user,

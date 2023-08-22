@@ -39,11 +39,13 @@ def _(name_id):
         - The function uses the GET_USER_TWEET_QUERY to fetch the tweets posted by the specified user from the 'tweets'
           table in the database.
     """
-    user_token = request.get_cookie("token")
-    user_token_bytes = user_token.encode("utf-8")
-    decoded_token = jwt.decode(user_token_bytes, "mysecret", algorithms="HS256")
-    print(decoded_token)
-    logged_user = decoded_token["name"]
+    if not request.get_cookie("token"):
+        pass
+    else:
+        user_token = request.get_cookie("token")
+        decoded_token = jwt.decode(user_token, "mysecret", algorithms="HS256")
+        print(decoded_token)
+        logged_user = decoded_token["name"]
     db = globals._db_connect("database.sqlite")
     try:
         name = db.execute(globals.GET_USER_QUERY, (name_id,)).fetchone()
@@ -64,18 +66,13 @@ def _(name_id):
             left_panel_img = "blank.png"
             return redirect("/")
     except Exception as ex:
-        print(ex)
+        print(ex, "something went wrong")
         return globals._send(500, "something went wrong")
     try:
         # query to fetch tweets of particular user
         user_tweets = name = db.execute(
             globals.GET_USER_TWEET_QUERY, (user["user_id"],)
         ).fetchall()
-        return user_tweets
-    except Exception as ex:
-        print(ex)
-    finally:
-        db.close()
         return dict(
             user=user,
             tweets=user_tweets,
@@ -83,3 +80,8 @@ def _(name_id):
             trends=globals.TRENDS,
             logged_img=left_panel_img,
         )
+    except Exception as ex:
+        print(ex, "something went wrong")
+        return globals._send(500, "something went wrong")
+    finally:
+        db.close()
