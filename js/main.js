@@ -140,8 +140,9 @@ function showTweetToEdit(tweet_id) {
 	let tweet = document.querySelector(`section[id='${tweet_id}']`);
 
 	//if tweet has text
-	let tweet_text = tweet.querySelector("#tweet-text").textContent;
-	document.querySelector("#edit-tweet textarea").setAttribute("placeholder", tweet_text);
+	let tweet_text = tweet.querySelector("#tweet-text p").textContent.trim();
+
+	document.querySelector("#edit-txt-tweet").setAttribute("placeholder", tweet_text);
 
 	let img = tweet.querySelector("#tweet-img");
 	let edit_img = document.querySelector("#edit-image");
