@@ -142,7 +142,17 @@ function showTweetToEdit(tweet_id) {
 	//if tweet has text
 	let tweet_text = tweet.querySelector("#tweet-text p").textContent.trim();
 
-	document.querySelector("#edit-txt-tweet").setAttribute("placeholder", tweet_text);
+	let editablePlaceholder = document
+		.querySelector("#edit-txt-tweet")
+		.setAttribute("span", tweet_text);
+
+	const updatedTweet = tweet_text.replace(
+		editablePlaceholder,
+		"<span contenteditable='true' >editable</span>"
+	);
+	document.querySelector("#edit-txt-tweet").innerHTML = updatedTweet;
+
+	console.log(tweet_text, editablePlaceholder);
 
 	let img = tweet.querySelector("#tweet-img");
 	let edit_img = document.querySelector("#edit-image");
