@@ -176,16 +176,16 @@ async function tweet() {
 }
 
 //delete tweet
-// async function deleteTweet(tweet_id) {
-// 	console.log(tweet_id);
-// 	//Connect to the api and delete it from the db
-// 	const connection = await fetch(`/delete_tweet/${tweet_id}`, {
-// 		method: "DELETE",
-// 	});
-// 	//remove entire section that matches id
-// 	//console.log(document.querySelector(`section[id='${tweet_id}']`))
-// 	document.querySelector(`[id='${tweet_id}']`).remove();
-// }
+async function deleteTweet(tweet_id) {
+	console.log(tweet_id);
+	//Connect to the api and delete it from the db
+	const connection = await fetch(`/delete_tweet/${tweet_id}`, {
+		method: "DELETE",
+	});
+	//remove entire section that matches id
+	//console.log(document.querySelector(`section[id='${tweet_id}']`))
+	document.querySelector(`[id='${tweet_id}']`).remove();
+}
 async function tweet() {
 	const form = event.target.form;
 	try {
@@ -252,8 +252,11 @@ async function tweet() {
 //show tweet to update
 function showTweetToEdit(tweet_id) {
 	document.querySelector("#edit-tweet").classList.remove("hidden");
-	document.querySelector("#edit-tweet button").classList.remove("hidden");
+	//document.querySelector("#edit-tweet button").classList.remove("hidden");
+
+	//get tweet by id from db
 	let tweet = document.querySelector(`section[id='${tweet_id}']`);
+	console.log(tweet);
 
 	//if tweet has text
 	let tweet_text = tweet.querySelector("#tweet-text p").textContent.trim();
@@ -268,11 +271,8 @@ function showTweetToEdit(tweet_id) {
 	);
 	document.querySelector("#edit-txt-tweet").innerHTML = updatedTweet;
 
-	console.log(tweet_text, editablePlaceholder);
-
 	let img = tweet.querySelector("#tweet-img");
 	let edit_img = document.querySelector("#edit-image");
-	//edit_img.style.display = "none";
 
 	if (img !== null) {
 		edit_img.src = img.src;
@@ -289,6 +289,7 @@ function showNewImage(event) {
 
 	if (imageInput.files && imageInput.files[0]) {
 		const reader = new FileReader();
+		console.log("new image", imageInput.files[0], reader);
 		reader.onload = function (e) {
 			editImage.setAttribute("src", e.target.result);
 		};
@@ -327,6 +328,24 @@ async function editTweet(tweet_id) {
 	tweetTextElement.textContent = editedTweet.tweet_text || tweetTextElement.textContent;
 
 	// Update the tweet image
+	let tweetImageElement = tweetSection.querySelector("#tweet-img");
+	console.log(editedTweet.tweet_image);
+	//if tweet has no image you need to create an img element
+	if (tweetImageElement === null && editedTweet.tweet_image) {
+		tweetImageElement = document.createElement("img");
+		tweetImageElement.setAttribute("id", "tweet-img");
+		tweetImageElement.setAttribute("class", "mt-2 w-full object-cover h-22");
+		tweetImageElement.setAttribute("src", `/img/${editedTweet.tweet_image}`);
+		tweetSection.querySelector("#tweet-text").appendChild(tweetImageElement);
+	}
+	//if tweet has image and it is changed
+	if (editedTweet.tweet_image) {
+		tweetImageElement.src = `/img/${editedTweet.tweet_image}`;
+		tweetImageElement.style.display = "block";
+	} else {
+		// if not changed , keep the same image
+		tweetImageElement.src = tweetImageElement.src;
+	}
 
 	// Update the tweet updated time
 	let tweetTimeElement = document.querySelector("#time");
