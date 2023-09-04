@@ -1,60 +1,6 @@
 //make sure if cookie is present, UI displays and behaves correctly
 window.addEventListener("load", checkCookieExists);
 
-// function checkCookieExists() {
-// 	document.querySelectorAll("#icons button").forEach((icon) => {
-// 		icon.disabled = true;
-// 	});
-
-// 	if (document.cookie) {
-// 		console.log("true, cookie here");
-// 		const tweetForm = document.querySelector(".tweet-form input");
-// 		document.querySelector("#login-btn").classList.add("hidden");
-// 		document.querySelector(".img").classList.remove("hidden");
-// 		document.querySelector("#search").disabled = false;
-// 		//once profile is set as spa
-// 		if (tweetForm) {
-// 			document.querySelector(".tweet-form input").disabled = false;
-// 		}
-
-// 		//if user logged allow interaction
-// 		const loggedUser = document.querySelector("#logged-user span").textContent;
-// 		let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`);
-// 		//enable only this buttons
-// 		loggedUserTweets.forEach((tweet) => {
-// 			let tweetBtns = tweet.querySelectorAll("#icons button");
-// 			tweetBtns.forEach((btn) => (btn.disabled = false));
-// 		});
-
-// 		document.querySelectorAll("#fweets a").forEach((a) => {
-// 			a.style = "pointer-events:all";
-// 		});
-
-// 		const user = document.querySelector("#logged-user span").textContent;
-// 		if (user == "@admin") {
-// 			console.log("i am admin");
-// 			let deleteBtns = document.querySelectorAll("#delete");
-// 			deleteBtns.forEach((btn) => (btn.disabled = false));
-// 			//admin cannot tweet
-// 			document.querySelector("#tweet-form").classList.add("hidden");
-// 			document.querySelector("#trends").classList.add("hidden");
-// 			document.querySelector("#admin").classList.remove("hidden");
-// 			document.querySelector("#suggested").classList.add("hidden");
-// 		}
-// 	} else {
-// 		document.querySelector("#search").disabled = true;
-// 		document.querySelector("#tweet-btn").disabled = true;
-// 		document.querySelector(".tweet-form input").value = "PLEASE LOGIN TO TWEET";
-// 		document.querySelector(".tweet-form input").disabled = true;
-// 		document.querySelectorAll("#icons button").forEach((icon) => {
-// 			icon.disabled = true;
-// 		});
-// 		//cannot visit single profile page
-// 		document.querySelectorAll("#fweets a").forEach((a) => {
-// 			a.style = "pointer-events:none";
-// 		});
-// 	}
-// }
 function checkCookieExists() {
 	const cookieExists = document.cookie !== "";
 
