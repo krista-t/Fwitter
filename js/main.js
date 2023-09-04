@@ -2,39 +2,45 @@
 window.addEventListener("load", checkCookieExists);
 
 function checkCookieExists() {
-	const cookieExists = document.cookie !== "";
+	document.querySelectorAll("#icons button").forEach((icon) => {
+		console.log(icon);
+		//hide icons if not logged in
+		icon.disabled = true;
+		icon.style = "pointer-events:none";
+	});
 
-	const tweetFormInput = document.querySelector(".tweet-form textarea");
-	const loggedUserSpan = document.querySelector("#logged-user span");
-	const tweetButtons = document.querySelectorAll("#icons button");
-	const fweetLinks = document.querySelectorAll("#fweets a");
-
-	if (cookieExists) {
+	if (document.cookie) {
 		console.log("true, cookie here");
+		const tweetForm = document.querySelector(".tweet-form input");
 		document.querySelector("#login-btn").classList.add("hidden");
 		document.querySelector(".img").classList.remove("hidden");
 		document.querySelector("#search").disabled = false;
-
-		if (tweetFormInput) {
-			tweetFormInput.disabled = false;
+		//once profile is set as spa
+		if (tweetForm) {
+			document.querySelector(".tweet-form input").disabled = false;
 		}
 
-		const loggedUser = loggedUserSpan.textContent;
-		const loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`);
-
+		//if user logged allow interaction
+		const loggedUser = document.querySelector("#logged-user span").textContent;
+		let loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`);
+		//enable only this buttons
 		loggedUserTweets.forEach((tweet) => {
-			const tweetBtns = tweet.querySelectorAll("#icons button");
-			tweetBtns.forEach((btn) => (btn.disabled = false));
+			let tweetBtns = tweet.querySelectorAll("#icons button");
+			tweetBtns.forEach(
+				(btn) => ((btn.style = "pointer-events:all"), (btn.disabled = false))
+			);
 		});
 
-		fweetLinks.forEach((a) => {
-			a.style.pointerEvents = "all";
+		document.querySelectorAll("#fweets a").forEach((a) => {
+			a.style = "pointer-events:all";
 		});
 
-		if (loggedUser === "@admin") {
+		const user = document.querySelector("#logged-user span").textContent;
+		if (user == "@admin") {
 			console.log("i am admin");
-			const deleteBtns = document.querySelectorAll("#delete");
+			let deleteBtns = document.querySelectorAll("#delete");
 			deleteBtns.forEach((btn) => (btn.disabled = false));
+			//admin cannot tweet
 			document.querySelector("#tweet-form").classList.add("hidden");
 			document.querySelector("#trends").classList.add("hidden");
 			document.querySelector("#admin").classList.remove("hidden");
@@ -43,18 +49,71 @@ function checkCookieExists() {
 	} else {
 		document.querySelector("#search").disabled = true;
 		document.querySelector("#tweet-btn").disabled = true;
-		tweetFormInput.value = "PLEASE LOGIN TO TWEET";
-		tweetFormInput.disabled = true;
-
-		tweetButtons.forEach((icon) => {
+		document.querySelector(".tweet-form input").value = "PLEASE LOGIN TO TWEET";
+		document.querySelector(".tweet-form input").disabled = true;
+		document.querySelectorAll("#icons button").forEach((icon) => {
 			icon.disabled = true;
 		});
-
-		fweetLinks.forEach((a) => {
-			a.style.pointerEvents = "none";
+		//cannot visit single profile page
+		document.querySelectorAll("#fweets a").forEach((a) => {
+			a.style = "pointer-events:none";
 		});
 	}
 }
+// function checkCookieExists() {
+// 	const cookieExists = document.cookie !== "";
+
+// 	const tweetFormInput = document.querySelector(".tweet-form textarea");
+// 	const loggedUserSpan = document.querySelector("#logged-user span");
+// 	const tweetButtons = document.querySelectorAll("#icons button");
+// 	const fweetLinks = document.querySelectorAll("#fweets a");
+
+// 	if (cookieExists) {
+// 		console.log("true, cookie here");
+// 		document.querySelector("#login-btn").classList.add("hidden");
+// 		document.querySelector(".img").classList.remove("hidden");
+// 		document.querySelector("#search").disabled = false;
+
+// 		if (tweetFormInput) {
+// 			tweetFormInput.disabled = false;
+// 		}
+
+// 		const loggedUser = loggedUserSpan.textContent;
+// 		const loggedUserTweets = document.querySelectorAll(`div[id='${loggedUser}']`);
+
+// 		loggedUserTweets.forEach((tweet) => {
+// 			const tweetBtns = tweet.querySelectorAll("#icons button");
+// 			tweetBtns.forEach((btn) => (btn.disabled = false));
+// 		});
+
+// 		fweetLinks.forEach((a) => {
+// 			a.style.pointerEvents = "all";
+// 		});
+
+// 		if (loggedUser === "@admin") {
+// 			console.log("i am admin");
+// 			const deleteBtns = document.querySelectorAll("#delete");
+// 			deleteBtns.forEach((btn) => (btn.disabled = false));
+// 			document.querySelector("#tweet-form").classList.add("hidden");
+// 			document.querySelector("#trends").classList.add("hidden");
+// 			document.querySelector("#admin").classList.remove("hidden");
+// 			document.querySelector("#suggested").classList.add("hidden");
+// 		}
+// 	} else {
+// 		document.querySelector("#search").disabled = true;
+// 		document.querySelector("#tweet-btn").disabled = true;
+// 		tweetFormInput.value = "PLEASE LOGIN TO TWEET";
+// 		tweetFormInput.disabled = true;
+
+// 		tweetButtons.forEach((icon) => {
+// 			icon.disabled = true;
+// 		});
+
+// 		fweetLinks.forEach((a) => {
+// 			a.style.pointerEvents = "none";
+// 		});
+// 	}
+// }
 
 function closeTweetModal() {
 	document.querySelector("#edit-tweet").classList.add("hidden");
