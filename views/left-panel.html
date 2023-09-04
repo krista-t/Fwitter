@@ -50,10 +50,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="mt-auto px-8 py-2">
-			<div class="flex flex-wrap gap-2 py-3 sm:hover:bg-none rounded-full h-fit mb-4">
+		<div class="mt-auto px-0 sm:px-8 py-2">
+			<div class="flex flex-wrap gap-2 sm:py-3 sm:hover:bg-none rounded-full h-fit mb-4">
 				<!-- go to user profile -->
-
 				% if logged_user != "guest":
 				<a href="/{{logged_user}}">
 					% else:
@@ -62,7 +61,6 @@
 						<img id="left-panel-img" class="w-12 h-12 rounded-full flex-none" src="/img/{{logged_img}}"
 							alt="{{logged_user}}" />
 					</a>
-
 					<p id="logged-user" class="font-thin">
 						Welcome<br />
 						<span class="font-bold">@{{logged_user}}</span>
@@ -70,12 +68,12 @@
 			</div>
 			<!-- event on btn -->
 			<button id="login-btn" onclick="showLogInForm()"
-				class="ml-3 py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full w-24 md:w-32 absolute z-50">
+				class="ml-3 py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full w-24 md:w-32 absolute p-4 z-50">
 				LogIn
 			</button>
 			<a href="/logout">
 				<button id="logout-btn" onclick="hideLogOutBtn()"
-					class="ml-3 py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full w-24 md:w-32">
+					class="ml-3 py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full w-24 md:w-40 p-4">
 					LogOut
 				</button>
 			</a>
