@@ -1,67 +1,89 @@
 % include("header", title="Fwitter-Profile")
 <body class="w-full h-screen">
   <div id="wrapper" class="flex w-full mx-auto xl:w-4/5">
-  %include("left-panel")
-  <div class="w-3/4 min-h-screen sm:border-x border-l border-gray-300 absolute top-0 sm:left-96 md:left-1/4 left-1/3 z-20
-    ">
-    <section id="profile-page" class="sm:border-r border-slate-200 sm:w-3/4 w-full p-6">
-      <div class="sm:w-full w-72 h-64 bg-gray-400">
-        <div> <img id="main-img" class="absolute top-48 p-4 flex-none sm:h-52 sm:w-52 h-32 w-32  rounded-full"
-            src="/img/{{user['image']}}" alt="photo"></div>
-      </div>
-      <form id="profile-form" class="relative flex" onsubmit="return false">
-        <label>
-          <input id="profile-img" type="file" name="image" class=" hidden">
-          <i class="fa fa-camera text-4xl sm:ml-36 sm:mt-16 ml-20 text-gray-400"></i>
-        </label>
-        <div class="ml-auto mt-10 px-4">
-          <button id="{{user['name']}}" onclick="uploadProfilePic(id)"
-            class=" text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1">Set
-            profile pic</button>
-        </div>
-      </form>
-      <div id="user-info" class="mt-4 px-4 py-2">
-        <p id='{{user["name"]}}' class="text-xl text-gray-500">@{{user["name"]}}</p>
-        <p class="text-xl">{{user["full_name"]}}</p>
-        <div class="flex"> <i class="fas fa-calendar mt-1 text-xl"></i>
-          <p class="pl-4 pt-1 text-xl">Joined:
-            <span class="text-gray-500">{{user["joined"]}} </span> </p>
-        </div>
-      </div>
-      <div id="links" class="flex flex-wrap justify-between font-bold p-2 border-b-2 border-gray-200">
-        <p class="cursor-pointer border-b-4 hover:border-blue-500 px-2 text-xl sm:pt-0 pt-2 ">Tweets</p>
-        <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Tweets&replies</p>
-        <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Media</p>
-        <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Likes</p>
-      </div>
-      <p class="font-extrabold text-2xl ml-2 sm:pt-0 pt-2">Tweets</p>
-      %for tweet in tweets:
-      <!-- tweets -->
-      <section id="{{tweet['tweet_id']}}" class="p-4 border-t border-slate-200">
-        <div class="flex flex-col sm:flex-row">
-          <img id="profile-photo" class="flex-none w-12 h-12 rounded-full" src="/img/{{user['image']}}" alt="photo">
-          <div class="w-full pl-4">
-            <div class="flex cursor-pointer">
-              <p class="ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
-            </div>
-            </a>
-            <div id="tweet-text" class="pt-2">
-              {{tweet["tweet_text"]}}
-            </div>
-            %if tweet["tweet_image"]:
-            <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
-            % end
-            <div id="icons" class="flex gap-12 w-full mt-4 text-lg">
-              <i class="fas fa-heart ml-auto"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="fas fa-share"></i>
-            </div>
+    <!-- Left Panel -->
+    %include("left-panel")
+
+    <!-- Middle Column -->
+    <div class="w-full min-h-screen relative">
+      <section id="profile-page" class="sm:border-l sm:border-r border-slate-200 w-full min-h-screen p-6">
+        <div class="sm:w-full w-72 h-64 bg-blue-300">
+          <!-- Profile Image -->
+          <div>
+            <img id="main-img" class="absolute top-48 p-4 flex-none sm:h-52 sm:w-52 h-32 w-32 rounded-full" src="/img/{{user['image']}}" alt="photo">
           </div>
         </div>
+
+        <!-- Profile Form -->
+        <form id="profile-form" class="relative flex" onsubmit="return false">
+          <!-- Profile Image Input -->
+          <label>
+            <input id="profile-img" type="file" name="image" class="hidden">
+            <i class="fa fa-camera text-4xl sm:ml-36 sm:mt-16 ml-20 text-gray-400"></i>
+          </label>
+
+          <!-- Set Profile Pic Button -->
+          <div class="ml-auto mt-10 px-4">
+            <button id="{{user['name']}}" onclick="uploadProfilePic(id)" class="text-lg text-gray-600 font-medium bg-gray-300 hover:bg-gray-400 hover:text-white rounded-full w-32 p-1">Set profile pic</button>
+          </div>
+        </form>
+
+        <!-- User Info -->
+        <div id="user-info" class="mt-4 px-4 py-2">
+          <p id='{{user["name"]}}' class="text-xl text-gray-500">@{{user["name"]}}</p>
+          <p class="text-xl">{{user["full_name"]}}</p>
+          <div class="flex">
+            <i class="fas fa-calendar mt-1 text-xl"></i>
+            <p class="pl-4 pt-1 text-xl">Joined: <span class="text-gray-500">{{user["joined"]}}</span></p>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div id="links" class="flex flex-wrap justify-between font-bold p-2 border-b-2 border-gray-200">
+          <p class="cursor-pointer border-b-4 hover:border-blue-500 px-2 text-xl sm:pt-0 pt-2">Tweets</p>
+          <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Tweets & replies</p>
+          <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Media</p>
+          <p class="cursor-pointer hover:border-b-4 border-blue-500 px-2 text-xl sm:pt-0 pt-2">Likes</p>
+        </div>
+
+        <!-- Tweets -->
+        <p class="font-extrabold text-2xl ml-2 sm:pt-0 pt-2">Tweets</p>
+        %for tweet in tweets:
+        <section id="{{tweet['tweet_id']}}" class="p-4 border-t border-b border-slate-200">
+          <div class="flex flex-col sm:flex-row">
+            <img id="profile-photo" class="flex-none w-12 h-12 rounded-full" src="/img/{{user['image']}}" alt="photo">
+            <div class="w-full pl-4">
+              <div class="flex cursor-pointer">
+                <p class="ml-auto text-sm text-gray-500">{{tweet["tweet_created_at"]}}</p>
+              </div>
+              </a>
+              <div id="tweet-text" class="pt-2">
+                {{tweet["tweet_text"]}}
+              </div>
+              %if tweet["tweet_image"]:
+              <img id="tweet-img" class="mt-2 w-full object-cover h-80" src="/img/{{tweet['tweet_image']}}">
+              % end
+              <div id="icons" class="flex gap-12 w-full mt-4 text-lg">
+                <i class="fas fa-heart ml-auto"></i>
+                <i class="fas fa-retweet"></i>
+                <i class="fas fa-share"></i>
+              </div>
+            </div>
+          </div>
+        </section>
+        %end
       </section>
-      %end
-    </section>
+    </div>
+
+    <!-- Right Column (Trends) -->
+    <div class="w-1/4 h-screen hidden lg:block ml-auto">
+      <div class="w-1/5 fixed flex flex-col h-screen gap-4 py-4 pl-4">
+        <!-- RIGHT-TRENDS -->
+        %include("trends")
+        <!-- RIGHT-TRENDS-END -->
+      </div>
+    </div>
   </div>
-</div>
+
   <script src="/js/profile.js"></script>
 </body>
