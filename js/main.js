@@ -3,7 +3,6 @@ window.addEventListener("load", checkCookieExists);
 
 function checkCookieExists() {
 	document.querySelectorAll("#icons button").forEach((icon) => {
-		console.log(icon);
 		//hide icons if not logged in
 		icon.disabled = true;
 		icon.style = "pointer-events:none";
@@ -39,7 +38,9 @@ function checkCookieExists() {
 		if (user == "@admin") {
 			console.log("i am admin");
 			let deleteBtns = document.querySelectorAll("#delete");
-			deleteBtns.forEach((btn) => (btn.disabled = false));
+			deleteBtns.forEach(
+				(btn) => ((btn.disabled = false), (btn.style = "pointer-events:all"))
+			);
 			//admin cannot tweet
 			document.querySelector("#tweet-form").classList.add("hidden");
 			document.querySelector("#trends").classList.add("hidden");
@@ -53,6 +54,7 @@ function checkCookieExists() {
 		document.querySelector(".tweet-form input").disabled = true;
 		document.querySelectorAll("#icons button").forEach((icon) => {
 			icon.disabled = true;
+			icon.style = "pointer-events:none";
 		});
 		//cannot visit single profile page
 		document.querySelectorAll("#fweets a").forEach((a) => {

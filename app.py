@@ -98,7 +98,6 @@ def _():
             left_panel_img = "blank.png"
 
         suggested_user = random.sample(tweets, k=4)
-        print(suggested_user["user_name"])
 
     except Exception as ex:
         print(ex)
