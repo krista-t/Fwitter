@@ -1,4 +1,4 @@
-from bottle import get, redirect, request, response, static_file, view, run
+from bottle import get, redirect, request, response, static_file, view, run, default_app
 import sqlite3
 import jwt
 import globals
@@ -66,20 +66,22 @@ def _():
         - The function uses the globals module to access global variables.
     """
     user_token = request.get_cookie("token")
+    tweets = []
+    logged_user = "guest"
+    left_panel_img = "blank.png"
+    suggested_user = []
 
     try:
         db = globals._db_connect("database.sqlite")
         tweets = db.execute(
             """SELECT * FROM tweets
-                               JOIN users WHERE users.user_id
-                                LIKE tweets.user_id
-                                ORDER by tweet_created_at
-                                DESC
-                                """
+               JOIN users ON users.user_id = tweets.user_id
+               ORDER BY tweet_created_at DESC
+            """
         ).fetchall()
 
         if user_token:
-            user_token_bytes = user_token.encode("utf-8")  # Convert to bytes format
+            user_token_bytes = user_token.encode("utf-8")
             decoded_token = jwt.decode(user_token_bytes, "mysecret", algorithms="HS256")
             logged_user = decoded_token["name"]
             print("Token valid", f"User {logged_user} is logged in")
@@ -90,8 +92,6 @@ def _():
 
         else:
             print("Not logged in")
-            logged_user = "guest"
-            left_panel_img = "blank.png"
 
         suggested_user = random.sample(tweets, k=4)
 
