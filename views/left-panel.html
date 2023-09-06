@@ -1,4 +1,4 @@
-<div class="w-1/4 p-3">
+<div class="w-1/4 sm:p-3">
 	<div class="fixed h-screen w-1/5 px-1 lg:px-6 flex flex-col py-6 ">
 		<div>
 			<div>
@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<div class="mt-auto px-0 sm:px-8 py-2">
-			<div class="flex flex-wrap gap-2 sm:py-3 sm:hover:bg-none rounded-full h-fit mb-4">
+			<div class="flex flex-wrap gap-2 sm:py-3 px-2 sm:px-0 sm:hover:bg-none rounded-full h-fit mb-4">
 				<!-- go to user profile -->
 				% if logged_user != "guest":
 				<a href="/{{logged_user}}">
@@ -68,12 +68,12 @@
 			</div>
 			<!-- event on btn -->
 			<button id="login-btn" onclick="showLogInForm()"
-				class=" py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full sm:w-32 w-22 absolute z-50">
+				class="py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full sm:w-32 w-24 absolute z-50">
 				LogIn
 			</button>
 			<a href="/logout">
 				<button id="logout-btn" onclick="hideLogOutBtn()"
-					class=" py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full sm:w-32 w-22">
+					class=" py-2 text-lg text-white bg-blue-400 hover:bg-blue-500 rounded-full sm:w-32 w-24">
 					LogOut
 				</button>
 			</a>
