@@ -41,7 +41,7 @@ def validate_img(image):
     image_id = str(uuid.uuid4())
     # create new image name
     img = f"{image_id}{file_extension}"
-    # save the image
+    # TODO: change for python anywhere save the image
     image.save(f"img/{img}")
     imghdr_extension = imghdr.what(f"img/{img}")
     if file_extension != f".{imghdr_extension}":
