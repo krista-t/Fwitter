@@ -1,7 +1,7 @@
 # Fwitter
 
-Twitter-like (not X) clone with Pyhon, Sqlite, JS, and TailwindCSS. You can make an account, post tweet with images, upload profile photo, and edit or delete your tweets. Authentication is done with JWT. Once you sign up, make sure to login with the same credentials on home page. App is deployed on PythonAnywhere, and can be found at https://twtterclone.eu.pythonanywhere.com/
-FTweet away!
+Twitter clone made with Pyhon, Sqlite, JS, and TailwindCSS. Make an account, post tweet, images, upload profile photo, and edit or delete your tweets. Authentication done via JWT. Once you sign up, make sure to login with the same credentials on home page. App is deployed on PythonAnywhere, and can be found at https://twtterclone.eu.pythonanywhere.com/
+FTweet away! 
 
 # validator.js
 
@@ -13,9 +13,7 @@ python3 -m venv/path/to/new/virtual/environment
 
 source/path/to/new/venv/bin/activate
 
-pip install bottle
-pip install paste
-pip install pyjwt
+pip install bottle, paste, pyjwt
 
 npm install -d tailwindcss@latest postcss@latest autoprefixer@latest (you shoud have node.js already installed)
 
@@ -26,6 +24,4 @@ npx tailwindcss -i tailwind.css -o ../app.css --watch
 
 python3 app.py
 
-# warning
 
-be ware that any interaction with the app makes changes in database, this includes deleting data
